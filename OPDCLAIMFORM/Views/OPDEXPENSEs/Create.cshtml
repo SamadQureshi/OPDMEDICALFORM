@@ -1,0 +1,79 @@
+﻿@model OPDCLAIMFORM.OPDEXPENSE
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>OPDEXPENSE</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EMPLOYEE_NAME, "NAME OF EMPLOYEE", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EMPLOYEE_NAME, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EMPLOYEE_NAME, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EMPLOYEE_DEPARTMENT, "EMPLOYEE DEPARTMENT", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EMPLOYEE_DEPARTMENT, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EMPLOYEE_DEPARTMENT, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CLAIM_MONTH, "CLAIM FOR MONTH", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.CLAIM_MONTH, new List<SelectListItem>
+            {
+                       new SelectListItem {Text = "JAN", Value = "JAN"},
+                       new SelectListItem {Text = "FEB", Value = "FEB"},
+                       new SelectListItem {Text = "MAR", Value = "MAR"},
+                       new SelectListItem {Text = "APR", Value = "APR"},
+                       new SelectListItem {Text = "MAY", Value = "MAY"},
+                       new SelectListItem {Text = "JUN", Value = "JUN"},
+                       new SelectListItem {Text = "JUL", Value = "JUL"},
+                       new SelectListItem {Text = "AUG", Value = "AUG"},
+                       new SelectListItem {Text = "SEP", Value = "SEP"},
+                       new SelectListItem {Text = "OCT", Value = "OCT"},
+                       new SelectListItem {Text = "NOV", Value = "NOV"},
+                       new SelectListItem {Text = "DEC", Value = "DEC"},
+
+                    }, new { @class = "form-control select2_demo_4" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TOTAL_AMOUNT_CLAIMED, "TOTAL AMOUNT CLAIMED", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TOTAL_AMOUNT_CLAIMED, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TOTAL_AMOUNT_CLAIMED, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

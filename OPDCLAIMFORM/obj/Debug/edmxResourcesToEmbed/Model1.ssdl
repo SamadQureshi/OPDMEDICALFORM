@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MedicalInfoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="OPDEXPENSE">
+    <Key>
+      <PropertyRef Name="OPDEXPENSE_ID" />
+    </Key>
+    <Property Name="OPDEXPENSE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EMPLOYEE_EMAILADDRESS" Type="varchar" MaxLength="100" />
+    <Property Name="EMPLOYEE_NAME" Type="varchar" MaxLength="100" />
+    <Property Name="EMPLOYEE_DEPARTMENT" Type="varchar" MaxLength="100" />
+    <Property Name="CLAIM_MONTH" Type="varchar" MaxLength="50" />
+    <Property Name="TOTAL_AMOUNT_CLAIMED" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="HR_COMMENT" Type="varchar" MaxLength="5000" />
+    <Property Name="HR_APPROVAL" Type="bit" />
+    <Property Name="HR_APPROVAL_DATE" Type="datetime" />
+    <Property Name="HR_NAME" Type="varchar" MaxLength="100" />
+    <Property Name="FINANCE_COMMENT" Type="varchar" MaxLength="5000" />
+    <Property Name="FINANCE_APPROVAL" Type="bit" />
+    <Property Name="FINANCE_APPROVAL_DATE" Type="datetime" />
+    <Property Name="FINANCE_NAME" Type="varchar" MaxLength="100" />
+    <Property Name="MANAGEMENT_COMMENT" Type="varchar" MaxLength="5000" />
+    <Property Name="MANAGEMENT_APPROVAL" Type="bit" />
+    <Property Name="MANAGEMENT_APPROVAL_DATE" Type="datetime" />
+    <Property Name="MANAGEMENT_NAME" Type="varchar" MaxLength="100" />
+    <Property Name="DATE_ILLNESS_NOTICED" Type="datetime" />
+    <Property Name="DATE_RECOVERY" Type="datetime" />
+    <Property Name="DIAGNOSIS" Type="varchar" MaxLength="5000" />
+    <Property Name="CLAIMANT_SUFFERED_ILLNESS" Type="bit" />
+    <Property Name="CLAIMANT_SUFFERED_ILLNESS_DATE" Type="datetime" />
+    <Property Name="CLAIMANT_SUFFERED_ILLNESS_DETAILS" Type="varchar" MaxLength="5000" />
+    <Property Name="HOSPITAL_NAME" Type="varchar" MaxLength="500" />
+    <Property Name="DOCTOR_NAME" Type="varchar" MaxLength="500" />
+    <Property Name="PERIOD_CONFINEMENT_DATE_FROM" Type="datetime" />
+    <Property Name="PERIOD_CONFINEMENT_DATE_TO" Type="datetime" />
+    <Property Name="DRUGS_PRESCRIBED_BOOL" Type="bit" />
+    <Property Name="DRUGS_PRESCRIBED_DESCRIPTION" Type="varchar(max)" />
+    <Property Name="OPDTYPE" Type="varchar" MaxLength="100" />
+    <Property Name="CREATED_DATE" Type="datetime" />
+    <Property Name="MODIFIED_DATE" Type="datetime" />
+    <Property Name="CREATED_BY" Type="varchar" MaxLength="100" />
+    <Property Name="MODIFIED_BY" Type="varchar" MaxLength="100" />
+    <Property Name="HR_EMAILADDRESS" Type="varchar" MaxLength="100" />
+    <Property Name="FINANCE_EMAILADDRESS" Type="varchar" MaxLength="100" />
+    <Property Name="MANAGEMENT_EMAILADDRESS" Type="varchar" MaxLength="100" />
+    <Property Name="STATUS" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="OPDEXPENSE_IMAGE">
+    <Key>
+      <PropertyRef Name="IMAGE_ID" />
+    </Key>
+    <Property Name="IMAGE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OPDEXPENSE_ID" Type="int" />
+    <Property Name="IMAGE_NAME" Type="nvarchar(max)" />
+    <Property Name="IMAGE_EXT" Type="nvarchar(max)" />
+    <Property Name="IMAGE_BASE64" Type="nvarchar(max)" />
+    <Property Name="NAME_EXPENSES" Type="varchar" MaxLength="5000" />
+    <Property Name="EXPENSE_AMOUNT" Type="decimal" Precision="18" Scale="0" />
+  </EntityType>
+  <EntityType Name="OPDEXPENSE_PATIENT">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NAME" Type="varchar" MaxLength="100" />
+    <Property Name="AGE" Type="int" />
+    <Property Name="RELATIONSHIP_EMPLOYEE" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="OPDEXPENSE_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RELATIONSHIP_EMPLOYEE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RELATIONSHIP" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_OPDEXPENSE_IMAGE_OPDEXPENSE">
+    <End Role="OPDEXPENSE" Type="Self.OPDEXPENSE" Multiplicity="0..1" />
+    <End Role="OPDEXPENSE_IMAGE" Type="Self.OPDEXPENSE_IMAGE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OPDEXPENSE">
+        <PropertyRef Name="OPDEXPENSE_ID" />
+      </Principal>
+      <Dependent Role="OPDEXPENSE_IMAGE">
+        <PropertyRef Name="OPDEXPENSE_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OPDEXPENSE_PATIENT_OPDEXPENSE">
+    <End Role="OPDEXPENSE" Type="Self.OPDEXPENSE" Multiplicity="1" />
+    <End Role="OPDEXPENSE_PATIENT" Type="Self.OPDEXPENSE_PATIENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OPDEXPENSE">
+        <PropertyRef Name="OPDEXPENSE_ID" />
+      </Principal>
+      <Dependent Role="OPDEXPENSE_PATIENT">
+        <PropertyRef Name="OPDEXPENSE_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="ADD_OPDEXPENSE_IMAGE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="OPDEXPENSE_ID" Type="int" Mode="In" />
+    <Parameter Name="IMAGE_NAME" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="IMAGE_EXT" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="IMAGE_BASE64" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="NAME_EXPENSES" Type="varchar" Mode="In" />
+    <Parameter Name="EXPENSE_AMOUNT" Type="decimal" Mode="In" />
+  </Function>
+  <Function Name="DELETE_OPDEXPENSE_IMAGE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IMAGE_ID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GET_OPDEXPENSE_IMAGE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="GET_OPDEXPENSE_IMAGE_DETAILS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IMAGE_ID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_insert_file" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IMAGE_NAME" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="IMAGE_EXT" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="IMAGE_BASE64" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="NAME_EXPENSES" Type="varchar" Mode="In" />
+    <Parameter Name="EXPENSE_AMOUNT" Type="decimal" Mode="In" />
+  </Function>
+  <EntityContainer Name="MedicalInfoModelStoreContainer">
+    <EntitySet Name="OPDEXPENSE" EntityType="Self.OPDEXPENSE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OPDEXPENSE_IMAGE" EntityType="Self.OPDEXPENSE_IMAGE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OPDEXPENSE_PATIENT" EntityType="Self.OPDEXPENSE_PATIENT" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RELATIONSHIP_EMPLOYEE" EntityType="Self.RELATIONSHIP_EMPLOYEE" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_OPDEXPENSE_IMAGE_OPDEXPENSE" Association="Self.FK_OPDEXPENSE_IMAGE_OPDEXPENSE">
+      <End Role="OPDEXPENSE" EntitySet="OPDEXPENSE" />
+      <End Role="OPDEXPENSE_IMAGE" EntitySet="OPDEXPENSE_IMAGE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OPDEXPENSE_PATIENT_OPDEXPENSE" Association="Self.FK_OPDEXPENSE_PATIENT_OPDEXPENSE">
+      <End Role="OPDEXPENSE" EntitySet="OPDEXPENSE" />
+      <End Role="OPDEXPENSE_PATIENT" EntitySet="OPDEXPENSE_PATIENT" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

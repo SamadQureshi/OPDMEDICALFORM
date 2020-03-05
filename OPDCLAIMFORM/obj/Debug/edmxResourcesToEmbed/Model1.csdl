@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MedicalInfoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="OPDEXPENSE">
+    <Key>
+      <PropertyRef Name="OPDEXPENSE_ID" />
+    </Key>
+    <Property Name="OPDEXPENSE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EMPLOYEE_EMAILADDRESS" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="EMPLOYEE_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="EMPLOYEE_DEPARTMENT" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="CLAIM_MONTH" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TOTAL_AMOUNT_CLAIMED" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="HR_COMMENT" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+    <Property Name="HR_APPROVAL" Type="Boolean" />
+    <Property Name="HR_APPROVAL_DATE" Type="DateTime" Precision="3" />
+    <Property Name="HR_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="FINANCE_COMMENT" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+    <Property Name="FINANCE_APPROVAL" Type="Boolean" />
+    <Property Name="FINANCE_APPROVAL_DATE" Type="DateTime" Precision="3" />
+    <Property Name="FINANCE_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="MANAGEMENT_COMMENT" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+    <Property Name="MANAGEMENT_APPROVAL" Type="Boolean" />
+    <Property Name="MANAGEMENT_APPROVAL_DATE" Type="DateTime" Precision="3" />
+    <Property Name="MANAGEMENT_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="DATE_ILLNESS_NOTICED" Type="DateTime" Precision="3" />
+    <Property Name="DATE_RECOVERY" Type="DateTime" Precision="3" />
+    <Property Name="DIAGNOSIS" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+    <Property Name="CLAIMANT_SUFFERED_ILLNESS" Type="Boolean" />
+    <Property Name="CLAIMANT_SUFFERED_ILLNESS_DATE" Type="DateTime" Precision="3" />
+    <Property Name="CLAIMANT_SUFFERED_ILLNESS_DETAILS" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+    <Property Name="HOSPITAL_NAME" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="DOCTOR_NAME" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="PERIOD_CONFINEMENT_DATE_FROM" Type="DateTime" Precision="3" />
+    <Property Name="PERIOD_CONFINEMENT_DATE_TO" Type="DateTime" Precision="3" />
+    <Property Name="DRUGS_PRESCRIBED_BOOL" Type="Boolean" />
+    <Property Name="DRUGS_PRESCRIBED_DESCRIPTION" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="OPDTYPE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="OPDEXPENSE_IMAGE" Relationship="Self.FK_OPDEXPENSE_IMAGE_OPDEXPENSE" FromRole="OPDEXPENSE" ToRole="OPDEXPENSE_IMAGE" />
+    <NavigationProperty Name="OPDEXPENSE_PATIENT" Relationship="Self.FK_OPDEXPENSE_PATIENT_OPDEXPENSE" FromRole="OPDEXPENSE" ToRole="OPDEXPENSE_PATIENT" />
+    <Property Name="CREATED_DATE" Type="DateTime" Precision="3" />
+    <Property Name="MODIFIED_DATE" Type="DateTime" Precision="3" />
+    <Property Name="CREATED_BY" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="MODIFIED_BY" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="HR_EMAILADDRESS" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="FINANCE_EMAILADDRESS" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="MANAGEMENT_EMAILADDRESS" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="STATUS" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="OPDEXPENSE_IMAGE">
+    <Key>
+      <PropertyRef Name="IMAGE_ID" />
+    </Key>
+    <Property Name="IMAGE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OPDEXPENSE_ID" Type="Int32" />
+    <Property Name="IMAGE_NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="NAME_EXPENSES" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+    <Property Name="EXPENSE_AMOUNT" Type="Decimal" Precision="18" Scale="0" />
+    <NavigationProperty Name="OPDEXPENSE" Relationship="Self.FK_OPDEXPENSE_IMAGE_OPDEXPENSE" FromRole="OPDEXPENSE_IMAGE" ToRole="OPDEXPENSE" />
+    <Property Name="IMAGE_EXT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IMAGE_BASE64" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="OPDEXPENSE_PATIENT">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="AGE" Type="Int32" />
+    <Property Name="OPDEXPENSE_ID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="OPDEXPENSE" Relationship="Self.FK_OPDEXPENSE_PATIENT_OPDEXPENSE" FromRole="OPDEXPENSE_PATIENT" ToRole="OPDEXPENSE" />
+    <Property Name="RELATIONSHIP_EMPLOYEE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="RELATIONSHIP_EMPLOYEE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RELATIONSHIP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="FK_OPDEXPENSE_IMAGE_OPDEXPENSE">
+    <End Role="OPDEXPENSE" Type="Self.OPDEXPENSE" Multiplicity="0..1" />
+    <End Role="OPDEXPENSE_IMAGE" Type="Self.OPDEXPENSE_IMAGE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OPDEXPENSE">
+        <PropertyRef Name="OPDEXPENSE_ID" />
+      </Principal>
+      <Dependent Role="OPDEXPENSE_IMAGE">
+        <PropertyRef Name="OPDEXPENSE_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OPDEXPENSE_PATIENT_OPDEXPENSE">
+    <End Role="OPDEXPENSE" Type="Self.OPDEXPENSE" Multiplicity="1" />
+    <End Role="OPDEXPENSE_PATIENT" Type="Self.OPDEXPENSE_PATIENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OPDEXPENSE">
+        <PropertyRef Name="OPDEXPENSE_ID" />
+      </Principal>
+      <Dependent Role="OPDEXPENSE_PATIENT">
+        <PropertyRef Name="OPDEXPENSE_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MedicalInfoEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="OPDEXPENSEs" EntityType="Self.OPDEXPENSE" />
+    <EntitySet Name="OPDEXPENSE_IMAGE" EntityType="Self.OPDEXPENSE_IMAGE" />
+    <EntitySet Name="OPDEXPENSE_PATIENT" EntityType="Self.OPDEXPENSE_PATIENT" />
+    <EntitySet Name="RELATIONSHIP_EMPLOYEE" EntityType="Self.RELATIONSHIP_EMPLOYEE" />
+    <AssociationSet Name="FK_OPDEXPENSE_IMAGE_OPDEXPENSE" Association="Self.FK_OPDEXPENSE_IMAGE_OPDEXPENSE">
+      <End Role="OPDEXPENSE" EntitySet="OPDEXPENSEs" />
+      <End Role="OPDEXPENSE_IMAGE" EntitySet="OPDEXPENSE_IMAGE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OPDEXPENSE_PATIENT_OPDEXPENSE" Association="Self.FK_OPDEXPENSE_PATIENT_OPDEXPENSE">
+      <End Role="OPDEXPENSE" EntitySet="OPDEXPENSEs" />
+      <End Role="OPDEXPENSE_PATIENT" EntitySet="OPDEXPENSE_PATIENT" />
+    </AssociationSet>
+    <FunctionImport Name="ADD_OPDEXPENSE_IMAGE">
+      <Parameter Name="OPDEXPENSE_ID" Mode="In" Type="Int32" />
+      <Parameter Name="IMAGE_NAME" Mode="In" Type="String" />
+      <Parameter Name="IMAGE_EXT" Mode="In" Type="String" />
+      <Parameter Name="IMAGE_BASE64" Mode="In" Type="String" />
+      <Parameter Name="NAME_EXPENSES" Mode="In" Type="String" />
+      <Parameter Name="EXPENSE_AMOUNT" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="GET_OPDEXPENSE_IMAGE" ReturnType="Collection(MedicalInfoModel.GET_OPDEXPENSE_IMAGE_Result)" />
+    <FunctionImport Name="GET_OPDEXPENSE_IMAGE_DETAILS" ReturnType="Collection(MedicalInfoModel.GET_OPDEXPENSE_IMAGE_DETAILS_Result)">
+      <Parameter Name="IMAGE_ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="DELETE_OPDEXPENSE_IMAGE">
+      <Parameter Name="IMAGE_ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_insert_file">
+      <Parameter Name="IMAGE_NAME" Mode="In" Type="String" />
+      <Parameter Name="IMAGE_EXT" Mode="In" Type="String" />
+      <Parameter Name="IMAGE_BASE64" Mode="In" Type="String" />
+      <Parameter Name="NAME_EXPENSES" Mode="In" Type="String" />
+      <Parameter Name="EXPENSE_AMOUNT" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="GET_OPDEXPENSE_IMAGE1" ReturnType="Collection(MedicalInfoModel.GET_OPDEXPENSE_IMAGE1_Result)" />
+  </EntityContainer>
+  <ComplexType Name="GET_OPDEXPENSE_IMAGE_Result">
+    <Property Type="Int32" Name="IMAGE_ID" Nullable="false" />
+    <Property Type="String" Name="IMAGE_NAME" Nullable="true" />
+    <Property Type="String" Name="IMAGE_EXT" Nullable="true" />
+    <Property Type="String" Name="IMAGE_BASE64" Nullable="true" />
+    <Property Type="String" Name="NAME_EXPENSES" Nullable="true" MaxLength="5000" />
+    <Property Type="Decimal" Name="EXPENSE_AMOUNT" Nullable="true" Precision="18" Scale="0" />
+  </ComplexType>
+  <ComplexType Name="GET_OPDEXPENSE_IMAGE_DETAILS_Result">
+    <Property Type="Int32" Name="IMAGE_ID" Nullable="false" />
+    <Property Type="Int32" Name="OPDEXPENSE_ID" Nullable="true" />
+    <Property Type="String" Name="IMAGE_NAME" Nullable="true" />
+    <Property Type="String" Name="IMAGE_EXT" Nullable="true" />
+    <Property Type="String" Name="IMAGE_BASE64" Nullable="true" />
+    <Property Type="Decimal" Name="EXPENSE_AMOUNT" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="String" Name="NAME_EXPENSES" Nullable="true" MaxLength="5000" />
+  </ComplexType>
+  <ComplexType Name="GET_OPDEXPENSE_IMAGE1_Result">
+    <Property Type="Int32" Name="IMAGE_ID" Nullable="false" />
+    <Property Type="String" Name="IMAGE_NAME" Nullable="true" />
+    <Property Type="String" Name="IMAGE_EXT" Nullable="true" />
+    <Property Type="String" Name="IMAGE_BASE64" Nullable="true" />
+    <Property Type="String" Name="NAME_EXPENSES" Nullable="true" MaxLength="5000" />
+    <Property Type="Decimal" Name="EXPENSE_AMOUNT" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Int32" Name="OPDEXPENSE_ID" Nullable="true" />
+  </ComplexType>
+</Schema>

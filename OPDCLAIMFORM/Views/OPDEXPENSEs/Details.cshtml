@@ -1,0 +1,179 @@
+﻿@model OPDCLAIMFORM.Models.OPDEXPENSE_MASTERDETAIL
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>OPDEXPENSE</h4>
+    <hr />
+    <dl class="dl-horizontal">      
+
+        <dt>
+            @Html.DisplayName("Employee Name")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.opdEXPENSE.EMPLOYEE_NAME)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Employee Department")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.opdEXPENSE.EMPLOYEE_DEPARTMENT)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Claim For Month")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.opdEXPENSE.CLAIM_MONTH)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Total Amount Claimed")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.opdEXPENSE.TOTAL_AMOUNT_CLAIMED)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayName("HR Comment")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.opdEXPENSE.HR_COMMENT)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("HR Approval")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.opdEXPENSE.HR_APPROVAL)
+        </dd>       
+
+        <dt>
+            @Html.DisplayName("HR Name")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.opdEXPENSE.HR_NAME)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Finance Comment")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.opdEXPENSE.FINANCE_COMMENT)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Finance Approval")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.opdEXPENSE.FINANCE_APPROVAL)
+        </dd>      
+
+        <dt>
+            @Html.DisplayName("Finance Name")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.opdEXPENSE.FINANCE_NAME)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Management Comment")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.opdEXPENSE.MANAGEMENT_COMMENT)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Management Approval")
+       
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.opdEXPENSE.MANAGEMENT_APPROVAL)
+        </dd>     
+
+        <dt>
+            @Html.DisplayName("Management Name")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.opdEXPENSE.MANAGEMENT_NAME)
+        </dd>
+
+
+
+
+
+
+       
+    </dl>
+</div>
+
+<div>
+
+    <table id="tblCustomers" class="table" cellpadding="0" cellspacing="0">
+        <tr>
+            <th style="width:100px">Id</th>
+            <th style="width:150px">Name</th>
+            <th style="width:150px">Age</th>
+            <th style="width:150px">RelationShip</th>
+            <th style="width:150px"></th>
+        </tr>
+        @foreach (OPDEXPENSE_PATIENT customer in Model.listOPDEXPENSEPATIENT)
+        {
+            <tr>
+                <td class="ID">
+                    <span>@customer.ID</span>
+                </td>
+                <td class="NAME">
+                    <span>@customer.NAME</span>
+                    <input type="text" value="@customer.NAME" style="display:none" />
+                </td>
+                <td class="AGE">
+                    <span>@customer.AGE</span>
+                    <input type="text" value="@customer.AGE" style="display:none" />
+                </td>
+                <td class="RELATIONSHIP_EMPLOYEE">
+                    <span>@customer.RELATIONSHIP_EMPLOYEE</span>
+                    <select id="relationShipListForEdit" style="display:none">
+                        <option value="SELF">SELF</option>
+                        <option value="FATHER">FATHER</option>
+                        <option value="MOTHER">MOTHER</option>
+                        <option value="SPOUSE">SPOUSE</option>
+                        <option value="DAUGHTER">DAUGHTER</option>
+                        <option value="SON">SON</option>
+                    </select>
+                </td>               
+            </tr>
+        }
+    </table>
+
+
+
+</div>
+
+
+
+
+<p>
+    
+    @Html.ActionLink("Back to List", "Index")
+</p>

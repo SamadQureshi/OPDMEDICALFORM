@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MedicalInfoModelStoreContainer" CdmEntityContainer="MedicalInfoEntities">
+    <EntitySetMapping Name="OPDEXPENSEs">
+      <EntityTypeMapping TypeName="MedicalInfoModel.OPDEXPENSE">
+        <MappingFragment StoreEntitySet="OPDEXPENSE">
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="MANAGEMENT_EMAILADDRESS" ColumnName="MANAGEMENT_EMAILADDRESS" />
+          <ScalarProperty Name="FINANCE_EMAILADDRESS" ColumnName="FINANCE_EMAILADDRESS" />
+          <ScalarProperty Name="HR_EMAILADDRESS" ColumnName="HR_EMAILADDRESS" />
+          <ScalarProperty Name="MODIFIED_BY" ColumnName="MODIFIED_BY" />
+          <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
+          <ScalarProperty Name="MODIFIED_DATE" ColumnName="MODIFIED_DATE" />
+          <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
+          <ScalarProperty Name="OPDEXPENSE_ID" ColumnName="OPDEXPENSE_ID" />
+          <ScalarProperty Name="EMPLOYEE_EMAILADDRESS" ColumnName="EMPLOYEE_EMAILADDRESS" />
+          <ScalarProperty Name="EMPLOYEE_NAME" ColumnName="EMPLOYEE_NAME" />
+          <ScalarProperty Name="EMPLOYEE_DEPARTMENT" ColumnName="EMPLOYEE_DEPARTMENT" />
+          <ScalarProperty Name="CLAIM_MONTH" ColumnName="CLAIM_MONTH" />
+          <ScalarProperty Name="TOTAL_AMOUNT_CLAIMED" ColumnName="TOTAL_AMOUNT_CLAIMED" />
+          <ScalarProperty Name="HR_COMMENT" ColumnName="HR_COMMENT" />
+          <ScalarProperty Name="HR_APPROVAL" ColumnName="HR_APPROVAL" />
+          <ScalarProperty Name="HR_APPROVAL_DATE" ColumnName="HR_APPROVAL_DATE" />
+          <ScalarProperty Name="HR_NAME" ColumnName="HR_NAME" />
+          <ScalarProperty Name="FINANCE_COMMENT" ColumnName="FINANCE_COMMENT" />
+          <ScalarProperty Name="FINANCE_APPROVAL" ColumnName="FINANCE_APPROVAL" />
+          <ScalarProperty Name="FINANCE_APPROVAL_DATE" ColumnName="FINANCE_APPROVAL_DATE" />
+          <ScalarProperty Name="FINANCE_NAME" ColumnName="FINANCE_NAME" />
+          <ScalarProperty Name="MANAGEMENT_COMMENT" ColumnName="MANAGEMENT_COMMENT" />
+          <ScalarProperty Name="MANAGEMENT_APPROVAL" ColumnName="MANAGEMENT_APPROVAL" />
+          <ScalarProperty Name="MANAGEMENT_APPROVAL_DATE" ColumnName="MANAGEMENT_APPROVAL_DATE" />
+          <ScalarProperty Name="MANAGEMENT_NAME" ColumnName="MANAGEMENT_NAME" />
+          <ScalarProperty Name="DATE_ILLNESS_NOTICED" ColumnName="DATE_ILLNESS_NOTICED" />
+          <ScalarProperty Name="DATE_RECOVERY" ColumnName="DATE_RECOVERY" />
+          <ScalarProperty Name="DIAGNOSIS" ColumnName="DIAGNOSIS" />
+          <ScalarProperty Name="CLAIMANT_SUFFERED_ILLNESS" ColumnName="CLAIMANT_SUFFERED_ILLNESS" />
+          <ScalarProperty Name="CLAIMANT_SUFFERED_ILLNESS_DATE" ColumnName="CLAIMANT_SUFFERED_ILLNESS_DATE" />
+          <ScalarProperty Name="CLAIMANT_SUFFERED_ILLNESS_DETAILS" ColumnName="CLAIMANT_SUFFERED_ILLNESS_DETAILS" />
+          <ScalarProperty Name="HOSPITAL_NAME" ColumnName="HOSPITAL_NAME" />
+          <ScalarProperty Name="DOCTOR_NAME" ColumnName="DOCTOR_NAME" />
+          <ScalarProperty Name="PERIOD_CONFINEMENT_DATE_FROM" ColumnName="PERIOD_CONFINEMENT_DATE_FROM" />
+          <ScalarProperty Name="PERIOD_CONFINEMENT_DATE_TO" ColumnName="PERIOD_CONFINEMENT_DATE_TO" />
+          <ScalarProperty Name="DRUGS_PRESCRIBED_BOOL" ColumnName="DRUGS_PRESCRIBED_BOOL" />
+          <ScalarProperty Name="DRUGS_PRESCRIBED_DESCRIPTION" ColumnName="DRUGS_PRESCRIBED_DESCRIPTION" />
+          <ScalarProperty Name="OPDTYPE" ColumnName="OPDTYPE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OPDEXPENSE_IMAGE">
+      <EntityTypeMapping TypeName="MedicalInfoModel.OPDEXPENSE_IMAGE">
+        <MappingFragment StoreEntitySet="OPDEXPENSE_IMAGE">
+          <ScalarProperty Name="IMAGE_BASE64" ColumnName="IMAGE_BASE64" />
+          <ScalarProperty Name="IMAGE_EXT" ColumnName="IMAGE_EXT" />
+          <ScalarProperty Name="IMAGE_ID" ColumnName="IMAGE_ID" />
+          <ScalarProperty Name="OPDEXPENSE_ID" ColumnName="OPDEXPENSE_ID" />
+          <ScalarProperty Name="IMAGE_NAME" ColumnName="IMAGE_NAME" />
+          <ScalarProperty Name="NAME_EXPENSES" ColumnName="NAME_EXPENSES" />
+          <ScalarProperty Name="EXPENSE_AMOUNT" ColumnName="EXPENSE_AMOUNT" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OPDEXPENSE_PATIENT">
+      <EntityTypeMapping TypeName="MedicalInfoModel.OPDEXPENSE_PATIENT">
+        <MappingFragment StoreEntitySet="OPDEXPENSE_PATIENT">
+          <ScalarProperty Name="RELATIONSHIP_EMPLOYEE" ColumnName="RELATIONSHIP_EMPLOYEE" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+          <ScalarProperty Name="AGE" ColumnName="AGE" />
+          <ScalarProperty Name="OPDEXPENSE_ID" ColumnName="OPDEXPENSE_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RELATIONSHIP_EMPLOYEE">
+      <EntityTypeMapping TypeName="MedicalInfoModel.RELATIONSHIP_EMPLOYEE">
+        <MappingFragment StoreEntitySet="RELATIONSHIP_EMPLOYEE">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="RELATIONSHIP" ColumnName="RELATIONSHIP" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="ADD_OPDEXPENSE_IMAGE" FunctionName="MedicalInfoModel.Store.ADD_OPDEXPENSE_IMAGE" />
+    <FunctionImportMapping FunctionImportName="GET_OPDEXPENSE_IMAGE_DETAILS" FunctionName="MedicalInfoModel.Store.GET_OPDEXPENSE_IMAGE_DETAILS">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MedicalInfoModel.GET_OPDEXPENSE_IMAGE_DETAILS_Result">
+          <ScalarProperty Name="IMAGE_ID" ColumnName="IMAGE_ID" />
+          <ScalarProperty Name="OPDEXPENSE_ID" ColumnName="OPDEXPENSE_ID" />
+          <ScalarProperty Name="IMAGE_NAME" ColumnName="IMAGE_NAME" />
+          <ScalarProperty Name="IMAGE_EXT" ColumnName="IMAGE_EXT" />
+          <ScalarProperty Name="IMAGE_BASE64" ColumnName="IMAGE_BASE64" />
+          <ScalarProperty Name="EXPENSE_AMOUNT" ColumnName="EXPENSE_AMOUNT" />
+          <ScalarProperty Name="NAME_EXPENSES" ColumnName="NAME_EXPENSES" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="DELETE_OPDEXPENSE_IMAGE" FunctionName="MedicalInfoModel.Store.DELETE_OPDEXPENSE_IMAGE" />
+    <FunctionImportMapping FunctionImportName="sp_insert_file" FunctionName="MedicalInfoModel.Store.sp_insert_file" />
+    <FunctionImportMapping FunctionImportName="GET_OPDEXPENSE_IMAGE1" FunctionName="MedicalInfoModel.Store.GET_OPDEXPENSE_IMAGE">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MedicalInfoModel.GET_OPDEXPENSE_IMAGE1_Result">
+          <ScalarProperty Name="IMAGE_ID" ColumnName="IMAGE_ID" />
+          <ScalarProperty Name="IMAGE_NAME" ColumnName="IMAGE_NAME" />
+          <ScalarProperty Name="IMAGE_EXT" ColumnName="IMAGE_EXT" />
+          <ScalarProperty Name="IMAGE_BASE64" ColumnName="IMAGE_BASE64" />
+          <ScalarProperty Name="NAME_EXPENSES" ColumnName="NAME_EXPENSES" />
+          <ScalarProperty Name="EXPENSE_AMOUNT" ColumnName="EXPENSE_AMOUNT" />
+          <ScalarProperty Name="OPDEXPENSE_ID" ColumnName="OPDEXPENSE_ID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>
