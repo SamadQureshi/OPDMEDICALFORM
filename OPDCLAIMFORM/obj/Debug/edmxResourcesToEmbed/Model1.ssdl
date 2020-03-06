@@ -9,6 +9,7 @@
     <Property Name="EMPLOYEE_NAME" Type="varchar" MaxLength="100" />
     <Property Name="EMPLOYEE_DEPARTMENT" Type="varchar" MaxLength="100" />
     <Property Name="CLAIM_MONTH" Type="varchar" MaxLength="50" />
+    <Property Name="CLAIM_YEAR" Type="varchar" MaxLength="50" />
     <Property Name="TOTAL_AMOUNT_CLAIMED" Type="decimal" Precision="18" Scale="0" />
     <Property Name="HR_COMMENT" Type="varchar" MaxLength="5000" />
     <Property Name="HR_APPROVAL" Type="bit" />
@@ -104,6 +105,9 @@
     <Parameter Name="IMAGE_BASE64" Type="nvarchar(max)" Mode="In" />
     <Parameter Name="NAME_EXPENSES" Type="varchar" Mode="In" />
     <Parameter Name="EXPENSE_AMOUNT" Type="decimal" Mode="In" />
+  </Function>
+  <Function Name="DELETE_OPDEXPENSE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="OPDEXPENSE_ID" Type="int" Mode="In" />
   </Function>
   <Function Name="DELETE_OPDEXPENSE_IMAGE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="IMAGE_ID" Type="int" Mode="In" />

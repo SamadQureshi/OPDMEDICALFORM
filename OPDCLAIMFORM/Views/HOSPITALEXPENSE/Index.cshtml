@@ -11,171 +11,50 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
-    <tr>
+    <tr>       
         <th>
-            @Html.DisplayNameFor(model => model.EMPLOYEE_EMAILADDRESS)
+            @Html.DisplayName("Employee Name")
+        </th>   
+       <th>
+            @Html.DisplayName("Total Amount Claimed")
+        </th>    
+       <th>
+            @Html.DisplayName("Date of illness Noticed")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EMPLOYEE_NAME)
+            @Html.DisplayName("Date of recovery")
+        </th>   
+       
+        <th>
+            @Html.DisplayName("Hospital Name")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EMPLOYEE_DEPARTMENT)
+            @Html.DisplayName("Doctor Name")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CLAIM_MONTH)
+            @Html.DisplayName("Period Confinement From Date")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TOTAL_AMOUNT_CLAIMED)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HR_COMMENT)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HR_APPROVAL)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HR_APPROVAL_DATE)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HR_NAME)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FINANCE_COMMENT)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FINANCE_APPROVAL)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FINANCE_APPROVAL_DATE)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FINANCE_NAME)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MANAGEMENT_COMMENT)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MANAGEMENT_APPROVAL)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MANAGEMENT_APPROVAL_DATE)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MANAGEMENT_NAME)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DATE_ILLNESS_NOTICED)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DATE_RECOVERY)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DIAGNOSIS)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CLAIMANT_SUFFERED_ILLNESS)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CLAIMANT_SUFFERED_ILLNESS_DATE)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CLAIMANT_SUFFERED_ILLNESS_DETAILS)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HOSPITAL_NAME)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DOCTOR_NAME)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PERIOD_CONFINEMENT_DATE_FROM)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PERIOD_CONFINEMENT_DATE_TO)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DRUGS_PRESCRIBED_BOOL)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DRUGS_PRESCRIBED_DESCRIPTION)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OPDTYPE)
-        </th>
+            @Html.DisplayName("Period Confinement To Date")
+        </th>          
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.EMPLOYEE_EMAILADDRESS)
-        </td>
+    <tr>        
         <td>
             @Html.DisplayFor(modelItem => item.EMPLOYEE_NAME)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EMPLOYEE_DEPARTMENT)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CLAIM_MONTH)
-        </td>
+        </td>       
         <td>
             @Html.DisplayFor(modelItem => item.TOTAL_AMOUNT_CLAIMED)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HR_COMMENT)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HR_APPROVAL)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HR_APPROVAL_DATE)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HR_NAME)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FINANCE_COMMENT)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FINANCE_APPROVAL)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FINANCE_APPROVAL_DATE)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FINANCE_NAME)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MANAGEMENT_COMMENT)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MANAGEMENT_APPROVAL)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MANAGEMENT_APPROVAL_DATE)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MANAGEMENT_NAME)
-        </td>
+        </td>    
         <td>
             @Html.DisplayFor(modelItem => item.DATE_ILLNESS_NOTICED)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.DATE_RECOVERY)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DIAGNOSIS)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CLAIMANT_SUFFERED_ILLNESS)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CLAIMANT_SUFFERED_ILLNESS_DATE)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CLAIMANT_SUFFERED_ILLNESS_DETAILS)
-        </td>
+        </td>      
+      
         <td>
             @Html.DisplayFor(modelItem => item.HOSPITAL_NAME)
         </td>
@@ -187,16 +66,7 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.PERIOD_CONFINEMENT_DATE_TO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DRUGS_PRESCRIBED_BOOL)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DRUGS_PRESCRIBED_DESCRIPTION)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OPDTYPE)
-        </td>
+        </td>           
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.OPDEXPENSE_ID }) |
             @Html.ActionLink("Details", "Details", new { id=item.OPDEXPENSE_ID }) |

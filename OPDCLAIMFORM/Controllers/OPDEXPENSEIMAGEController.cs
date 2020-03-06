@@ -14,8 +14,9 @@ namespace OPDCLAIMFORM.Controllers
         // GET: OPDEXPENSEIMAGE
         public ActionResult Index(int id)
         {
-
-             ViewData["OPDEXPENSE_ID"] = id;
+           
+            //ViewData["OPDEXPENSE_ID"] = id;
+            
             // Initialization.
             ImgViewModel model = new ImgViewModel { FileAttach = null, ImgLst = new List<OPDEXPENSE_IMAGEOBJ>() };
 
@@ -66,10 +67,12 @@ namespace OPDCLAIMFORM.Controllers
 
             try
             {
-                // Verification
-               
+                // Verification       
+
+                model.OPDExpense_ID = Convert.ToInt32(Request.Url.Segments[3].ToString());
+
                     // Converting to bytes.
-                    byte[] uploadedFile = new byte[model.FileAttach.InputStream.Length];
+                byte[] uploadedFile = new byte[model.FileAttach.InputStream.Length];
                     model.FileAttach.InputStream.Read(uploadedFile, 0, uploadedFile.Length);
 
                     // Initialization.
@@ -139,13 +142,15 @@ namespace OPDCLAIMFORM.Controllers
 
 
         // POST: OPDEXPENSEIMAGE/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int id , int opdexpenseid)
         {
             // Model binding.
             ImgViewModel model = new ImgViewModel { FileAttach = null, ImgLst = new List<OPDEXPENSE_IMAGEOBJ>() };
+                             
 
             try
             {
+            
                 // Loading dile info.
                 var fileInfo = this.db.DELETE_OPDEXPENSE_IMAGE(id);               
             }
@@ -156,7 +161,7 @@ namespace OPDCLAIMFORM.Controllers
             }
 
             // Info.
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "OPDEXPENSEIMAGE", new { id = opdexpenseid });
         }
 
 

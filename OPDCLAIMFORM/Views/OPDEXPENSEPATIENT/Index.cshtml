@@ -85,8 +85,13 @@
     </table>
   
     <p>
-
-        @Html.ActionLink("Add Image","Index","OPDEXPENSEIMAGE",new { id=@ViewData["OPDEXPENSE_ID"] },null)
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+        <div>
+            @Html.ActionLink("Add Image", "Index", "OPDEXPENSEIMAGE", new { id = @ViewData["OPDEXPENSE_ID"] }, null)
+        </div>
+       
     </p>
 
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>

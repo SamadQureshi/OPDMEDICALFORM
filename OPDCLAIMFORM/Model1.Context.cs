@@ -113,5 +113,14 @@ namespace OPDCLAIMFORM
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GET_OPDEXPENSE_IMAGE1_Result>("GET_OPDEXPENSE_IMAGE1");
         }
+    
+        public virtual int DELETE_OPDEXPENSE(Nullable<int> oPDEXPENSE_ID)
+        {
+            var oPDEXPENSE_IDParameter = oPDEXPENSE_ID.HasValue ?
+                new ObjectParameter("OPDEXPENSE_ID", oPDEXPENSE_ID) :
+                new ObjectParameter("OPDEXPENSE_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DELETE_OPDEXPENSE", oPDEXPENSE_IDParameter);
+        }
     }
 }

@@ -60,6 +60,7 @@ namespace OPDCLAIMFORM
         public string FINANCE_EMAILADDRESS { get; set; }
         public string MANAGEMENT_EMAILADDRESS { get; set; }
         public string STATUS { get; set; }
+        public string CLAIM_YEAR { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OPDEXPENSE_IMAGE> OPDEXPENSE_IMAGE { get; set; }

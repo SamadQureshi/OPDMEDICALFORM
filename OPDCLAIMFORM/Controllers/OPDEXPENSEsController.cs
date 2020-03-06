@@ -18,7 +18,7 @@ namespace OPDCLAIMFORM.Controllers
         // GET: OPDEXPENSEs
         public ActionResult Index()
         {
-            return View(db.OPDEXPENSEs.ToList());
+            return View(db.OPDEXPENSEs.Where(e => e.OPDTYPE == "OPD Expense").ToList());
         }
 
         // GET: OPDEXPENSEs/Details/5
@@ -55,10 +55,11 @@ namespace OPDCLAIMFORM.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EMPLOYEE_NAME,EMPLOYEE_DEPARTMENT,CLAIM_MONTH,TOTAL_AMOUNT_CLAIMED")] OPDEXPENSE oPDEXPENSE)
+        public ActionResult Create([Bind(Include = "EMPLOYEE_NAME,EMPLOYEE_DEPARTMENT,CLAIM_MONTH,TOTAL_AMOUNT_CLAIMED,CLAIM_YEAR")] OPDEXPENSE oPDEXPENSE)
         {
             if (ModelState.IsValid)
             {
+                oPDEXPENSE.OPDTYPE = "OPD Expense";
                 oPDEXPENSE.STATUS = "InProcess";
                 db.OPDEXPENSEs.Add(oPDEXPENSE);
                 db.SaveChanges();              
@@ -91,7 +92,7 @@ namespace OPDCLAIMFORM.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "EMPLOYEE_EMAILADDRESS,EMPLOYEE_NAME,EMPLOYEE_DEPARTMENT,CLAIM_MONTH,TOTAL_AMOUNT_CLAIMED")] OPDEXPENSE oPDEXPENSE)
+        public ActionResult Edit([Bind(Include = "EMPLOYEE_EMAILADDRESS,EMPLOYEE_NAME,EMPLOYEE_DEPARTMENT,CLAIM_MONTH,TOTAL_AMOUNT_CLAIMED,CLAIM_YEAR")] OPDEXPENSE oPDEXPENSE)
         {
             if (ModelState.IsValid)
             {
@@ -106,16 +107,21 @@ namespace OPDCLAIMFORM.Controllers
         // GET: OPDEXPENSEs/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            OPDEXPENSE oPDEXPENSE = db.OPDEXPENSEs.Find(id);
-            if (oPDEXPENSE == null)
-            {
-                return HttpNotFound();
-            }
-            return View(oPDEXPENSE);
+
+            var fileInfo = this.db.DELETE_OPDEXPENSE(id);
+
+            return RedirectToAction("Index");
+
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            //OPDEXPENSE oPDEXPENSE = db.OPDEXPENSEs.Find(id);
+            //if (oPDEXPENSE == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            //return View(oPDEXPENSE);
         }
 
         // POST: OPDEXPENSEs/Delete/5
@@ -123,9 +129,14 @@ namespace OPDCLAIMFORM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            OPDEXPENSE oPDEXPENSE = db.OPDEXPENSEs.Find(id);
-            db.OPDEXPENSEs.Remove(oPDEXPENSE);
-            db.SaveChanges();
+         
+          
+           var fileInfo = this.db.DELETE_OPDEXPENSE(id);
+
+
+           // OPDEXPENSE oPDEXPENSE = db.OPDEXPENSEs.Find(id);
+           // db.OPDEXPENSEs.Remove(oPDEXPENSE);
+           // db.SaveChanges();
             return RedirectToAction("Index");
         }
 

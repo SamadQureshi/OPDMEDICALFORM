@@ -4,6 +4,7 @@
     <EntitySetMapping Name="OPDEXPENSEs">
       <EntityTypeMapping TypeName="MedicalInfoModel.OPDEXPENSE">
         <MappingFragment StoreEntitySet="OPDEXPENSE">
+          <ScalarProperty Name="CLAIM_YEAR" ColumnName="CLAIM_YEAR" />
           <ScalarProperty Name="STATUS" ColumnName="STATUS" />
           <ScalarProperty Name="MANAGEMENT_EMAILADDRESS" ColumnName="MANAGEMENT_EMAILADDRESS" />
           <ScalarProperty Name="FINANCE_EMAILADDRESS" ColumnName="FINANCE_EMAILADDRESS" />
@@ -107,5 +108,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="DELETE_OPDEXPENSE" FunctionName="MedicalInfoModel.Store.DELETE_OPDEXPENSE" />
   </EntityContainerMapping>
 </Mapping>

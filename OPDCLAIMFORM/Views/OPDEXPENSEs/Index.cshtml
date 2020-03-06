@@ -11,7 +11,7 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
-    <tr>       
+    <tr>
         <th>
             @Html.DisplayName("Employee Name")
         </th>
@@ -22,30 +22,42 @@
             @Html.DisplayName("Claim For Month")
         </th>
         <th>
+            @Html.DisplayName("Claim For Year")
+        </th>
+        <th>
+            @Html.DisplayName("Status")
+        </th>
+        <th>
             @Html.DisplayName("Total Amount Claimed")
-        </th>       
+        </th>
     </tr>
 
 @foreach (var item in Model) {
-    <tr>        
-        <td>
-            @Html.DisplayFor(modelItem => item.EMPLOYEE_NAME)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EMPLOYEE_DEPARTMENT)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CLAIM_MONTH)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TOTAL_AMOUNT_CLAIMED)
-        </td>       
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.OPDEXPENSE_ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.OPDEXPENSE_ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.OPDEXPENSE_ID })
-        </td>
-    </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.EMPLOYEE_NAME)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.EMPLOYEE_DEPARTMENT)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CLAIM_MONTH)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CLAIM_YEAR)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.STATUS)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TOTAL_AMOUNT_CLAIMED)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.OPDEXPENSE_ID }) |
+        @Html.ActionLink("Details", "Details", new { id = item.OPDEXPENSE_ID }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.OPDEXPENSE_ID })
+    </td>
+</tr>
 }
 
 </table>
