@@ -10,7 +10,7 @@
 <div>
     <h4>OPDEXPENSE</h4>
     <hr />
-    <dl class="dl-horizontal">      
+    <dl class="dl-horizontal">
 
         <dt>
             @Html.DisplayName("Employee Name")
@@ -34,6 +34,20 @@
 
         <dd>
             @Html.DisplayFor(model => model.opdEXPENSE.CLAIM_MONTH)
+        </dd>
+        <dt>
+            @Html.DisplayName("Claim For Year")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.opdEXPENSE.CLAIM_YEAR)
+        </dd>
+        <dt>
+            @Html.DisplayName("Status")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.opdEXPENSE.STATUS)
         </dd>
 
         <dt>
@@ -59,7 +73,7 @@
 
         <dd>
             @Html.DisplayFor(model => model.opdEXPENSE.HR_APPROVAL)
-        </dd>       
+        </dd>
 
         <dt>
             @Html.DisplayName("HR Name")
@@ -83,7 +97,7 @@
 
         <dd>
             @Html.DisplayFor(model => model.opdEXPENSE.FINANCE_APPROVAL)
-        </dd>      
+        </dd>
 
         <dt>
             @Html.DisplayName("Finance Name")
@@ -103,12 +117,12 @@
 
         <dt>
             @Html.DisplayName("Management Approval")
-       
+
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.opdEXPENSE.MANAGEMENT_APPROVAL)
-        </dd>     
+        </dd>
 
         <dt>
             @Html.DisplayName("Management Name")
@@ -123,116 +137,119 @@
 
 
 
-       
+
     </dl>
 </div>
 
-<div>
+<div class="row">
+    <div class="col-md-offset-1 col-md-8">
+        <section>
 
-    <table id="tblCustomers" class="table" cellpadding="0" cellspacing="0">
-        <tr>
-            <th style="width:100px">Id</th>
-            <th style="width:150px">Name</th>
-            <th style="width:150px">Age</th>
-            <th style="width:150px">RelationShip</th>
-            <th style="width:150px"></th>
-        </tr>
-        @foreach (OPDEXPENSE_PATIENT customer in Model.listOPDEXPENSEPATIENT)
+            <table id="tblCustomers" class="table table-bordered table-striped">
+                <tr>
+                    <th style="width:100px">Id</th>
+                    <th style="width:150px">Name</th>
+                    <th style="width:150px">Age</th>
+                    <th style="width:150px">RelationShip</th>
+                    <th style="width:150px"></th>
+                </tr>
+                @foreach (OPDEXPENSE_PATIENT customer in Model.listOPDEXPENSEPATIENT)
+                {
+                    <tr>
+                        <td class="ID">
+                            <span>@customer.ID</span>
+                        </td>
+                        <td class="NAME">
+                            <span>@customer.NAME</span>
+                            <input type="text" value="@customer.NAME" style="display:none" />
+                        </td>
+                        <td class="AGE">
+                            <span>@customer.AGE</span>
+                            <input type="text" value="@customer.AGE" style="display:none" />
+                        </td>
+                        <td class="RELATIONSHIP_EMPLOYEE">
+                            <span>@customer.RELATIONSHIP_EMPLOYEE</span>
+                            <select id="relationShipListForEdit" style="display:none">
+                                <option value="SELF">SELF</option>
+                                <option value="FATHER">FATHER</option>
+                                <option value="MOTHER">MOTHER</option>
+                                <option value="SPOUSE">SPOUSE</option>
+                                <option value="DAUGHTER">DAUGHTER</option>
+                                <option value="SON">SON</option>
+                            </select>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </section>
+    </div>
+
+
+</div>
+
+    <div>
+        @if (Model.listOPDEXPENSEIMAGE != null &&
+         Model.listOPDEXPENSEIMAGE.Count > 0)
         {
-            <tr>
-                <td class="ID">
-                    <span>@customer.ID</span>
-                </td>
-                <td class="NAME">
-                    <span>@customer.NAME</span>
-                    <input type="text" value="@customer.NAME" style="display:none" />
-                </td>
-                <td class="AGE">
-                    <span>@customer.AGE</span>
-                    <input type="text" value="@customer.AGE" style="display:none" />
-                </td>
-                <td class="RELATIONSHIP_EMPLOYEE">
-                    <span>@customer.RELATIONSHIP_EMPLOYEE</span>
-                    <select id="relationShipListForEdit" style="display:none">
-                        <option value="SELF">SELF</option>
-                        <option value="FATHER">FATHER</option>
-                        <option value="MOTHER">MOTHER</option>
-                        <option value="SPOUSE">SPOUSE</option>
-                        <option value="DAUGHTER">DAUGHTER</option>
-                        <option value="SON">SON</option>
-                    </select>
-                </td>               
-            </tr>
-        }
-    </table>
-
-
-
-</div>
-
-<div>
-    @if (Model.listOPDEXPENSEIMAGE != null &&
-     Model.listOPDEXPENSEIMAGE.Count > 0)
-    {
-        <div class="row">
-            <div class="col-md-offset-1 col-md-8">
-                <section>
-                    <table class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th style="text-align: center;">Sr.</th>
-                                <th style="text-align: center;">Image Name</th>
-                                <th style="text-align: center;"></th>
-                                <th style="text-align: center;">Expense Name</th>
-                                <th style="text-align: center;">Expense Amount</th>                               
-
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            @for (int i = 0; i < Model.listOPDEXPENSEIMAGE.Count; i++)
-                            {
+            <div class="row">
+                <div class="col-md-offset-1 col-md-8">
+                    <section>
+                        <table class="table table-bordered table-striped">
+                            <thead>
                                 <tr>
-                                    <td style="text-align: center;">@(i + 1)</td>
+                                    <th style="text-align: center;">Sr.</th>
+                                    <th style="text-align: center;">Image Name</th>
+                                    <th style="text-align: center;"></th>
+                                    <th style="text-align: center;">Expense Name</th>
+                                    <th style="text-align: center;">Expense Amount</th>
 
-                                    <td style="text-align: center;">
-                                        <div class="input-group" style="height:40px;">
-                                            <i class="fa fa-2x fa-paperclip text-navy"></i>
-                                            <a class="download-file1" href="@Url.Action("DownloadFile", "OPDEXPENSEs", new { fileId = @Model.listOPDEXPENSEIMAGE[i].IMAGE_ID })" target="_blank">
-                                                @Model.listOPDEXPENSEIMAGE[i].IMAGE_NAME
-                                            </a>
-                                        </div>
-                                    </td>
-
-                                    <td style="text-align: center;">
-                                        <div>
-                                            <img src="@Url.Action("DownloadFile", "OPDEXPENSEs", new { fileId = @Model.listOPDEXPENSEIMAGE[i].IMAGE_ID })" width="100" height="100" />
-                                        </div>
-                                    </td>
-
-                                    <td style="text-align: center;">
-                                        <div>
-                                            @Html.DisplayFor(model => @Model.listOPDEXPENSEIMAGE[i].NAME_EXPENSES)
-                                        </div>
-                                    </td>
-
-                                    <td style="text-align: center;">
-                                        <div>
-                                            @Html.DisplayFor(model => @Model.listOPDEXPENSEIMAGE[i].EXPENSE_AMOUNT)
-                                        </div>
-                                    </td>                                   
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
-                </section>
+                            </thead>
+
+                            <tbody>
+                                @for (int i = 0; i < Model.listOPDEXPENSEIMAGE.Count; i++)
+                                {
+                                    <tr>
+                                        <td style="text-align: center;">@(i + 1)</td>
+
+                                        <td style="text-align: center;">
+                                            <div class="input-group" style="height:40px;">
+                                                <i class="fa fa-2x fa-paperclip text-navy"></i>
+                                                <a class="download-file1" href="@Url.Action("DownloadFile", "OPDEXPENSEs", new { fileId = @Model.listOPDEXPENSEIMAGE[i].IMAGE_ID })" target="_blank">
+                                                    @Model.listOPDEXPENSEIMAGE[i].IMAGE_NAME
+                                                </a>
+                                            </div>
+                                        </td>
+
+                                        <td style="text-align: center;">
+                                            <div>
+                                                <img src="@Url.Action("DownloadFile", "OPDEXPENSEs", new { fileId = @Model.listOPDEXPENSEIMAGE[i].IMAGE_ID })" width="100" height="100" />
+                                            </div>
+                                        </td>
+
+                                        <td style="text-align: center;">
+                                            <div>
+                                                @Html.DisplayFor(model => @Model.listOPDEXPENSEIMAGE[i].NAME_EXPENSES)
+                                            </div>
+                                        </td>
+
+                                        <td style="text-align: center;">
+                                            <div>
+                                                @Html.DisplayFor(model => @Model.listOPDEXPENSEIMAGE[i].EXPENSE_AMOUNT)
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </section>
+                </div>
             </div>
-        </div>
-    }
-</div>
+        }
+    </div>
 
 
-<p>
-    
-    @Html.ActionLink("Back to List", "Index")
-</p>
+    <p>
+
+        @Html.ActionLink("Back to List", "Index")
+    </p>

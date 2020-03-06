@@ -17,15 +17,28 @@
     <hr />
 
     <div class="form-group">
-        @Html.LabelFor(model => model.EMPLOYEE_NAME, "Name of Employee",  htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.EMPLOYEE_NAME, "Name of Employee", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.EMPLOYEE_NAME, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.EMPLOYEE_NAME, "", new { @class = "text-danger" })
         </div>
     </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.EMPLOYEE_DEPARTMENT, "Employee Department", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.EMPLOYEE_DEPARTMENT, new List<SelectListItem>
+        {
+                   new SelectListItem {Text = "Consulting", Value = "Consulting"},
+                   new SelectListItem {Text = "Qorsquad", Value = "Qorsquad"},
+                   new SelectListItem {Text = "Product", Value = "Product"},
+                   new SelectListItem {Text = "SalesAndMarketing", Value = "SalesAndMarketing"},
+
+                }, new { @class = "form-control select2_demo_4" })
+        </div>
+    </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.DATE_ILLNESS_NOTICED,"Date of illness first noticed", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.DATE_ILLNESS_NOTICED, "Date of illness first noticed", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.DATE_ILLNESS_NOTICED, new { htmlAttributes = new { @class = "datepicker" } })
             @Html.ValidationMessageFor(model => model.DATE_ILLNESS_NOTICED, "", new { @class = "text-danger" })
@@ -33,7 +46,7 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.DATE_RECOVERY,"Date of recovery", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.DATE_RECOVERY, "Date of recovery", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.DATE_RECOVERY, new { htmlAttributes = new { @class = "datepicker" } })
             @Html.ValidationMessageFor(model => model.DATE_RECOVERY, "", new { @class = "text-danger" })
@@ -41,7 +54,7 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.DIAGNOSIS,"Diagnosis", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.DIAGNOSIS, "Diagnosis", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.DIAGNOSIS, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.DIAGNOSIS, "", new { @class = "text-danger" })
@@ -49,7 +62,7 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.CLAIMANT_SUFFERED_ILLNESS,"Has the claimant suffered from this illness before?" ,htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.CLAIMANT_SUFFERED_ILLNESS, "Has the claimant suffered from this illness before?", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             <div class="checkbox">
                 @Html.EditorFor(model => model.CLAIMANT_SUFFERED_ILLNESS)
@@ -59,7 +72,7 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.CLAIMANT_SUFFERED_ILLNESS_DATE,"If yes,please give claimant suffered from this illness date", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.CLAIMANT_SUFFERED_ILLNESS_DATE, "If yes,please give claimant suffered from this illness date", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.CLAIMANT_SUFFERED_ILLNESS_DATE, new { htmlAttributes = new { @class = "datepicker" } })
             @Html.ValidationMessageFor(model => model.CLAIMANT_SUFFERED_ILLNESS_DATE, "", new { @class = "text-danger" })
@@ -67,7 +80,7 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.CLAIMANT_SUFFERED_ILLNESS_DETAILS,"If yes,please give claimant suffered from this illness details" ,htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.CLAIMANT_SUFFERED_ILLNESS_DETAILS, "If yes,please give claimant suffered from this illness details", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.CLAIMANT_SUFFERED_ILLNESS_DETAILS, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.CLAIMANT_SUFFERED_ILLNESS_DETAILS, "", new { @class = "text-danger" })
@@ -75,7 +88,7 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.HOSPITAL_NAME,"Name of Hospital attended", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.HOSPITAL_NAME, "Name of Hospital attended", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.HOSPITAL_NAME, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.HOSPITAL_NAME, "", new { @class = "text-danger" })
@@ -83,7 +96,7 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.DOCTOR_NAME,"Name of medical practitioner consulted:" ,htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.DOCTOR_NAME, "Name of medical practitioner consulted:", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.DOCTOR_NAME, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.DOCTOR_NAME, "", new { @class = "text-danger" })
@@ -91,7 +104,7 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.PERIOD_CONFINEMENT_DATE_FROM,"Period of confinement From" ,htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.PERIOD_CONFINEMENT_DATE_FROM, "Period of confinement From", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.PERIOD_CONFINEMENT_DATE_FROM, new { htmlAttributes = new { @class = "datepicker" } })
             @Html.ValidationMessageFor(model => model.PERIOD_CONFINEMENT_DATE_FROM, "", new { @class = "text-danger" })
@@ -99,7 +112,7 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.PERIOD_CONFINEMENT_DATE_TO,"Period of confinement To" ,htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.PERIOD_CONFINEMENT_DATE_TO, "Period of confinement To", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.PERIOD_CONFINEMENT_DATE_TO, new { htmlAttributes = new { @class = "datepicker" } })
             @Html.ValidationMessageFor(model => model.PERIOD_CONFINEMENT_DATE_TO, "", new { @class = "text-danger" })
@@ -107,7 +120,7 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.DRUGS_PRESCRIBED_BOOL,"Were any drugs prescribed:Yes/No" ,htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.DRUGS_PRESCRIBED_BOOL, "Were any drugs prescribed:Yes/No", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             <div class="checkbox">
                 @Html.EditorFor(model => model.DRUGS_PRESCRIBED_BOOL)
@@ -117,7 +130,7 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.DRUGS_PRESCRIBED_DESCRIPTION,"If yes,please list the drugs prescribed and administered" ,htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.DRUGS_PRESCRIBED_DESCRIPTION, "If yes,please list the drugs prescribed and administered", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.DRUGS_PRESCRIBED_DESCRIPTION, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.DRUGS_PRESCRIBED_DESCRIPTION, "", new { @class = "text-danger" })
@@ -125,7 +138,7 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.TOTAL_AMOUNT_CLAIMED,"Total amount claimed" ,htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.TOTAL_AMOUNT_CLAIMED, "Total amount claimed", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.TOTAL_AMOUNT_CLAIMED, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.TOTAL_AMOUNT_CLAIMED, "", new { @class = "text-danger" })

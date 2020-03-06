@@ -8,7 +8,10 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New OPD FORM", "Create","OPDEXPENSEs")
+</p>
+<p>
+    @Html.ActionLink("Create New Hospital FORM", "Create","HOSPITALEXPENSE")
 </p>
 <table class="table">
     <tr>
@@ -29,6 +32,9 @@
         </th>
         <th>
             @Html.DisplayName("Total Amount Claimed")
+        </th>
+        <th>
+            @Html.DisplayName("OPD Type")
         </th>
     </tr>
 
@@ -53,9 +59,21 @@
         @Html.DisplayFor(modelItem => item.TOTAL_AMOUNT_CLAIMED)
     </td>
     <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.OPDEXPENSE_ID }) |
-        @Html.ActionLink("Details", "Details", new { id = item.OPDEXPENSE_ID }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.OPDEXPENSE_ID })
+        @Html.DisplayFor(modelItem => item.OPDTYPE)
+    </td>
+    <td>
+        @if (item.OPDTYPE.Equals("OPD Expense"))
+        {
+            @Html.ActionLink("Edit", "Edit", "OPDEXPENSEs", new { id = item.OPDEXPENSE_ID }, null) <span> | </span>
+            @Html.ActionLink("Details", "Details", "OPDEXPENSEs", new { id = item.OPDEXPENSE_ID }, null)  <span> | </span>
+            @Html.ActionLink("Delete", "Delete", "OPDEXPENSEs", new { id = item.OPDEXPENSE_ID }, null);
+        }
+        @if (item.OPDTYPE.Equals("Hospital Expense"))
+        {
+            @Html.ActionLink("Edit", "Edit", "HOSPITALEXPENSE", new { id = item.OPDEXPENSE_ID }, null) <span> | </span>
+            @Html.ActionLink("Details", "Details", "HOSPITALEXPENSE", new { id = item.OPDEXPENSE_ID }, null)  <span> | </span>
+            @Html.ActionLink("Delete", "Delete", "HOSPITALEXPENSE", new { id = item.OPDEXPENSE_ID }, null)
+        }
     </td>
 </tr>
 }

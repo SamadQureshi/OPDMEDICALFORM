@@ -18,7 +18,8 @@ namespace OPDCLAIMFORM.Controllers
         // GET: OPDEXPENSEs
         public ActionResult Index()
         {
-            return View(db.OPDEXPENSEs.Where(e => e.OPDTYPE == "OPD Expense").ToList());
+            // return View(db.OPDEXPENSEs.Where(e => e.OPDTYPE == "OPD Expense").ToList());
+            return View(db.OPDEXPENSEs.ToList());
         }
 
         // GET: OPDEXPENSEs/Details/5
