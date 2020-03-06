@@ -88,8 +88,9 @@ namespace OPDCLAIMFORM.Controllers
                     FileContentType = p.IMAGE_EXT,
                     ExpenseAmount = p.EXPENSE_AMOUNT,
                     ExpenseName = p.NAME_EXPENSES,
+                    OPDExpense_id = p.OPDEXPENSE_ID,
 
-                }).ToList();
+                }).Where(e => e.OPDExpense_id == model.OPDExpense_ID).ToList();
             }
             catch (Exception ex)
             {

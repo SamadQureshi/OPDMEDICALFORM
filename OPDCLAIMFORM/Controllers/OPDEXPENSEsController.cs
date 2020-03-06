@@ -30,38 +30,16 @@ namespace OPDCLAIMFORM.Controllers
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            
-          
-                //var result = (from b in entities.OPDEXPENSE_PATIENT 
-                //                         where b.OPDEXPENSE_ID == id
-                //                         select new OPDEXPENSE_PATIENT
-                //                         {                                             
-                //                             NAME = b.NAME,
-                //                             AGE = b.AGE,
-                //                             RELATIONSHIP_EMPLOYEE = b.RELATIONSHIP_EMPLOYEE
-                //                         }).ToList();
+            }          
 
 
             var result2 = new OPDEXPENSE_MASTERDETAIL()
             {
                 listOPDEXPENSEPATIENT = entities.OPDEXPENSE_PATIENT.Where(e => e.OPDEXPENSE_ID == id).ToList(),
+                listOPDEXPENSEIMAGE = entities.OPDEXPENSE_IMAGE.Where(e => e.OPDEXPENSE_ID == id).ToList(),
                 opdEXPENSE = entities.OPDEXPENSEs.Where(e => e.OPDEXPENSE_ID == id).FirstOrDefault()
+
             };
-
-
-
-           // using (MedicalInfoEntities entities = new MedicalInfoEntities())
-           //{
-           //OPDEXPENSE_PATIENT OPDExpense_Patient = (from c in entities.OPDEXPENSE_PATIENT
-           //                                             where c.ID == id
-           //                                             select c).FirstOrDefault();                
-           // }
-
-            //if (oPDEXPENSE == null)
-            //{
-            //    return HttpNotFound();
-            //}
 
             return View(result2);
         }
@@ -103,6 +81,8 @@ namespace OPDCLAIMFORM.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewData["OPDEXPENSE_ID"] = id;
             return View(oPDEXPENSE);
         }
 
@@ -117,7 +97,8 @@ namespace OPDCLAIMFORM.Controllers
             {
                 db.Entry(oPDEXPENSE).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+                return RedirectToAction("Index", "OPDEXPENSEPATIENT", new { id = oPDEXPENSE.OPDEXPENSE_ID });
             }
             return View(oPDEXPENSE);
         }
@@ -156,5 +137,71 @@ namespace OPDCLAIMFORM.Controllers
             }
             base.Dispose(disposing);
         }
+
+        /// <summary>
+        /// GET: /Img/DownloadFile
+        /// </summary>
+        /// <param name="fileId">File Id parameter</param>
+        /// <returns>Return download file</returns>
+        public ActionResult DownloadFile(int fileId)
+        {
+            // Model binding.
+            ImgViewModel model = new ImgViewModel { FileAttach = null, ImgLst = new List<OPDEXPENSE_IMAGEOBJ>() };
+
+            try
+            {
+                // Loading dile info.
+                var fileInfo = this.db.GET_OPDEXPENSE_IMAGE_DETAILS(fileId).First();
+
+                // Info.
+                return this.GetFile(fileInfo.IMAGE_BASE64, fileInfo.IMAGE_EXT);
+            }
+            catch (Exception ex)
+            {
+                // Info
+                Console.Write(ex);
+            }
+
+            // Info.
+            return this.View(model);
+        }
+
+
+
+
+
+
+
+        #region Get file method.
+
+        /// <summary>
+        /// Get file method.
+        /// </summary>
+        /// <param name="fileContent">File content parameter.</param>
+        /// <param name="fileContentType">File content type parameter</param>
+        /// <returns>Returns - File.</returns>
+        private FileResult GetFile(string fileContent, string fileContentType)
+        {
+            // Initialization.
+            FileResult file = null;
+
+            try
+            {
+                // Get file.
+                byte[] byteContent = Convert.FromBase64String(fileContent);
+                file = this.File(byteContent, fileContentType);
+            }
+            catch (Exception ex)
+            {
+                // Info.
+                throw ex;
+            }
+
+            // info.
+            return file;
+        }
+
+        #endregion
+
     }
 }

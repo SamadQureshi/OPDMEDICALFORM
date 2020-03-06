@@ -11,6 +11,8 @@ namespace OPDCLAIMFORM.Models
 
         public List<OPDEXPENSE_PATIENT> listOPDEXPENSEPATIENT { get; set; }
 
+        public List<OPDEXPENSE_IMAGE> listOPDEXPENSEIMAGE { get; set; }
+
 
 
     }
