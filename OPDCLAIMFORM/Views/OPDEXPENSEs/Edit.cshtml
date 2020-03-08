@@ -1,4 +1,4 @@
-﻿@model OPDCLAIMFORM.OPDEXPENSE
+﻿@model OPDCLAIMFORM.Models.OPDEXPENSE_MASTERDETAIL
 
 @{
     ViewBag.Title = "Edit";
@@ -11,81 +11,225 @@
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <h4>OPDEXPENSE</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.OPDEXPENSE_ID)
+    <div class="form-horizontal">
+        <h4>OPDEXPENSE</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.opdEXPENSE.OPDEXPENSE_ID)
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.EMPLOYEE_NAME, "Employee Name", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.EMPLOYEE_NAME, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.EMPLOYEE_NAME, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.opdEXPENSE.EMPLOYEE_NAME, "Employee Name", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.opdEXPENSE.EMPLOYEE_NAME, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.opdEXPENSE.EMPLOYEE_NAME, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.opdEXPENSE.EMPLOYEE_DEPARTMENT, "Employee Department", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.opdEXPENSE.EMPLOYEE_DEPARTMENT, new List<SelectListItem>
+        {
+                   new SelectListItem {Text = "Consulting", Value = "Consulting"},
+                   new SelectListItem {Text = "Qorsquad", Value = "Qorsquad"},
+                   new SelectListItem {Text = "Product", Value = "Product"},
+                   new SelectListItem {Text = "SalesAndMarketing", Value = "SalesAndMarketing"},
+
+                }, new { @class = "form-control select2_demo_4" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.opdEXPENSE.CLAIM_MONTH, "Claim For Month", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.opdEXPENSE.CLAIM_MONTH, new List<SelectListItem>
+                {
+                           new SelectListItem {Text = "JAN", Value = "JAN"},
+                           new SelectListItem {Text = "FEB", Value = "FEB"},
+                           new SelectListItem {Text = "MAR", Value = "MAR"},
+                           new SelectListItem {Text = "APR", Value = "APR"},
+                           new SelectListItem {Text = "MAY", Value = "MAY"},
+                           new SelectListItem {Text = "JUN", Value = "JUN"},
+                           new SelectListItem {Text = "JUL", Value = "JUL"},
+                           new SelectListItem {Text = "AUG", Value = "AUG"},
+                           new SelectListItem {Text = "SEP", Value = "SEP"},
+                           new SelectListItem {Text = "OCT", Value = "OCT"},
+                           new SelectListItem {Text = "NOV", Value = "NOV"},
+                           new SelectListItem {Text = "DEC", Value = "DEC"},
+
+                        }, new { @class = "form-control select2_demo_4" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.opdEXPENSE.TOTAL_AMOUNT_CLAIMED, "Total Amount Claimed", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.opdEXPENSE.TOTAL_AMOUNT_CLAIMED, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.opdEXPENSE.TOTAL_AMOUNT_CLAIMED, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.opdEXPENSE.STATUS, "STATUS", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.opdEXPENSE.STATUS, new List<SelectListItem>
+                        {
+                           new SelectListItem{ Text="InProcess", Value = "InProcess" },
+                           new SelectListItem{ Text="Completed", Value = "Completed" },
+
+                        }, new { @class = "form-control select2_demo_4" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
         </div>
     </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.EMPLOYEE_DEPARTMENT, "Employee Department", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.EMPLOYEE_DEPARTMENT, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.EMPLOYEE_DEPARTMENT, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.CLAIM_MONTH, "Claim For Month", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.CLAIM_MONTH, new List<SelectListItem>
-            {                       
-                       new SelectListItem {Text = "JAN", Value = "JAN"},
-                       new SelectListItem {Text = "FEB", Value = "FEB"},
-                       new SelectListItem {Text = "MAR", Value = "MAR"},
-                       new SelectListItem {Text = "APR", Value = "APR"},
-                       new SelectListItem {Text = "MAY", Value = "MAY"},
-                       new SelectListItem {Text = "JUN", Value = "JUN"},
-                       new SelectListItem {Text = "JUL", Value = "JUL"},
-                       new SelectListItem {Text = "AUG", Value = "AUG"},
-                       new SelectListItem {Text = "SEP", Value = "SEP"},
-                       new SelectListItem {Text = "OCT", Value = "OCT"},
-                       new SelectListItem {Text = "NOV", Value = "NOV"},
-                       new SelectListItem {Text = "DEC", Value = "DEC"},                     
-
-                    }, new { @class = "form-control select2_demo_4" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.TOTAL_AMOUNT_CLAIMED, "Total Amount Claimed", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.TOTAL_AMOUNT_CLAIMED, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.TOTAL_AMOUNT_CLAIMED, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.STATUS, "STATUS", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.STATUS, new List<SelectListItem>
-                    {                       
-                       new SelectListItem{ Text="InProcess", Value = "InProcess" },
-                       new SelectListItem{ Text="Completed", Value = "Completed" },                      
-
-                    }, new { @class = "form-control select2_demo_4" })           
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
-        </div>
-    </div>
-</div>
 }
+<div>
+    <h5>PATIENT INFORMATION</h5>
+    <hr style="height:2px;border:none;color:#333;background-color:#333;">
+    @Html.ActionLink("Add Patient Information", "Index", "OPDEXPENSEPATIENT", new { id = @ViewData["OPDEXPENSE_ID"] }, null)
+    <br />
+    @if (Model.listOPDEXPENSEPATIENT != null && Model.listOPDEXPENSEPATIENT.Count > 0)
+    {
+        <div class="row">
+            <div class="col-md-offset-1 col-md-8">
+                <section>
+                    <table id="tblCustomers" class="table table-bordered table-striped">
+                        <tr>
+                            <th style="width:100px">Id</th>
+                            <th style="width:150px">Name</th>
+                            <th style="width:150px">Age</th>
+                            <th style="width:150px">RelationShip</th>
+                            <th style="width:150px">Delete</th>
+                        </tr>
+
+                        @foreach (OPDEXPENSE_PATIENT customer in Model.listOPDEXPENSEPATIENT)
+                        {
+                            <tr>
+                                <td class="ID">
+                                    <span>@customer.ID</span>
+                                </td>
+                                <td class="NAME">
+                                    <span>@customer.NAME</span>
+                                    <input type="text" value="@customer.NAME" style="display:none" />
+                                </td>
+                                <td class="AGE">
+                                    <span>@customer.AGE</span>
+                                    <input type="text" value="@customer.AGE" style="display:none" />
+                                </td>
+                                <td class="RELATIONSHIP_EMPLOYEE">
+                                    <span>@customer.RELATIONSHIP_EMPLOYEE</span>
+                                    <select id="relationShipListForEdit" style="display:none">
+                                        <option value="SELF">SELF</option>
+                                        <option value="FATHER">FATHER</option>
+                                        <option value="MOTHER">MOTHER</option>
+                                        <option value="SPOUSE">SPOUSE</option>
+                                        <option value="DAUGHTER">DAUGHTER</option>
+                                        <option value="SON">SON</option>
+                                    </select>
+                                </td>
+
+                                <td>
+                                    <a class="Delete" onclick="return DeleteOPDExpensePatient(@customer.ID , this)" href="javascript:;">Delete</a>
+
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </section>
+            </div>
+        </div>
+    }
+    else
+    {
+        <span>No Record Found</span>
+
+    }
+    <hr style="height:3px;border:none;color:#333;background-color:#333;">
+</div>
+<div>
+    <h5>PATIENT RECEIPT INFORMATION</h5>
+    <hr style="height:2px;border:none;color:#333;background-color:#333;">
+    @Html.ActionLink("Add Receipt Information", "Index", "OPDEXPENSEIMAGE", new { id = @ViewData["OPDEXPENSE_ID"] }, null)
+    <br />
+    @if (Model.listOPDEXPENSEIMAGE != null && Model.listOPDEXPENSEIMAGE.Count > 0)
+    {
+        <div class="row">
+            <div class="col-md-offset-1 col-md-8">
+                <section>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th style="width:100px">Sr.</th>
+                                <th style="width:150px">Image Name</th>
+                                <th style="width:150px"></th>
+                                <th style="width:150px">Expense Name</th>
+                                <th style="width:150px">Expense Amount</th>
+                                <th style="width:150px">Delete</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < Model.listOPDEXPENSEIMAGE.Count; i++)
+                            {
+                                <tr>
+                                    <td style="text-align: center;">@(i + 1)</td>
+
+                                    <td style="text-align: center;">
+                                        <div class="input-group" style="height:40px;">
+                                            <i class="fa fa-2x fa-paperclip text-navy"></i>
+                                            <a class="download-file1" href="@Url.Action("DownloadFile", "OPDEXPENSEs", new { fileId = @Model.listOPDEXPENSEIMAGE[i].IMAGE_ID })" target="_blank">
+                                                @Model.listOPDEXPENSEIMAGE[i].IMAGE_NAME
+                                            </a>
+                                        </div>
+                                    </td>
+
+                                    <td style="text-align: center;">
+                                        <div>
+                                            <img src="@Url.Action("DownloadFile", "OPDEXPENSEs", new { fileId = @Model.listOPDEXPENSEIMAGE[i].IMAGE_ID })" width="100" height="100" />
+                                        </div>
+                                    </td>
+
+                                    <td style="text-align: center;">
+                                        <div>
+                                            @Html.DisplayFor(model => @Model.listOPDEXPENSEIMAGE[i].NAME_EXPENSES)
+                                        </div>
+                                    </td>
+
+                                    <td style="text-align: center;">
+                                        <div>
+                                            @Html.DisplayFor(model => @Model.listOPDEXPENSEIMAGE[i].EXPENSE_AMOUNT)
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <a class="Delete" onclick="return DeleteOPDExpenseImage(@Model.listOPDEXPENSEIMAGE[i].IMAGE_ID , this)" href="javascript:;">Delete</a>
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+        </div>
+    }
+    else
+    {
+        <span> No Record Found</span>
+    }
+    <hr style="height:3px;border:none;color:#333;background-color:#333;">
+</div>
+
+
+
 
 <div>
-    @Html.ActionLink("Update Patient Information", "Index","OPDEXPENSEPATIENT",new { id=@ViewData["OPDEXPENSE_ID"] },null)
+   
 </div>
 
 
@@ -98,3 +242,55 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
+<script type="text/javascript">
+
+  //Delete event handler For OPD Expense Patient.
+        function DeleteOPDExpensePatient(ID , _this) {
+            if (confirm("Do you want to delete this row?")) {               
+                $.ajax({
+                    type: "POST",
+                    url: "/OPDEXPENSEPATIENT/DeleteOPDExpensePatient",
+                    data: '{ID: ' + ID + '}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data){
+                      
+                            $(_this).closest('tr').remove();
+                        
+                    },
+                    error: function (data) {
+                     
+                           $(_this).closest('tr').remove();
+                       
+                    }
+                });
+            }
+    };
+
+    //Delete event handler For OPD Expense Image.
+        function DeleteOPDExpenseImage(ID , _this) {
+            if (confirm("Do you want to delete this row?")) {               
+                $.ajax({
+                    type: "POST",
+                    url: "/OPDEXPENSEIMAGE/DeleteOPDEXPENSEIMAGE",
+                    data: '{ID: ' + ID + '}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data){
+                      
+                            $(_this).closest('tr').remove();
+                        
+                    },
+                    error: function (data) {
+                     
+                           $(_this).closest('tr').remove();
+                       
+                    }
+                });
+            }
+        };
+
+    </script>

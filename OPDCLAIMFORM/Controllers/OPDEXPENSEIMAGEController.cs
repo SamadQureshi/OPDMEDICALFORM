@@ -164,6 +164,25 @@ namespace OPDCLAIMFORM.Controllers
             return RedirectToAction("Index", "OPDEXPENSEIMAGE", new { id = opdexpenseid });
         }
 
+        [HttpPost]
+        public ActionResult DeleteOPDEXPENSEIMAGE(int id)
+        {
+           try
+            {
+
+                // Loading dile info.
+                var fileInfo = this.db.DELETE_OPDEXPENSE_IMAGE(id);
+            }
+            catch (Exception ex)
+            {
+                // Info
+                Console.Write(ex);
+            }
+
+            // Info.
+            return new EmptyResult();
+        }
+
 
         #endregion
 

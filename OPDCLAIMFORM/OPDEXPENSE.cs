@@ -11,7 +11,9 @@ namespace OPDCLAIMFORM
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class OPDEXPENSE
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,9 +25,17 @@ namespace OPDCLAIMFORM
     
         public int OPDEXPENSE_ID { get; set; }
         public string EMPLOYEE_EMAILADDRESS { get; set; }
+
+        [DisplayName("Employee Name")]
+        [Required(ErrorMessage = "The Employee Name is required.")]
+        [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Incorrect Employee Name")] 
         public string EMPLOYEE_NAME { get; set; }
         public string EMPLOYEE_DEPARTMENT { get; set; }
         public string CLAIM_MONTH { get; set; }
+
+        [DisplayName("Total Amount")]
+        [Required(ErrorMessage = "The Total Amount is required.")]
+        [Range(0, Int32.MaxValue, ErrorMessage = "Invalid Number")]
         public Nullable<decimal> TOTAL_AMOUNT_CLAIMED { get; set; }
         public string HR_COMMENT { get; set; }
         public Nullable<bool> HR_APPROVAL { get; set; }

@@ -78,14 +78,25 @@ namespace OPDCLAIMFORM.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            OPDEXPENSE oPDEXPENSE = db.OPDEXPENSEs.Find(id);
-            if (oPDEXPENSE == null)
+            //OPDEXPENSE oPDEXPENSE = db.OPDEXPENSEs.Find(id);
+            MedicalInfoEntities entities = new MedicalInfoEntities();
+            var result2 = new OPDEXPENSE_MASTERDETAIL()
             {
-                return HttpNotFound();
-            }
+                listOPDEXPENSEPATIENT = entities.OPDEXPENSE_PATIENT.Where(e => e.OPDEXPENSE_ID == id).ToList(),
+                listOPDEXPENSEIMAGE = entities.OPDEXPENSE_IMAGE.Where(e => e.OPDEXPENSE_ID == id).ToList(),
+                opdEXPENSE = entities.OPDEXPENSEs.Where(e => e.OPDEXPENSE_ID == id).FirstOrDefault()
 
-            ViewData["OPDEXPENSE_ID"] = id;
-            return View(oPDEXPENSE);
+            };
+
+
+
+            //if (oPDEXPENSE == null)
+            //{
+            //    return HttpNotFound();
+            //}
+
+           ViewData["OPDEXPENSE_ID"] = id;
+            return View(result2);
         }
 
         // POST: OPDEXPENSEs/Edit/5
@@ -100,7 +111,7 @@ namespace OPDCLAIMFORM.Controllers
                 db.Entry(oPDEXPENSE).State = EntityState.Modified;
                 db.SaveChanges();
                 //return RedirectToAction("Index");
-                return RedirectToAction("Index", "OPDEXPENSEPATIENT", new { id = oPDEXPENSE.OPDEXPENSE_ID });
+                //return RedirectToAction("Index", "OPDEXPENSEPATIENT", new { id = oPDEXPENSE.OPDEXPENSE_ID });
             }
             return View(oPDEXPENSE);
         }
