@@ -14,7 +14,6 @@
             @using (Html.BeginForm("Index", "OPDEXPENSEIMAGE", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
-
                 <div class="form-group">
                     @Html.LabelFor(m => m.ExpenseName, "Expense Name", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
@@ -53,7 +52,7 @@
 
                     <div class="form-group">
                         <div class="col-md-offset-5 col-md-10">
-                            <input type="submit" class="btn btn-danger" value="Upload" />
+                            <input type="submit" class="btn btn-danger" value="Upload" onsubmit="return validateForms()" />
                         </div>
                     </div>
                 </div>
@@ -125,7 +124,7 @@
                                 </td>
                                 <td style="text-align: center;">
                                     <div>
-                                        @Html.ActionLink("Delete", "Delete", new { id = @Model.ImgLst[i].FileId,opdexpenseid = @Model.ImgLst[i].OPDExpense_id })
+                                        @Html.ActionLink("Delete", "Delete", new { id = @Model.ImgLst[i].FileId, opdexpenseid = @Model.ImgLst[i].OPDExpense_id })
                                     </div>
                                 </td>
                             </tr>
@@ -146,7 +145,15 @@
     @Styles.Render("~/Content/Bootstrap-file/css")
 }
 
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
+<script type="text/javascript">
+    function validateForms() {
+ 
+   return false;
+}
 
+</script>
 @Html.ActionLink("Back to List", "Index", "OPDEXPENSEs")
 
 

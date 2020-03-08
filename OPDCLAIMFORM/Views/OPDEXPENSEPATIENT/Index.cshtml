@@ -86,10 +86,7 @@
   
     <p>
         <div>
-            @Html.ActionLink("Back to List", "Index","OPDEXPENSEs")
-        </div>
-        <div>
-            @Html.ActionLink("Add Image", "Index", "OPDEXPENSEIMAGE", new { id = @ViewData["OPDEXPENSE_ID"] }, null)
+            @Html.ActionLink("Back to List", "Index","OPDEXPENSEs") <span>|</span> @Html.ActionLink("Add Image", "Index", "OPDEXPENSEIMAGE", new { id = @ViewData["OPDEXPENSE_ID"] }, null)
         </div>
        
     </p>
