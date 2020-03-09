@@ -131,6 +131,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HOSPITALEXPENSEController.cs" />
+    <Compile Include="Controllers\HRAPPROVALController.cs" />
     <Compile Include="Controllers\OPDEXPENSEIMAGEController.cs" />
     <Compile Include="Controllers\OPDEXPENSEPATIENTController.cs" />
     <Compile Include="Controllers\OPDEXPENSEsController.cs" />
@@ -292,6 +293,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\HRAPPROVAL\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

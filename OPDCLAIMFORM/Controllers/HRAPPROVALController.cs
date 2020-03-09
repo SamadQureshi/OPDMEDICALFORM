@@ -1,17 +1,15 @@
-﻿using System;
+﻿using OPDCLAIMFORM.Models;
+using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using OPDCLAIMFORM;
-using OPDCLAIMFORM.Models;
 
 namespace OPDCLAIMFORM.Controllers
 {
-    public class OPDEXPENSEsController : Controller
+    public class HRAPPROVALController : Controller
     {
         private MedicalInfoEntities db = new MedicalInfoEntities();
 
@@ -25,13 +23,13 @@ namespace OPDCLAIMFORM.Controllers
         // GET: OPDEXPENSEs/Details/5
         public ActionResult Details(int? id)
         {
-           
+
             MedicalInfoEntities entities = new MedicalInfoEntities();
 
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }          
+            }
 
 
             var result2 = new OPDEXPENSE_MASTERDETAIL()
@@ -96,7 +94,7 @@ namespace OPDCLAIMFORM.Controllers
             //    return HttpNotFound();
             //}
 
-           ViewData["OPDEXPENSE_ID"] = id;
+            ViewData["OPDEXPENSE_ID"] = id;
             return View(result2);
         }
 
@@ -145,13 +143,13 @@ namespace OPDCLAIMFORM.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
-        {          
+        {
 
             var fileInfo = this.db.DELETE_OPDEXPENSE(id);
 
-           // OPDEXPENSE oPDEXPENSE = db.OPDEXPENSEs.Find(id);
-           // db.OPDEXPENSEs.Remove(oPDEXPENSE);
-           // db.SaveChanges();
+            // OPDEXPENSE oPDEXPENSE = db.OPDEXPENSEs.Find(id);
+            // db.OPDEXPENSEs.Remove(oPDEXPENSE);
+            // db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -222,6 +220,5 @@ namespace OPDCLAIMFORM.Controllers
         }
 
         #endregion
-
     }
 }
