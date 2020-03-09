@@ -43,7 +43,7 @@ namespace OPDCLAIMFORM.Models
         public string MANAGEMENT_NAME { get; set; }
 
         [Required(ErrorMessage = "The Date of Illness is required.")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true,DataFormatString = "{0:MM/dd/yyyy}")]
         public Nullable<System.DateTime> DATE_ILLNESS_NOTICED { get; set; }
 
 

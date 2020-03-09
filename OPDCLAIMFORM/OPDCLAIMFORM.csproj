@@ -129,6 +129,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\FINAPPROVALController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HOSPITALEXPENSEController.cs" />
     <Compile Include="Controllers\HRAPPROVALController.cs" />
@@ -291,8 +292,11 @@
     <Content Include="Views\HOSPITALEXPENSE\Edit.cshtml" />
     <Content Include="Views\HOSPITALEXPENSE\Index.cshtml" />
     <Content Include="Views\HRAPPROVAL\Index.cshtml" />
-    <Content Include="Views\HRAPPROVAL\EditForHOSPITALExpense.cshtml" />
-    <Content Include="Views\HRAPPROVAL\EditForOPDExpense.cshtml" />
+    <Content Include="Views\HRAPPROVAL\HRHOSPITALExpense.cshtml" />
+    <Content Include="Views\HRAPPROVAL\HROPDExpense.cshtml" />
+    <Content Include="Views\FINAPPROVAL\FINOPDExpense.cshtml" />
+    <Content Include="Views\FINAPPROVAL\Index.cshtml" />
+    <Content Include="Views\FINAPPROVAL\FINHOSPITALExpense.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

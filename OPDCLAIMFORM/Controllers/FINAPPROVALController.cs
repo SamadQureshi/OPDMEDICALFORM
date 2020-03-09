@@ -9,14 +9,14 @@ using System.Web.Mvc;
 
 namespace OPDCLAIMFORM.Controllers
 {
-    public class HRAPPROVALController : Controller
+    public class FINAPPROVALController : Controller
     {
         private MedicalInfoEntities db = new MedicalInfoEntities();
 
         // GET: OPDEXPENSEs
         public ActionResult Index()
         {
-            return View(db.OPDEXPENSEs.Where(e => e.STATUS == "Completed"  || e.STATUS == "HRApproved" || e.STATUS == "HRRejected").ToList());          
+            return View(db.OPDEXPENSEs.Where(e => e.STATUS == "Completed" || e.STATUS == "HRApproved" || e.STATUS == "FINApproved" || e.STATUS == "FINRejected").ToList());
         }
 
         // GET: OPDEXPENSEs/Details/5
@@ -37,7 +37,7 @@ namespace OPDCLAIMFORM.Controllers
 
             };
             //RedirectToAction("Index",);
-            return View(result2); 
+            return View(result2);
         }
 
 
@@ -91,12 +91,12 @@ namespace OPDCLAIMFORM.Controllers
 
 
         // GET: OPDEXPENSEs/Edit/5
-        public ActionResult HROPDExpense(int? id)
+        public ActionResult FINOPDExpense(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }    
+            }
             MedicalInfoEntities entities = new MedicalInfoEntities();
             var result2 = new OPDEXPENSE_MASTERDETAIL()
             {
@@ -104,7 +104,7 @@ namespace OPDCLAIMFORM.Controllers
                 listOPDEXPENSEIMAGE = entities.OPDEXPENSE_IMAGE.Where(e => e.OPDEXPENSE_ID == id).ToList(),
                 opdEXPENSE = entities.OPDEXPENSEs.Where(e => e.OPDEXPENSE_ID == id).FirstOrDefault()
 
-            };        
+            };
 
             ViewData["OPDEXPENSE_ID"] = id;
             return View(result2);
@@ -115,15 +115,15 @@ namespace OPDCLAIMFORM.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult HROPDExpense([Bind(Include = "OPDEXPENSE_ID,EMPLOYEE_NAME,EMPLOYEE_DEPARTMENT,CLAIM_MONTH,CLAIM_YEAR,TOTAL_AMOUNT_CLAIMED,STATUS,OPDTYPE,HR_COMMENT,HR_NAME")] OPDEXPENSE oPDEXPENSE)
+        public ActionResult FINOPDExpense([Bind(Include = "OPDEXPENSE_ID,EMPLOYEE_NAME,EMPLOYEE_DEPARTMENT,CLAIM_MONTH,CLAIM_YEAR,TOTAL_AMOUNT_CLAIMED,STATUS,OPDTYPE,HR_COMMENT,HR_NAME,FINANCE_COMMENT,FINANCE_NAME,MANAGEMENT_COMMENT,MANAGEMENT_NAME")] OPDEXPENSE oPDEXPENSE)
         {
             if (ModelState.IsValid)
             {
                 oPDEXPENSE.MODIFIED_DATE = DateTime.Now;
-                oPDEXPENSE.HR_APPROVAL_DATE = DateTime.Now;
+                oPDEXPENSE.FINANCE_APPROVAL_DATE = DateTime.Now;
                 db.Entry(oPDEXPENSE).State = EntityState.Modified;
                 db.SaveChanges();
-                               
+
             }
             return RedirectToAction("Index");
         }
@@ -133,12 +133,12 @@ namespace OPDCLAIMFORM.Controllers
 
 
         // GET: OPDEXPENSEs/Edit/5
-        public ActionResult HRHospitalExpense(int? id)
+        public ActionResult FINHospitalExpense(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }         
+            }
 
             MedicalInfoEntities entities = new MedicalInfoEntities();
             OPDEXPENSE oPDEXPENSE = db.OPDEXPENSEs.Find(id);
@@ -188,15 +188,15 @@ namespace OPDCLAIMFORM.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult HRHospitalExpense([Bind(Include = "OPDEXPENSE_ID,EMPLOYEE_NAME,EMPLOYEE_DEPARTMENT,CLAIM_MONTH,TOTAL_AMOUNT_CLAIMED,HR_COMMENT,HR_APPROVAL_DATE,HR_NAME,FINANCE_COMMENT,FINANCE_APPROVAL,FINANCE_APPROVAL_DATE,FINANCE_NAME,MANAGEMENT_COMMENT,MANAGEMENT_APPROVAL,MANAGEMENT_APPROVAL_DATE,MANAGEMENT_NAME,DATE_ILLNESS_NOTICED,DATE_RECOVERY,DIAGNOSIS,CLAIMANT_SUFFERED_ILLNESS,CLAIMANT_SUFFERED_ILLNESS_DATE,CLAIMANT_SUFFERED_ILLNESS_DETAILS,HOSPITAL_NAME,DOCTOR_NAME,PERIOD_CONFINEMENT_DATE_FROM,PERIOD_CONFINEMENT_DATE_TO,DRUGS_PRESCRIBED_BOOL,DRUGS_PRESCRIBED_DESCRIPTION,OPDTYPE,STATUS")] OPDEXPENSE oPDEXPENSE)
+        public ActionResult FINHospitalExpense([Bind(Include = "OPDEXPENSE_ID,EMPLOYEE_NAME,EMPLOYEE_DEPARTMENT,CLAIM_MONTH,TOTAL_AMOUNT_CLAIMED,HR_COMMENT,HR_APPROVAL_DATE,HR_NAME,FINANCE_COMMENT,FINANCE_APPROVAL,FINANCE_APPROVAL_DATE,FINANCE_NAME,MANAGEMENT_COMMENT,MANAGEMENT_APPROVAL,MANAGEMENT_APPROVAL_DATE,MANAGEMENT_NAME,DATE_ILLNESS_NOTICED,DATE_RECOVERY,DIAGNOSIS,CLAIMANT_SUFFERED_ILLNESS,CLAIMANT_SUFFERED_ILLNESS_DATE,CLAIMANT_SUFFERED_ILLNESS_DETAILS,HOSPITAL_NAME,DOCTOR_NAME,PERIOD_CONFINEMENT_DATE_FROM,PERIOD_CONFINEMENT_DATE_TO,DRUGS_PRESCRIBED_BOOL,DRUGS_PRESCRIBED_DESCRIPTION,OPDTYPE,STATUS")] OPDEXPENSE oPDEXPENSE)
         {
             if (ModelState.IsValid)
             {
                 oPDEXPENSE.MODIFIED_DATE = DateTime.Now;
-                oPDEXPENSE.HR_APPROVAL_DATE = DateTime.Now;
-                
+                oPDEXPENSE.FINANCE_APPROVAL_DATE = DateTime.Now;
+
                 db.Entry(oPDEXPENSE).State = EntityState.Modified;
-                db.SaveChanges();                
+                db.SaveChanges();
             }
             return RedirectToAction("Index");
         }

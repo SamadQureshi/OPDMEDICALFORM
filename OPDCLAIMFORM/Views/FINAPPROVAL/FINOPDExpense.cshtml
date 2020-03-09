@@ -1,4 +1,4 @@
-﻿@model OPDCLAIMFORM.Models.HOSPITALEXPENSE_MASTERDETAIL
+﻿@model OPDCLAIMFORM.Models.OPDEXPENSE_MASTERDETAIL
 
 @{
     ViewBag.Title = "Edit";
@@ -6,7 +6,6 @@
 }
 
 <h2>Edit</h2>
-
 
 @using (Html.BeginForm())
 {
@@ -16,143 +15,90 @@
     <h4>OPDEXPENSE</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.OPDEXPENSE_ID)
-    @Html.HiddenFor(model => model.OPDTYPE)
-
+    @Html.HiddenFor(model => model.opdEXPENSE.OPDEXPENSE_ID)
+    @Html.HiddenFor(model => model.opdEXPENSE.OPDTYPE)
     <div class="form-group">
-        @Html.LabelFor(model => model.EMPLOYEE_NAME, "Name of Employee", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.opdEXPENSE.EMPLOYEE_NAME, "Employee Name", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.TextBoxFor(model => model.EMPLOYEE_NAME, new {@readonly = "readonly", @class = "form-control" })           
-        </div>
-    </div>   
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.DATE_ILLNESS_NOTICED, "Date of illness first noticed", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(model => model.DATE_ILLNESS_NOTICED,new {@readonly = "readonly", @class = "form-control" })          
+            @Html.TextBoxFor(model => model.opdEXPENSE.EMPLOYEE_NAME, new { @readonly = "readonly", @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.opdEXPENSE.EMPLOYEE_NAME, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.DATE_RECOVERY, "Date of recovery", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.opdEXPENSE.EMPLOYEE_DEPARTMENT, "Employee Department", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.TextBoxFor(model => model.DATE_RECOVERY, new {@readonly = "readonly", @class = "form-control" })          
+            @Html.TextBoxFor(model => model.opdEXPENSE.EMPLOYEE_DEPARTMENT, new { @readonly = "readonly", @class = "form-control" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.DIAGNOSIS, "Diagnosis", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.opdEXPENSE.CLAIM_MONTH, "Claim For Month", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.TextBoxFor(model => model.DIAGNOSIS, new {@readonly = "readonly", @class = "form-control" })     
+            @Html.TextBoxFor(model => model.opdEXPENSE.CLAIM_MONTH, new { @readonly = "readonly", @class = "form-control" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.CLAIMANT_SUFFERED_ILLNESS, "Has the claimant suffered from this illness before?", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.opdEXPENSE.CLAIM_YEAR, "Claim For Year", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            <div class="checkbox">
-                @Html.TextBoxFor(model => model.CLAIMANT_SUFFERED_ILLNESS,new {@readonly = "readonly", @class = "form-control" })               
-            </div>
+            @Html.TextBoxFor(model => model.opdEXPENSE.CLAIM_YEAR, new { @readonly = "readonly", @class = "form-control" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.CLAIMANT_SUFFERED_ILLNESS_DATE, "If yes,please give claimant suffered from this illness date", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.opdEXPENSE.TOTAL_AMOUNT_CLAIMED, "Total Amount Claimed", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.TextBoxFor(model => model.CLAIMANT_SUFFERED_ILLNESS_DATE, new {@readonly = "readonly", @class = "form-control" })           
+            @Html.TextBoxFor(model => model.opdEXPENSE.TOTAL_AMOUNT_CLAIMED, new { @readonly = "readonly", @class = "form-control" })
+
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.CLAIMANT_SUFFERED_ILLNESS_DETAILS, "If yes,please give claimant suffered from this illness details", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.opdEXPENSE.HR_COMMENT, "HR Comment", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.TextBoxFor(model => model.CLAIMANT_SUFFERED_ILLNESS_DETAILS,new {@readonly = "readonly", @class = "form-control" })           
+            @Html.TextBoxFor(model => model.opdEXPENSE.HR_COMMENT, new { @readonly = "readonly", @class = "form-control" })          
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.HOSPITAL_NAME, "Name of Hospital attended", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.opdEXPENSE.HR_NAME, "HR Name", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.TextBoxFor(model => model.HOSPITAL_NAME, new {@readonly = "readonly", @class = "form-control" })            
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.DOCTOR_NAME, "Name of medical practitioner consulted:", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(model => model.DOCTOR_NAME,new {@readonly = "readonly", @class = "form-control" })            
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.PERIOD_CONFINEMENT_DATE_FROM, "Period of confinement From", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(model => model.PERIOD_CONFINEMENT_DATE_FROM,new {@readonly = "readonly", @class = "form-control" })            
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.PERIOD_CONFINEMENT_DATE_TO, "Period of confinement To", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(model => model.PERIOD_CONFINEMENT_DATE_TO, new {@readonly = "readonly", @class = "form-control" })         
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.DRUGS_PRESCRIBED_BOOL, "Were any drugs prescribed:Yes/No", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <div class="checkbox">
-                @Html.TextBoxFor(model => model.DRUGS_PRESCRIBED_BOOL,new {@readonly = "readonly", @class = "form-control" })             
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.DRUGS_PRESCRIBED_DESCRIPTION, "If yes,please list the drugs prescribed and administered", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(model => model.DRUGS_PRESCRIBED_DESCRIPTION, new {@readonly = "readonly", @class = "form-control" })            
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.TOTAL_AMOUNT_CLAIMED, "Total Amount Claimed", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.TOTAL_AMOUNT_CLAIMED, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.TOTAL_AMOUNT_CLAIMED, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.HR_COMMENT, "HR Comment", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextAreaFor(model => model.HR_COMMENT, 2, 40, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.HR_COMMENT, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.HR_NAME, "HR Name", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.HR_NAME, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.HR_NAME, "", new { @class = "text-danger" })
+            @Html.TextBoxFor(model => model.opdEXPENSE.HR_NAME, new { @readonly = "readonly", @class = "form-control" })         
         </div>
     </div>
 
 
     <div class="form-group">
-        @Html.LabelFor(model => model.STATUS, "Status", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.opdEXPENSE.FINANCE_COMMENT, "Finance Comment", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownListFor(model => model.STATUS, new List<SelectListItem>
+            @Html.TextAreaFor(model => model.opdEXPENSE.FINANCE_COMMENT, 2, 40, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.opdEXPENSE.FINANCE_COMMENT, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.opdEXPENSE.FINANCE_NAME, "Finance Name", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.opdEXPENSE.FINANCE_NAME, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.opdEXPENSE.FINANCE_NAME, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.opdEXPENSE.STATUS, "Status", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.opdEXPENSE.STATUS, new List<SelectListItem>
                     {
-                       new SelectListItem{ Text="HRApproved", Value = "HRApproved" },
-                       new SelectListItem{ Text="HRRejected", Value = "HRRejected" }
+                       new SelectListItem{ Text="FINApproved", Value = "FINApproved" },
+                       new SelectListItem{ Text="FINRejected", Value = "FINRejected" }
                     }, new { @class = "form-control select2_demo_4" })
         </div>
     </div>
-
-
-
-
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
@@ -161,7 +107,6 @@
     </div>
 </div>
 }
-
 <div>
     <h5>PATIENT INFORMATION</h5>
     <hr style="height:2px;border:none;color:#333;background-color:#333;">   
@@ -172,7 +117,7 @@
                 <section>
                     <table id="tblCustomers" class="table table-bordered table-striped">
                         <tr>
-                            <th style="width:100px">Id</th>
+                            <th style="width:100px">Sr.</th>
                             <th style="width:150px">Name</th>
                             <th style="width:150px">Age</th>
                             <th style="width:150px">RelationShip</th>                           
@@ -202,7 +147,7 @@
                                         <option value="DAUGHTER">DAUGHTER</option>
                                         <option value="SON">SON</option>
                                     </select>
-                                </td>                               
+                                </td>
                             </tr>
                         }
                     </table>
@@ -267,7 +212,7 @@
                                         <div>
                                             @Html.DisplayFor(model => @Model.listOPDEXPENSEIMAGE[i].EXPENSE_AMOUNT)
                                         </div>
-                                    </td>                                  
+                                    </td>                                   
                                 </tr>
                             }
                         </tbody>
@@ -283,29 +228,10 @@
     <hr style="height:3px;border:none;color:#333;background-color:#333;">
 </div>
 
-
-
-
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
 
-
-<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script type="text/javascript" src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
-    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
-    <script type="text/javascript">
-
-        $(function () {
-            $(".datepicker").datepicker({
-                dateformat: "MM-dd-yyyy"
-            });
-        })
-
-    </script>
 }

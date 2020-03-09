@@ -58,12 +58,12 @@
     <td>
         @if (item.OPDTYPE.Equals("OPD Expense"))
         {
-            @Html.ActionLink("Edit", "HROPDExpense", "HRAPPROVAL", new { id = item.OPDEXPENSE_ID }, null)  
+            @Html.ActionLink("Edit", "FINOPDExpense", "FINAPPROVAL", new { id = item.OPDEXPENSE_ID }, null)  
            
         }
         @if (item.OPDTYPE.Equals("Hospital Expense"))
         {
-            @Html.ActionLink("Edit", "HRHOSPITALExpense", "HRAPPROVAL", new { id = item.OPDEXPENSE_ID }, null)
+            @Html.ActionLink("Edit", "FINHOSPITALExpense", "FINAPPROVAL", new { id = item.OPDEXPENSE_ID }, null)
         }
     </td>
 </tr>
