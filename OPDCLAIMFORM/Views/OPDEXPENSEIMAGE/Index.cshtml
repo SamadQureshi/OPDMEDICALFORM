@@ -19,6 +19,7 @@
                     <div class="col-md-10">
                         @Html.EditorFor(m => m.ExpenseName, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(m => m.ExpenseName, "", new { @class = "text-danger" })
+
                     </div>
                 </div>
 
@@ -27,6 +28,7 @@
                     <div class="col-md-10">
                         @Html.EditorFor(m => m.ExpenseAmount, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(m => m.ExpenseAmount, "", new { @class = "text-danger" })
+
                     </div>
                 </div>
                 <div class="well bs-component">
@@ -52,7 +54,7 @@
 
                     <div class="form-group">
                         <div class="col-md-offset-5 col-md-10">
-                            <input type="submit" class="btn btn-danger" value="Upload" onsubmit="return validateForms()" />
+                            <input type="submit" class="btn btn-danger" value="Upload" />
                         </div>
                     </div>
                 </div>

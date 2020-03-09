@@ -50,28 +50,26 @@ namespace OPDCLAIMFORM
         public Nullable<System.DateTime> MANAGEMENT_APPROVAL_DATE { get; set; }
         public string MANAGEMENT_NAME { get; set; }
 
-        [Required(ErrorMessage = "The Date of Illness is required.")]
+      
         public Nullable<System.DateTime> DATE_ILLNESS_NOTICED { get; set; }
 
-        [Required(ErrorMessage = "The Date of Recovery is required.")]
         public Nullable<System.DateTime> DATE_RECOVERY { get; set; }
 
-        [Required(ErrorMessage = "The Diagnosis is required.")]
         public string DIAGNOSIS { get; set; }
         public Nullable<bool> CLAIMANT_SUFFERED_ILLNESS { get; set; }
         public Nullable<System.DateTime> CLAIMANT_SUFFERED_ILLNESS_DATE { get; set; }
         public string CLAIMANT_SUFFERED_ILLNESS_DETAILS { get; set; }
 
-        [Required(ErrorMessage = "The Hospital Name is required.")]
+        
         public string HOSPITAL_NAME { get; set; }
 
-        [Required(ErrorMessage = "The Doctor Name is required.")]
+        
         public string DOCTOR_NAME { get; set; }
 
-        [Required(ErrorMessage = "The Period of Confinement is required.")]
+
         public Nullable<System.DateTime> PERIOD_CONFINEMENT_DATE_FROM { get; set; }
 
-        [Required(ErrorMessage = "The Period of Confinement is required.")]
+   
         public Nullable<System.DateTime> PERIOD_CONFINEMENT_DATE_TO { get; set; }
         public Nullable<bool> DRUGS_PRESCRIBED_BOOL { get; set; }
         public string DRUGS_PRESCRIBED_DESCRIPTION { get; set; }

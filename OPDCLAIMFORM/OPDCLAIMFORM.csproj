@@ -161,6 +161,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\HOSPITALEXPENSE_MASTERDETAIL.cs" />
     <Compile Include="Models\ImgViewModel.cs" />
     <Compile Include="Models\OPDEXPENSE_IMAGEOBJ.cs" />
     <Compile Include="Models\OPDEXPENSE_MASTERDETAIL.cs" />

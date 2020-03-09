@@ -63,7 +63,8 @@ namespace OPDCLAIMFORM.Controllers
                 oPDEXPENSE.OPDTYPE = "OPD Expense";
                 oPDEXPENSE.STATUS = "InProcess";
                 db.OPDEXPENSEs.Add(oPDEXPENSE);
-                db.SaveChanges();              
+                db.SaveChanges();
+                ///ViewData["OPDEXPENSE_ID"] = oPDEXPENSE.OPDEXPENSE_ID;
                 //return RedirectToAction("Index");
                 return RedirectToAction("Index", "OPDEXPENSEPATIENT", new { id = oPDEXPENSE.OPDEXPENSE_ID });
             }
@@ -104,13 +105,13 @@ namespace OPDCLAIMFORM.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "EMPLOYEE_EMAILADDRESS,EMPLOYEE_NAME,EMPLOYEE_DEPARTMENT,CLAIM_MONTH,TOTAL_AMOUNT_CLAIMED,CLAIM_YEAR")] OPDEXPENSE oPDEXPENSE)
+        public ActionResult Edit([Bind(Include = "OPDEXPENSE_ID,EMPLOYEE_NAME,EMPLOYEE_DEPARTMENT,CLAIM_MONTH,CLAIM_YEAR,TOTAL_AMOUNT_CLAIMED,STATUS,OPDTYPE")] OPDEXPENSE oPDEXPENSE)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(oPDEXPENSE).State = EntityState.Modified;
                 db.SaveChanges();
-                //return RedirectToAction("Index");
+                return RedirectToAction("Index");
                 //return RedirectToAction("Index", "OPDEXPENSEPATIENT", new { id = oPDEXPENSE.OPDEXPENSE_ID });
             }
             return View(oPDEXPENSE);
@@ -119,6 +120,12 @@ namespace OPDCLAIMFORM.Controllers
         // GET: OPDEXPENSEs/Delete/5
         public ActionResult Delete(int? id)
         {
+
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
 
             var fileInfo = this.db.DELETE_OPDEXPENSE(id);
 
@@ -141,9 +148,14 @@ namespace OPDCLAIMFORM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-         
-          
-           var fileInfo = this.db.DELETE_OPDEXPENSE(id);
+
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var fileInfo = this.db.DELETE_OPDEXPENSE(id);
 
 
            // OPDEXPENSE oPDEXPENSE = db.OPDEXPENSEs.Find(id);

@@ -1,4 +1,4 @@
-﻿@model OPDCLAIMFORM.OPDEXPENSE
+﻿@model OPDCLAIMFORM.Models.HOSPITALEXPENSE_MASTERDETAIL
 
 @{
     ViewBag.Title = "Details";
@@ -11,16 +11,9 @@
     <h4>OPDEXPENSE</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.EMPLOYEE_EMAILADDRESS)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EMPLOYEE_EMAILADDRESS)
-        </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.EMPLOYEE_NAME)
+            @Html.DisplayName("Name of Employee")
         </dt>
 
         <dd>
@@ -28,7 +21,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.EMPLOYEE_DEPARTMENT)
+            @Html.DisplayName("Employee Department")
         </dt>
 
         <dd>
@@ -36,119 +29,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CLAIM_MONTH)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CLAIM_MONTH)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TOTAL_AMOUNT_CLAIMED)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TOTAL_AMOUNT_CLAIMED)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.HR_COMMENT)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.HR_COMMENT)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.HR_APPROVAL)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.HR_APPROVAL)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.HR_APPROVAL_DATE)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.HR_APPROVAL_DATE)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.HR_NAME)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.HR_NAME)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FINANCE_COMMENT)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FINANCE_COMMENT)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FINANCE_APPROVAL)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FINANCE_APPROVAL)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FINANCE_APPROVAL_DATE)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FINANCE_APPROVAL_DATE)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FINANCE_NAME)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FINANCE_NAME)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MANAGEMENT_COMMENT)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MANAGEMENT_COMMENT)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MANAGEMENT_APPROVAL)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MANAGEMENT_APPROVAL)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MANAGEMENT_APPROVAL_DATE)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MANAGEMENT_APPROVAL_DATE)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MANAGEMENT_NAME)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MANAGEMENT_NAME)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DATE_ILLNESS_NOTICED)
+            @Html.DisplayName("Date of Illness Noticed") 
         </dt>
 
         <dd>
@@ -156,7 +37,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.DATE_RECOVERY)
+            @Html.DisplayName("Date of Recovery") 
         </dt>
 
         <dd>
@@ -164,7 +45,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.DIAGNOSIS)
+            @Html.DisplayName("Diagnosis") 
         </dt>
 
         <dd>
@@ -172,31 +53,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CLAIMANT_SUFFERED_ILLNESS)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CLAIMANT_SUFFERED_ILLNESS)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CLAIMANT_SUFFERED_ILLNESS_DATE)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CLAIMANT_SUFFERED_ILLNESS_DATE)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CLAIMANT_SUFFERED_ILLNESS_DETAILS)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CLAIMANT_SUFFERED_ILLNESS_DETAILS)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.HOSPITAL_NAME)
+            @Html.DisplayName("Hospital Name")
         </dt>
 
         <dd>
@@ -204,7 +61,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.DOCTOR_NAME)
+            @Html.DisplayName("Doctor Name")
         </dt>
 
         <dd>
@@ -212,7 +69,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.PERIOD_CONFINEMENT_DATE_FROM)
+            @Html.DisplayName("Period of Confinement From") 
         </dt>
 
         <dd>
@@ -220,7 +77,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.PERIOD_CONFINEMENT_DATE_TO)
+            @Html.DisplayName("Period of Confinement To") 
         </dt>
 
         <dd>
@@ -228,7 +85,31 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.DRUGS_PRESCRIBED_BOOL)
+            @Html.DisplayName("The Claimant Suffered from Illness Before?")    
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CLAIMANT_SUFFERED_ILLNESS)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("The Illness Date")   
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CLAIMANT_SUFFERED_ILLNESS_DATE)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("The Illness Details") 
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CLAIMANT_SUFFERED_ILLNESS_DETAILS)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Drugs Prescribed")
         </dt>
 
         <dd>
@@ -236,7 +117,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.DRUGS_PRESCRIBED_DESCRIPTION)
+            @Html.DisplayName("Drugs Description")
         </dt>
 
         <dd>
@@ -244,16 +125,98 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.OPDTYPE)
+            @Html.DisplayName("Status")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.OPDTYPE)
+            @Html.DisplayFor(model => model.STATUS)
         </dd>
+
+        <dt>
+            @Html.DisplayName("Total Amount Claimed")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TOTAL_AMOUNT_CLAIMED)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayName("HR Comment")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HR_COMMENT)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("HR Approval")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HR_APPROVAL)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("HR Name")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HR_NAME)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Finance Comment")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FINANCE_COMMENT)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Finance Approval")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FINANCE_APPROVAL)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Finance Name")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FINANCE_NAME)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Management Comment")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MANAGEMENT_COMMENT)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Management Approval")
+
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MANAGEMENT_APPROVAL)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Management Name")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MANAGEMENT_NAME)
+        </dd>
+
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.OPDEXPENSE_ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", "OPDEXPENSEs")
 </p>

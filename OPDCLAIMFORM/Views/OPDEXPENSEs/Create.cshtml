@@ -13,98 +13,99 @@
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <h4>OPDEXPENSE</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-horizontal">
+        <h4>OPDEXPENSE</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.EMPLOYEE_NAME, "Name of Employee", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.EMPLOYEE_NAME, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.EMPLOYEE_NAME, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.EMPLOYEE_NAME, "Name of Employee", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EMPLOYEE_NAME, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EMPLOYEE_NAME, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EMPLOYEE_DEPARTMENT, "Employee Department", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.EMPLOYEE_DEPARTMENT, new List<SelectListItem>
+            {
+                       new SelectListItem {Text = "Consulting", Value = "Consulting"},
+                       new SelectListItem {Text = "Qorsquad", Value = "Qorsquad"},
+                       new SelectListItem {Text = "Product", Value = "Product"},
+                       new SelectListItem {Text = "SalesAndMarketing", Value = "SalesAndMarketing"},
+
+                    }, new { @class = "form-control select2_demo_4" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CLAIM_MONTH, "Claim For Month", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.CLAIM_MONTH, new List<SelectListItem>
+            {
+                       new SelectListItem {Text = "JAN", Value = "JAN"},
+                       new SelectListItem {Text = "FEB", Value = "FEB"},
+                       new SelectListItem {Text = "MAR", Value = "MAR"},
+                       new SelectListItem {Text = "APR", Value = "APR"},
+                       new SelectListItem {Text = "MAY", Value = "MAY"},
+                       new SelectListItem {Text = "JUN", Value = "JUN"},
+                       new SelectListItem {Text = "JUL", Value = "JUL"},
+                       new SelectListItem {Text = "AUG", Value = "AUG"},
+                       new SelectListItem {Text = "SEP", Value = "SEP"},
+                       new SelectListItem {Text = "OCT", Value = "OCT"},
+                       new SelectListItem {Text = "NOV", Value = "NOV"},
+                       new SelectListItem {Text = "DEC", Value = "DEC"},
+
+                    }, new { @class = "form-control select2_demo_4" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CLAIM_YEAR, "Claim For Year", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.CLAIM_YEAR, new List<SelectListItem>
+            {
+                       new SelectListItem {Text = "2020", Value = "2020"},
+                       new SelectListItem {Text = "2021", Value = "2021"},
+                       new SelectListItem {Text = "2022", Value = "2022"},
+                       new SelectListItem {Text = "2023", Value = "2023"},
+                       new SelectListItem {Text = "2024", Value = "2024"},
+                       new SelectListItem {Text = "2025", Value = "2025"},
+                       new SelectListItem {Text = "2026", Value = "2026"},
+                       new SelectListItem {Text = "2027", Value = "2027"},
+                       new SelectListItem {Text = "2028", Value = "2028"},
+                       new SelectListItem {Text = "2029", Value = "2029"},
+                       new SelectListItem {Text = "2030", Value = "2030"},
+                       new SelectListItem {Text = "2031", Value = "2031"},
+
+                    }, new { @class = "form-control select2_demo_4" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TOTAL_AMOUNT_CLAIMED, "Total Amount Claimed", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TOTAL_AMOUNT_CLAIMED, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TOTAL_AMOUNT_CLAIMED, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default"  />
+            </div>
         </div>
     </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.EMPLOYEE_DEPARTMENT, "Employee Department", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.EMPLOYEE_DEPARTMENT, new List<SelectListItem>
-        {
-                   new SelectListItem {Text = "Consulting", Value = "Consulting"},
-                   new SelectListItem {Text = "Qorsquad", Value = "Qorsquad"},
-                   new SelectListItem {Text = "Product", Value = "Product"},
-                   new SelectListItem {Text = "SalesAndMarketing", Value = "SalesAndMarketing"},
-
-                }, new { @class = "form-control select2_demo_4" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.CLAIM_MONTH, "Claim For Month", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.CLAIM_MONTH, new List<SelectListItem>
-        {
-                   new SelectListItem {Text = "JAN", Value = "JAN"},
-                   new SelectListItem {Text = "FEB", Value = "FEB"},
-                   new SelectListItem {Text = "MAR", Value = "MAR"},
-                   new SelectListItem {Text = "APR", Value = "APR"},
-                   new SelectListItem {Text = "MAY", Value = "MAY"},
-                   new SelectListItem {Text = "JUN", Value = "JUN"},
-                   new SelectListItem {Text = "JUL", Value = "JUL"},
-                   new SelectListItem {Text = "AUG", Value = "AUG"},
-                   new SelectListItem {Text = "SEP", Value = "SEP"},
-                   new SelectListItem {Text = "OCT", Value = "OCT"},
-                   new SelectListItem {Text = "NOV", Value = "NOV"},
-                   new SelectListItem {Text = "DEC", Value = "DEC"},
-
-                }, new { @class = "form-control select2_demo_4" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.CLAIM_YEAR, "Claim For Year", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.CLAIM_YEAR, new List<SelectListItem>
-        {
-                   new SelectListItem {Text = "2020", Value = "2020"},
-                   new SelectListItem {Text = "2021", Value = "2021"},
-                   new SelectListItem {Text = "2022", Value = "2022"},
-                   new SelectListItem {Text = "2023", Value = "2023"},
-                   new SelectListItem {Text = "2024", Value = "2024"},
-                   new SelectListItem {Text = "2025", Value = "2025"},
-                   new SelectListItem {Text = "2026", Value = "2026"},
-                   new SelectListItem {Text = "2027", Value = "2027"},
-                   new SelectListItem {Text = "2028", Value = "2028"},
-                   new SelectListItem {Text = "2029", Value = "2029"},
-                   new SelectListItem {Text = "2030", Value = "2030"},
-                   new SelectListItem {Text = "2031", Value = "2031"},
-
-                }, new { @class = "form-control select2_demo_4" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.TOTAL_AMOUNT_CLAIMED, "Total Amount Claimed", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.TOTAL_AMOUNT_CLAIMED, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.TOTAL_AMOUNT_CLAIMED, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
-        </div>
-    </div>
-</div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index") 
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
 }
+

@@ -67,12 +67,14 @@ namespace OPDCLAIMFORM.Controllers
 
             try
             {
-                // Verification       
-
                 model.OPDExpense_ID = Convert.ToInt32(Request.Url.Segments[3].ToString());
 
+                if (ModelState.IsValid)
+                {
+                    // Verification                      
+
                     // Converting to bytes.
-                byte[] uploadedFile = new byte[model.FileAttach.InputStream.Length];
+                    byte[] uploadedFile = new byte[model.FileAttach.InputStream.Length];
                     model.FileAttach.InputStream.Read(uploadedFile, 0, uploadedFile.Length);
 
                     // Initialization.
@@ -80,20 +82,21 @@ namespace OPDCLAIMFORM.Controllers
                     fileContentType = model.FileAttach.ContentType;
 
                     // Saving info.
-                    this.db.ADD_OPDEXPENSE_IMAGE(model.OPDExpense_ID,model.FileAttach.FileName, fileContentType, fileContent, model.ExpenseName, model.ExpenseAmount);
+                    this.db.ADD_OPDEXPENSE_IMAGE(model.OPDExpense_ID, model.FileAttach.FileName, fileContentType, fileContent, model.ExpenseName, model.ExpenseAmount);
+                }
+
+                    // Settings.
+                    model.ImgLst = this.db.GET_OPDEXPENSE_IMAGE1().Select(p => new OPDEXPENSE_IMAGEOBJ
+                    {
+                        FileId = p.IMAGE_ID,
+                        FileName = p.IMAGE_NAME,
+                        FileContentType = p.IMAGE_EXT,
+                        ExpenseAmount = p.EXPENSE_AMOUNT,
+                        ExpenseName = p.NAME_EXPENSES,
+                        OPDExpense_id = p.OPDEXPENSE_ID,
+
+                    }).Where(e => e.OPDExpense_id == model.OPDExpense_ID).ToList();
                 
-
-                // Settings.
-                model.ImgLst = this.db.GET_OPDEXPENSE_IMAGE1().Select(p => new OPDEXPENSE_IMAGEOBJ
-                {
-                    FileId = p.IMAGE_ID,
-                    FileName = p.IMAGE_NAME,
-                    FileContentType = p.IMAGE_EXT,
-                    ExpenseAmount = p.EXPENSE_AMOUNT,
-                    ExpenseName = p.NAME_EXPENSES,
-                    OPDExpense_id = p.OPDEXPENSE_ID,
-
-                }).Where(e => e.OPDExpense_id == model.OPDExpense_ID).ToList();
             }
             catch (Exception ex)
             {
