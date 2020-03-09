@@ -112,6 +112,8 @@ namespace OPDCLAIMFORM.Controllers
             MedicalInfoEntities entities = new MedicalInfoEntities();
             OPDEXPENSE oPDEXPENSE = db.OPDEXPENSEs.Find(id);
 
+            
+
 
             var result2 = new HOSPITALEXPENSE_MASTERDETAIL()
             {
@@ -121,6 +123,8 @@ namespace OPDCLAIMFORM.Controllers
                 CLAIMANT_SUFFERED_ILLNESS = oPDEXPENSE.CLAIMANT_SUFFERED_ILLNESS,
                 CLAIMANT_SUFFERED_ILLNESS_DETAILS = oPDEXPENSE.CLAIMANT_SUFFERED_ILLNESS_DETAILS,
                 CLAIMANT_SUFFERED_ILLNESS_DATE = oPDEXPENSE.CLAIMANT_SUFFERED_ILLNESS_DATE,
+
+
                 DATE_ILLNESS_NOTICED = oPDEXPENSE.DATE_ILLNESS_NOTICED,
                 DATE_RECOVERY = oPDEXPENSE.DATE_RECOVERY,
                 DIAGNOSIS = oPDEXPENSE.DIAGNOSIS,

@@ -290,10 +290,12 @@
     <Content Include="Views\HOSPITALEXPENSE\Details.cshtml" />
     <Content Include="Views\HOSPITALEXPENSE\Edit.cshtml" />
     <Content Include="Views\HOSPITALEXPENSE\Index.cshtml" />
+    <Content Include="Views\HRAPPROVAL\Index.cshtml" />
+    <Content Include="Views\HRAPPROVAL\EditForHOSPITALExpense.cshtml" />
+    <Content Include="Views\HRAPPROVAL\EditForOPDExpense.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\HRAPPROVAL\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

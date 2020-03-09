@@ -43,17 +43,25 @@ namespace OPDCLAIMFORM.Models
         public string MANAGEMENT_NAME { get; set; }
 
         [Required(ErrorMessage = "The Date of Illness is required.")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public Nullable<System.DateTime> DATE_ILLNESS_NOTICED { get; set; }
 
+
+
         [Required(ErrorMessage = "The Date of Recovery is required.")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public Nullable<System.DateTime> DATE_RECOVERY { get; set; }
+
+
 
         [Required(ErrorMessage = "The Diagnosis is required.")]
         public string DIAGNOSIS { get; set; }
         public Nullable<bool> CLAIMANT_SUFFERED_ILLNESS { get; set; }
 
-        [DisplayFormat( DataFormatString = "{0:dd/MM/yyyy}")]
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public Nullable<System.DateTime> CLAIMANT_SUFFERED_ILLNESS_DATE { get; set; }
+
         public string CLAIMANT_SUFFERED_ILLNESS_DETAILS { get; set; }
 
         [Required(ErrorMessage = "The Hospital Name is required.")]
@@ -62,9 +70,13 @@ namespace OPDCLAIMFORM.Models
         [Required(ErrorMessage = "The Doctor Name is required.")]
         public string DOCTOR_NAME { get; set; }
 
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         [Required(ErrorMessage = "The Period of Confinement is required.")]
         public Nullable<System.DateTime> PERIOD_CONFINEMENT_DATE_FROM { get; set; }
 
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         [Required(ErrorMessage = "The Period of Confinement is required.")]
         public Nullable<System.DateTime> PERIOD_CONFINEMENT_DATE_TO { get; set; }
         public Nullable<bool> DRUGS_PRESCRIBED_BOOL { get; set; }
