@@ -30,6 +30,22 @@
     </div>
 
     <div class="form-group">
+        @Html.LabelFor(model => model.EMPLOYEE_DEPARTMENT, "Employee Department", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.EMPLOYEE_DEPARTMENT, new { @readonly = "readonly", @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CLAIM_YEAR, "Claim For Year", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.CLAIM_YEAR, new { @readonly = "readonly", @class = "form-control" })
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
         @Html.LabelFor(model => model.DATE_ILLNESS_NOTICED, "Date of illness first noticed", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.TextBoxFor(model => model.DATE_ILLNESS_NOTICED, "{0:MM/dd/yyyy}", new { @readonly = "readonly", @class = "form-control" })
