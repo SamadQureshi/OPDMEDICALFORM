@@ -5,10 +5,17 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<style>
+    .list-dl {
+        margin-left: 180px;
+        margin-bottom: 20px;
+    }
+</style>
+
+<h2>Hospital Expense Details</h2>
 
 <div>
-    <h4>OPDEXPENSE</h4>
+
     <hr />
     <dl class="dl-horizontal">
 
@@ -16,7 +23,7 @@
             @Html.DisplayName("Name of Employee")
         </dt>
 
-        <dd>
+        <dd class="list-dl">
             @Html.DisplayFor(model => model.EMPLOYEE_NAME)
         </dd>
 
@@ -24,7 +31,7 @@
             @Html.DisplayName("Employee Department")
         </dt>
 
-        <dd>
+        <dd class="list-dl">
             @Html.DisplayFor(model => model.EMPLOYEE_DEPARTMENT)
         </dd>
 
@@ -32,7 +39,7 @@
             @Html.DisplayName("Claim For Year")
         </dt>
 
-        <dd>
+        <dd class="list-dl">
             @Html.DisplayFor(model => model.CLAIM_YEAR)
         </dd>
 
@@ -40,7 +47,7 @@
             @Html.DisplayName("Date of Illness Noticed")
         </dt>
 
-        <dd>
+        <dd class="list-dl">
             @Html.DisplayFor(model => model.DATE_ILLNESS_NOTICED)
         </dd>
 
@@ -48,7 +55,7 @@
             @Html.DisplayName("Date of Recovery")
         </dt>
 
-        <dd>
+        <dd class="list-dl">
             @Html.DisplayFor(model => model.DATE_RECOVERY)
         </dd>
 
@@ -56,7 +63,7 @@
             @Html.DisplayName("Diagnosis")
         </dt>
 
-        <dd>
+        <dd class="list-dl">
             @Html.DisplayFor(model => model.DIAGNOSIS)
         </dd>
 
@@ -64,7 +71,7 @@
             @Html.DisplayName("Hospital Name")
         </dt>
 
-        <dd>
+        <dd class="list-dl">
             @Html.DisplayFor(model => model.HOSPITAL_NAME)
         </dd>
 
@@ -72,7 +79,7 @@
             @Html.DisplayName("Doctor Name")
         </dt>
 
-        <dd>
+        <dd class="list-dl">
             @Html.DisplayFor(model => model.DOCTOR_NAME)
         </dd>
 
@@ -80,7 +87,7 @@
             @Html.DisplayName("Period of Confinement From")
         </dt>
 
-        <dd>
+        <dd class="list-dl">
             @Html.DisplayFor(model => model.PERIOD_CONFINEMENT_DATE_FROM)
         </dd>
 
@@ -88,7 +95,7 @@
             @Html.DisplayName("Period of Confinement To")
         </dt>
 
-        <dd>
+        <dd class="list-dl">
             @Html.DisplayFor(model => model.PERIOD_CONFINEMENT_DATE_TO)
         </dd>
 
@@ -96,7 +103,7 @@
             @Html.DisplayName("The Claimant Suffered from Illness Before?")
         </dt>
 
-        <dd>
+        <dd class="list-dl">
             @Html.DisplayFor(model => model.CLAIMANT_SUFFERED_ILLNESS)
         </dd>
 
@@ -104,7 +111,7 @@
             @Html.DisplayName("The Illness Date")
         </dt>
 
-        <dd>
+        <dd class="list-dl">
             @Html.DisplayFor(model => model.CLAIMANT_SUFFERED_ILLNESS_DATE)
         </dd>
 
@@ -112,7 +119,7 @@
             @Html.DisplayName("The Illness Details")
         </dt>
 
-        <dd>
+        <dd class="list-dl">
             @Html.DisplayFor(model => model.CLAIMANT_SUFFERED_ILLNESS_DETAILS)
         </dd>
 
@@ -120,7 +127,7 @@
             @Html.DisplayName("Drugs Prescribed")
         </dt>
 
-        <dd>
+        <dd class="list-dl">
             @Html.DisplayFor(model => model.DRUGS_PRESCRIBED_BOOL)
         </dd>
 
@@ -128,7 +135,7 @@
             @Html.DisplayName("Drugs Description")
         </dt>
 
-        <dd>
+        <dd class="list-dl">
             @Html.DisplayFor(model => model.DRUGS_PRESCRIBED_DESCRIPTION)
         </dd>
 
@@ -136,7 +143,7 @@
             @Html.DisplayName("Status")
         </dt>
 
-        <dd>
+        <dd class="list-dl">
             @Html.DisplayFor(model => model.STATUS)
         </dd>
 
@@ -144,7 +151,7 @@
             @Html.DisplayName("Total Amount Claimed")
         </dt>
 
-        <dd>
+        <dd class="list-dl">
             @Html.DisplayFor(model => model.TOTAL_AMOUNT_CLAIMED)
         </dd>
 
@@ -153,7 +160,7 @@
             @Html.DisplayName("HR Comment")
         </dt>
 
-        <dd>
+        <dd class="list-dl">
             @Html.DisplayFor(model => model.HR_COMMENT)
         </dd>
 
@@ -161,7 +168,7 @@
             @Html.DisplayName("HR Approval")
         </dt>
 
-        <dd>
+        <dd class="list-dl">
             @Html.DisplayFor(model => model.HR_APPROVAL)
         </dd>
 
@@ -169,7 +176,7 @@
             @Html.DisplayName("HR Name")
         </dt>
 
-        <dd>
+        <dd class="list-dl">
             @Html.DisplayFor(model => model.HR_NAME)
         </dd>
 
@@ -177,7 +184,7 @@
             @Html.DisplayName("Finance Comment")
         </dt>
 
-        <dd>
+        <dd class="list-dl">
             @Html.DisplayFor(model => model.FINANCE_COMMENT)
         </dd>
 
@@ -185,7 +192,7 @@
             @Html.DisplayName("Finance Approval")
         </dt>
 
-        <dd>
+        <dd class="list-dl">
             @Html.DisplayFor(model => model.FINANCE_APPROVAL)
         </dd>
 
@@ -193,7 +200,7 @@
             @Html.DisplayName("Finance Name")
         </dt>
 
-        <dd>
+        <dd class="list-dl">
             @Html.DisplayFor(model => model.FINANCE_NAME)
         </dd>
 
@@ -201,7 +208,7 @@
             @Html.DisplayName("Management Comment")
         </dt>
 
-        <dd>
+        <dd class="list-dl">
             @Html.DisplayFor(model => model.MANAGEMENT_COMMENT)
         </dd>
 
@@ -210,7 +217,7 @@
 
         </dt>
 
-        <dd>
+        <dd class="list-dl">
             @Html.DisplayFor(model => model.MANAGEMENT_APPROVAL)
         </dd>
 
@@ -218,13 +225,130 @@
             @Html.DisplayName("Management Name")
         </dt>
 
-        <dd>
+        <dd class="list-dl">
             @Html.DisplayFor(model => model.MANAGEMENT_NAME)
         </dd>
 
 
     </dl>
 </div>
+<hr style="height:2px;border:none;color:#333;background-color:#333;">
+<h5>PATIENT INFORMATION</h5>
+<hr style="height:2px;border:none;color:#333;background-color:#333;">
+
+<div class="row">
+    <div class="col-md-offset-2 col-md-8">
+        <section>
+
+            <table id="tblCustomers" class="table table-bordered table-striped">
+                <tr>
+                    <th style="width: 100px">Id</th>
+                    <th style="width:150px">Name</th>
+                    <th style="width:150px">Age</th>
+                    <th style="width:150px">RelationShip</th>
+                    <th style="width:150px"></th>
+                </tr>
+                @foreach (OPDEXPENSE_PATIENT customer in Model.listOPDEXPENSEPATIENT)
+                {
+                    <tr>
+                        <td class="ID">
+                            <span>@customer.ID</span>
+                        </td>
+                        <td class="NAME">
+                            <span>@customer.NAME</span>
+                            <input type="text" value="@customer.NAME" style="display:none" />
+                        </td>
+                        <td class="AGE">
+                            <span>@customer.AGE</span>
+                            <input type="text" value="@customer.AGE" style="display:none" />
+                        </td>
+                        <td class="RELATIONSHIP_EMPLOYEE">
+                            <span>@customer.RELATIONSHIP_EMPLOYEE</span>
+                            <select id="relationShipListForEdit" style="display:none">
+                                <option value="SELF">SELF</option>
+                                <option value="FATHER">FATHER</option>
+                                <option value="MOTHER">MOTHER</option>
+                                <option value="SPOUSE">SPOUSE</option>
+                                <option value="DAUGHTER">DAUGHTER</option>
+                                <option value="SON">SON</option>
+                            </select>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </section>
+    </div>
+
+
+</div>
+<hr style="height:2px;border:none;color:#333;background-color:#333;">
+<h5>PATIENT RECEIPT INFORMATION</h5>
+<hr style="height:2px;border:none;color:#333;background-color:#333;">
+
+<div>
+    @if (Model.listOPDEXPENSEIMAGE != null &&
+     Model.listOPDEXPENSEIMAGE.Count > 0)
+    {
+        <div class="row">
+            <div class="col-md-offset-2 col-md-8">
+                <section>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center;">Sr.</th>
+                                <th style="text-align: center;">Image Name</th>
+                                <th style="text-align: center;"></th>
+                                <th style="text-align: center;">Expense Name</th>
+                                <th style="text-align: center;">Expense Amount</th>
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @for (int i = 0; i < Model.listOPDEXPENSEIMAGE.Count; i++)
+                            {
+                                <tr>
+                                    <td style="text-align: center;">@(i + 1)</td>
+
+                                    <td style="text-align: center;">
+                                        <div class="input-group" style="height:40px;">
+                                            <i class="fa fa-2x fa-paperclip text-navy"></i>
+                                            <a class="download-file1" href="@Url.Action("DownloadFile", "OPDEXPENSEs", new { fileId = @Model.listOPDEXPENSEIMAGE[i].IMAGE_ID })" target="_blank">
+                                                @Model.listOPDEXPENSEIMAGE[i].IMAGE_NAME
+                                            </a>
+                                        </div>
+                                    </td>
+
+                                    <td style="text-align: center;">
+                                        <div>
+                                            <img src="@Url.Action("DownloadFile", "OPDEXPENSEs", new { fileId = @Model.listOPDEXPENSEIMAGE[i].IMAGE_ID })" width="100" height="100" />
+                                        </div>
+                                    </td>
+
+                                    <td style="text-align: center;">
+                                        <div>
+                                            @Html.DisplayFor(model => @Model.listOPDEXPENSEIMAGE[i].NAME_EXPENSES)
+                                        </div>
+                                    </td>
+
+                                    <td style="text-align: center;">
+                                        <div>
+                                            @Html.DisplayFor(model => @Model.listOPDEXPENSEIMAGE[i].EXPENSE_AMOUNT)
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+        </div>
+    }
+</div>
+
+
+
+
 <p>
     @Html.ActionLink("Back to List", "Index", "OPDEXPENSEs")
 </p>
