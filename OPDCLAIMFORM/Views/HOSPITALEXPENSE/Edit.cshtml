@@ -89,7 +89,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.DATE_ILLNESS_NOTICED, "Date of illness first noticed", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.DATE_ILLNESS_NOTICED, new { htmlAttributes = new { @class = "datepicker" } })
+            @Html.EditorFor(model => model.DATE_ILLNESS_NOTICED, new { htmlAttributes = new { @class = "datepicker form-control" } })
             @Html.ValidationMessageFor(model => model.DATE_ILLNESS_NOTICED, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -97,7 +97,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.DATE_RECOVERY, "Date of recovery", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.DATE_RECOVERY, new { htmlAttributes = new { @class = "datepicker" } })
+            @Html.EditorFor(model => model.DATE_RECOVERY, new { htmlAttributes = new { @class = "datepicker form-control" } })
             @Html.ValidationMessageFor(model => model.DATE_RECOVERY, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -123,7 +123,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.CLAIMANT_SUFFERED_ILLNESS_DATE, "If yes,please give claimant suffered from this illness date", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.CLAIMANT_SUFFERED_ILLNESS_DATE, new { htmlAttributes = new { @class = "datepicker" } })
+            @Html.EditorFor(model => model.CLAIMANT_SUFFERED_ILLNESS_DATE, new { htmlAttributes = new { @class = "datepicker form-control" } })
             @Html.ValidationMessageFor(model => model.CLAIMANT_SUFFERED_ILLNESS_DATE, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -155,7 +155,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.PERIOD_CONFINEMENT_DATE_FROM, "Period of confinement From", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.PERIOD_CONFINEMENT_DATE_FROM, new { htmlAttributes = new { @class = "datepicker" } })
+            @Html.EditorFor(model => model.PERIOD_CONFINEMENT_DATE_FROM, new { htmlAttributes = new { @class = "datepicker form-control" } })
             @Html.ValidationMessageFor(model => model.PERIOD_CONFINEMENT_DATE_FROM, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -163,7 +163,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.PERIOD_CONFINEMENT_DATE_TO, "Period of confinement To", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.PERIOD_CONFINEMENT_DATE_TO, new { htmlAttributes = new { @class = "datepicker" } })
+            @Html.EditorFor(model => model.PERIOD_CONFINEMENT_DATE_TO, new { htmlAttributes = new { @class = "datepicker form-control" } })
             @Html.ValidationMessageFor(model => model.PERIOD_CONFINEMENT_DATE_TO, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -189,7 +189,7 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
+            <input type="submit" value="Save" class="btn btn-primary" />
         </div>
     </div>
 </div>

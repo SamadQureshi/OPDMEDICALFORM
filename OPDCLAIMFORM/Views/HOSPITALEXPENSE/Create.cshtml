@@ -59,11 +59,18 @@
         </div>
     </div>
 
+    <div class="form-group">
+        @Html.LabelFor(model => model.TOTAL_AMOUNT_CLAIMED, "Total Amount Claimed:", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.TOTAL_AMOUNT_CLAIMED, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.TOTAL_AMOUNT_CLAIMED, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.DATE_ILLNESS_NOTICED, "Date of Illness Noticed:", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.DATE_ILLNESS_NOTICED, new { htmlAttributes = new { @class = "datepicker" } })
+            @Html.EditorFor(model => model.DATE_ILLNESS_NOTICED, new { htmlAttributes = new { @class = "datepicker form-control" } })
             @Html.ValidationMessageFor(model => model.DATE_ILLNESS_NOTICED, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -71,7 +78,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.DATE_RECOVERY, "Date of Recovery:", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.DATE_RECOVERY, new { htmlAttributes = new { @class = "datepicker" } })
+            @Html.EditorFor(model => model.DATE_RECOVERY, new { htmlAttributes = new { @class = "datepicker form-control" } })
             @Html.ValidationMessageFor(model => model.DATE_RECOVERY, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -103,7 +110,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.PERIOD_CONFINEMENT_DATE_FROM, "Period of Confinement From:", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.PERIOD_CONFINEMENT_DATE_FROM, new { htmlAttributes = new { @class = "datepicker" } })
+            @Html.EditorFor(model => model.PERIOD_CONFINEMENT_DATE_FROM, new { htmlAttributes = new { @class = "datepicker form-control" } })
             @Html.ValidationMessageFor(model => model.PERIOD_CONFINEMENT_DATE_FROM, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -111,7 +118,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.PERIOD_CONFINEMENT_DATE_TO, "Period of Confinement To:", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.PERIOD_CONFINEMENT_DATE_TO, new { htmlAttributes = new { @class = "datepicker" } })
+            @Html.EditorFor(model => model.PERIOD_CONFINEMENT_DATE_TO, new { htmlAttributes = new { @class = "datepicker form-control" } })
             @Html.ValidationMessageFor(model => model.PERIOD_CONFINEMENT_DATE_TO, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -129,7 +136,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.CLAIMANT_SUFFERED_ILLNESS_DATE, "The Illness Date:", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.CLAIMANT_SUFFERED_ILLNESS_DATE, new { htmlAttributes = new { @class = "datepicker" } })
+            @Html.EditorFor(model => model.CLAIMANT_SUFFERED_ILLNESS_DATE, new { htmlAttributes = new { @class = "datepicker form-control" } })
             @Html.ValidationMessageFor(model => model.CLAIMANT_SUFFERED_ILLNESS_DATE, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -161,18 +168,8 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.TOTAL_AMOUNT_CLAIMED, "Total Amount Claimed:", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.TOTAL_AMOUNT_CLAIMED, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.TOTAL_AMOUNT_CLAIMED, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-
-
-    <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
+            <input type="submit" value="Create" class="btn btn-primary" />
         </div>
     </div>
 </div>

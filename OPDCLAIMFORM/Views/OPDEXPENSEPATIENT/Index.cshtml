@@ -89,40 +89,42 @@
             <th style="width:150px">Age</th>
             <th style="width:150px">RelationShip</th>
             <th style="width:150px"></th>
-        </tr>
-        @foreach (OPDEXPENSE_PATIENT customer in Model)
-        {
-            <tr>
-                <td class="ID">
-                    <span>@customer.ID</span>
-                </td>
-                <td class="NAME">
-                    <span>@customer.NAME</span>
-                    <input type="text" value="@customer.NAME" style="display:none" />
-                </td>
-                <td class="AGE">
-                    <span>@customer.AGE</span>
-                    <input type="text" value="@customer.AGE" style="display:none" />
-                </td>
-                <td class="RELATIONSHIP_EMPLOYEE">
-                    <span>@customer.RELATIONSHIP_EMPLOYEE</span>
-                    <select id="relationShipListForEdit" style="display:none">
-                        <option value="SELF">SELF</option>
-                        <option value="FATHER">FATHER</option>
-                        <option value="MOTHER">MOTHER</option>
-                        <option value="SPOUSE">SPOUSE</option>
-                        <option value="DAUGHTER">DAUGHTER</option>
-                        <option value="SON">SON</option>
-                    </select>
-                </td>
-                <td>
-                    <a class="Update" href="javascript:;" style="display:none">Update</a>
-                    <a class="Cancel" href="javascript:;" style="display:none">Cancel</a>
-                    <a class="Delete" href="javascript:;">Delete</a>
-                </td>
-            </tr>
-        }
-    </table>
+        </tr>     
+
+
+            @foreach (OPDEXPENSE_PATIENT customer in Model)
+            {
+                <tr>
+                    <td class="ID">
+                        <span>@customer.ID</span>
+                    </td>
+                    <td class="NAME">
+                        <span>@customer.NAME</span>
+                        <input type="text" value="@customer.NAME" style="display:none" />
+                    </td>
+                    <td class="AGE">
+                        <span>@customer.AGE</span>
+                        <input type="text" value="@customer.AGE" style="display:none" />
+                    </td>
+                    <td class="RELATIONSHIP_EMPLOYEE">
+                        <span>@customer.RELATIONSHIP_EMPLOYEE</span>
+                        <select id="relationShipListForEdit" style="display:none">
+                            <option value="SELF">SELF</option>
+                            <option value="FATHER">FATHER</option>
+                            <option value="MOTHER">MOTHER</option>
+                            <option value="SPOUSE">SPOUSE</option>
+                            <option value="DAUGHTER">DAUGHTER</option>
+                            <option value="SON">SON</option>
+                        </select>
+                    </td>
+                    <td>
+                        <a class="Update" href="javascript:;" style="display:none">Update</a>
+                        <a class="Cancel" href="javascript:;" style="display:none">Cancel</a>
+                        <a class="Delete" href="javascript:;">Delete</a>
+                    </td>
+                </tr>
+            }
+        </table>
 
     <p>
         <div>
