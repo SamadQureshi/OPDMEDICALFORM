@@ -125,6 +125,15 @@ namespace OPDCLAIMFORM.Controllers
             {
                 oPDEXPENSE.MODIFIED_DATE = DateTime.Now;
                 oPDEXPENSE.MANAGEMENT_APPROVAL_DATE = DateTime.Now;
+
+                if (oPDEXPENSE.STATUS == "MANApproved")
+                {
+                    oPDEXPENSE.HR_APPROVAL = true;
+                    oPDEXPENSE.FINANCE_APPROVAL = true;
+                    oPDEXPENSE.MANAGEMENT_APPROVAL = true;
+                }
+
+
                 db.Entry(oPDEXPENSE).State = EntityState.Modified;
                 db.SaveChanges();
 
@@ -202,6 +211,13 @@ namespace OPDCLAIMFORM.Controllers
             {
                 oPDEXPENSE.MODIFIED_DATE = DateTime.Now;
                 oPDEXPENSE.MANAGEMENT_APPROVAL_DATE = DateTime.Now;
+
+                if (oPDEXPENSE.STATUS == "MANApproved")
+                {
+                    oPDEXPENSE.HR_APPROVAL = true;
+                    oPDEXPENSE.FINANCE_APPROVAL = true;
+                    oPDEXPENSE.MANAGEMENT_APPROVAL = true;
+                }
 
                 db.Entry(oPDEXPENSE).State = EntityState.Modified;
                 db.SaveChanges();
