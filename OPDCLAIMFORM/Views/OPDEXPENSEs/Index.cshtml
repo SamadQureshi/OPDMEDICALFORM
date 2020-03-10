@@ -64,15 +64,36 @@
     <td>
         @if (item.OPDTYPE.Equals("OPD Expense"))
         {
-            @Html.ActionLink("Edit", "Edit", "OPDEXPENSEs", new { id = item.OPDEXPENSE_ID }, null) <span> | </span>
-            @Html.ActionLink("Details", "Details", "OPDEXPENSEs", new { id = item.OPDEXPENSE_ID }, null)  <span> | </span>
-            @Html.ActionLink("Delete", "Delete", "OPDEXPENSEs", new { id = item.OPDEXPENSE_ID }, null);
+            if (item.STATUS.Equals("InProcess"))
+            {
+                @Html.ActionLink("Edit", "Edit", "OPDEXPENSEs", new { id = item.OPDEXPENSE_ID }, null) <span> | </span>
+                @Html.ActionLink("Details", "Details", "OPDEXPENSEs", new { id = item.OPDEXPENSE_ID }, null) <span> | </span>
+                @Html.ActionLink("Delete", "Delete", "OPDEXPENSEs", new { id = item.OPDEXPENSE_ID }, null);
+            }
+
+            else
+            {
+                @Html.ActionLink("Details", "Details", "OPDEXPENSEs", new { id = item.OPDEXPENSE_ID }, null)
+            }
+
+
+
         }
         @if (item.OPDTYPE.Equals("Hospital Expense"))
         {
-            @Html.ActionLink("Edit", "Edit", "HOSPITALEXPENSE", new { id = item.OPDEXPENSE_ID }, null) <span> | </span>
-            @Html.ActionLink("Details", "Details", "HOSPITALEXPENSE", new { id = item.OPDEXPENSE_ID }, null)  <span> | </span>
-            @Html.ActionLink("Delete", "Delete", "HOSPITALEXPENSE", new { id = item.OPDEXPENSE_ID }, null)
+            if (item.STATUS.Equals("InProcess"))
+            {
+                @Html.ActionLink("Edit", "Edit", "HOSPITALEXPENSE", new { id = item.OPDEXPENSE_ID }, null) <span> | </span>
+                @Html.ActionLink("Details", "Details", "HOSPITALEXPENSE", new { id = item.OPDEXPENSE_ID }, null) <span> | </span>
+                @Html.ActionLink("Delete", "Delete", "HOSPITALEXPENSE", new { id = item.OPDEXPENSE_ID }, null)
+            }
+
+            else
+            {
+                @Html.ActionLink("Details", "Details", "HOSPITALEXPENSE", new { id = item.OPDEXPENSE_ID }, null)
+            }
+
+
         }
     </td>
 </tr>
