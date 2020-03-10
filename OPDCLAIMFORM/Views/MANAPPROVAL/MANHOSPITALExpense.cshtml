@@ -21,6 +21,7 @@
     @Html.HiddenFor(model => model.MANAGEMENT_APPROVAL_DATE)
     @Html.HiddenFor(model => model.HR_APPROVAL_DATE)
     @Html.HiddenFor(model => model.FINANCE_APPROVAL_DATE)
+
     <div class="form-group">
         @Html.LabelFor(model => model.EMPLOYEE_NAME, "Name of Employee", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -138,31 +139,43 @@
         </div>
     </div>
 
-
     <div class="form-group">
         @Html.LabelFor(model => model.FINANCE_COMMENT, "Finance Comment", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.TextAreaFor(model => model.FINANCE_COMMENT, 2, 40, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.FINANCE_COMMENT, "", new { @class = "text-danger" })
+            @Html.TextBoxFor(model => model.FINANCE_COMMENT, new { @readonly = "readonly", @class = "form-control" })
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.FINANCE_NAME, "Finance Name", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.FINANCE_NAME, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.FINANCE_NAME, "", new { @class = "text-danger" })
+            @Html.TextBoxFor(model => model.FINANCE_NAME, new { @readonly = "readonly", @class = "form-control" })
         </div>
     </div>
 
+    <div class="form-group">
+        @Html.LabelFor(model => model.MANAGEMENT_COMMENT, "Management Comment", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.MANAGEMENT_COMMENT, 2, 40, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MANAGEMENT_COMMENT, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.MANAGEMENT_NAME, "Management Name", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.MANAGEMENT_NAME, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MANAGEMENT_NAME, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.STATUS, "Status", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.DropDownListFor(model => model.STATUS, new List<SelectListItem>
                     {
-                       new SelectListItem{ Text="FINApproved", Value = "FINApproved" },
-                       new SelectListItem{ Text="FINRejected", Value = "FINRejected" }
+                       new SelectListItem{ Text="MANApproved", Value = "MANApproved" },
+                       new SelectListItem{ Text="MANRejected", Value = "MANRejected" }
                     }, new { @class = "form-control select2_demo_4" })
         </div>
     </div>

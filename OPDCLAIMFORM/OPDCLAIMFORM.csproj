@@ -133,6 +133,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HOSPITALEXPENSEController.cs" />
     <Compile Include="Controllers\HRAPPROVALController.cs" />
+    <Compile Include="Controllers\MANAPPROVALController.cs" />
     <Compile Include="Controllers\OPDEXPENSEIMAGEController.cs" />
     <Compile Include="Controllers\OPDEXPENSEPATIENTController.cs" />
     <Compile Include="Controllers\OPDEXPENSEsController.cs" />
@@ -297,6 +298,9 @@
     <Content Include="Views\FINAPPROVAL\FINOPDExpense.cshtml" />
     <Content Include="Views\FINAPPROVAL\Index.cshtml" />
     <Content Include="Views\FINAPPROVAL\FINHOSPITALExpense.cshtml" />
+    <Content Include="Views\MANAPPROVAL\MANHOSPITALExpense.cshtml" />
+    <Content Include="Views\MANAPPROVAL\MANOPDExpense.cshtml" />
+    <Content Include="Views\MANAPPROVAL\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

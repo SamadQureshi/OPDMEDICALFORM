@@ -9,14 +9,14 @@ using System.Web.Mvc;
 
 namespace OPDCLAIMFORM.Controllers
 {
-    public class FINAPPROVALController : Controller
+    public class MANAPPROVALController : Controller
     {
         private MedicalInfoEntities db = new MedicalInfoEntities();
 
         // GET: OPDEXPENSEs
         public ActionResult Index()
         {
-            return View(db.OPDEXPENSEs.Where(e => e.STATUS == "HRApproved" || e.STATUS == "FINApproved" || e.STATUS == "FINRejected").ToList());
+            return View(db.OPDEXPENSEs.Where(e => e.STATUS == "FINApproved" || e.STATUS == "MANApproved" || e.STATUS == "MANRejected").ToList());
         }
 
         // GET: OPDEXPENSEs/Details/5
@@ -94,7 +94,7 @@ namespace OPDCLAIMFORM.Controllers
 
 
         // GET: OPDEXPENSEs/Edit/5
-        public ActionResult FINOPDExpense(int? id)
+        public ActionResult MANOPDExpense(int? id)
         {
             if (id == null)
             {
@@ -118,12 +118,12 @@ namespace OPDCLAIMFORM.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult FINOPDExpense([Bind(Include = "OPDEXPENSE_ID,EMPLOYEE_NAME,EMPLOYEE_DEPARTMENT,CLAIM_MONTH,CLAIM_YEAR,TOTAL_AMOUNT_CLAIMED,STATUS,OPDTYPE,HR_COMMENT,HR_APPROVAL,HR_APPROVAL_DATE,HR_NAME,FINANCE_COMMENT,FINANCE_APPROVAL,FINANCE_APPROVAL_DATE,FINANCE_NAME,MANAGEMENT_COMMENT,MANAGEMENT_APPROVAL,MANAGEMENT_APPROVAL_DATE,MANAGEMENT_NAME")] OPDEXPENSE oPDEXPENSE)
+        public ActionResult MANOPDExpense([Bind(Include = "OPDEXPENSE_ID,EMPLOYEE_NAME,EMPLOYEE_DEPARTMENT,CLAIM_MONTH,CLAIM_YEAR,TOTAL_AMOUNT_CLAIMED,STATUS,OPDTYPE,HR_COMMENT,HR_APPROVAL_DATE,HR_APPROVAL,HR_NAME,FINANCE_COMMENT,FINANCE_APPROVAL,FINANCE_APPROVAL_DATE,FINANCE_NAME,MANAGEMENT_COMMENT,MANAGEMENT_APPROVAL,MANAGEMENT_APPROVAL_DATE,MANAGEMENT_NAME")] OPDEXPENSE oPDEXPENSE)
         {
             if (ModelState.IsValid)
             {
                 oPDEXPENSE.MODIFIED_DATE = DateTime.Now;
-                oPDEXPENSE.FINANCE_APPROVAL_DATE = DateTime.Now;
+                oPDEXPENSE.MANAGEMENT_APPROVAL_DATE = DateTime.Now;
                 db.Entry(oPDEXPENSE).State = EntityState.Modified;
                 db.SaveChanges();
 
@@ -136,7 +136,7 @@ namespace OPDCLAIMFORM.Controllers
 
 
         // GET: OPDEXPENSEs/Edit/5
-        public ActionResult FINHospitalExpense(int? id)
+        public ActionResult MANHospitalExpense(int? id)
         {
             if (id == null)
             {
@@ -194,12 +194,12 @@ namespace OPDCLAIMFORM.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult FINHospitalExpense([Bind(Include = "OPDEXPENSE_ID,EMPLOYEE_NAME,EMPLOYEE_DEPARTMENT,CLAIM_MONTH,TOTAL_AMOUNT_CLAIMED,DATE_ILLNESS_NOTICED,DATE_RECOVERY,DIAGNOSIS,CLAIMANT_SUFFERED_ILLNESS,CLAIMANT_SUFFERED_ILLNESS_DATE,CLAIMANT_SUFFERED_ILLNESS_DETAILS,HOSPITAL_NAME,DOCTOR_NAME,PERIOD_CONFINEMENT_DATE_FROM,PERIOD_CONFINEMENT_DATE_TO,DRUGS_PRESCRIBED_BOOL,DRUGS_PRESCRIBED_DESCRIPTION,OPDTYPE,STATUS,HR_COMMENT,HR_APPROVAL_DATE,HR_APPROVAL,HR_NAME,FINANCE_COMMENT,FINANCE_APPROVAL,FINANCE_APPROVAL_DATE,FINANCE_NAME,MANAGEMENT_COMMENT,MANAGEMENT_APPROVAL,MANAGEMENT_APPROVAL_DATE,MANAGEMENT_NAME")] OPDEXPENSE oPDEXPENSE)
+        public ActionResult MANHospitalExpense([Bind(Include = "OPDEXPENSE_ID,EMPLOYEE_NAME,EMPLOYEE_DEPARTMENT,CLAIM_MONTH,TOTAL_AMOUNT_CLAIMED,DATE_ILLNESS_NOTICED,DATE_RECOVERY,DIAGNOSIS,CLAIMANT_SUFFERED_ILLNESS,CLAIMANT_SUFFERED_ILLNESS_DATE,CLAIMANT_SUFFERED_ILLNESS_DETAILS,HOSPITAL_NAME,DOCTOR_NAME,PERIOD_CONFINEMENT_DATE_FROM,PERIOD_CONFINEMENT_DATE_TO,DRUGS_PRESCRIBED_BOOL,DRUGS_PRESCRIBED_DESCRIPTION,OPDTYPE,STATUS,HR_COMMENT,HR_APPROVAL,HR_APPROVAL_DATE,HR_NAME,FINANCE_COMMENT,FINANCE_APPROVAL,FINANCE_APPROVAL_DATE,FINANCE_NAME,MANAGEMENT_COMMENT,MANAGEMENT_APPROVAL,MANAGEMENT_APPROVAL_DATE,MANAGEMENT_NAME")] OPDEXPENSE oPDEXPENSE)
         {
             if (ModelState.IsValid)
             {
                 oPDEXPENSE.MODIFIED_DATE = DateTime.Now;
-                oPDEXPENSE.FINANCE_APPROVAL_DATE = DateTime.Now;
+                oPDEXPENSE.MANAGEMENT_APPROVAL_DATE = DateTime.Now;
 
                 db.Entry(oPDEXPENSE).State = EntityState.Modified;
                 db.SaveChanges();

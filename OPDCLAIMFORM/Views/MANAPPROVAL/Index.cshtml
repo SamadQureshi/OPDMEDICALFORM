@@ -1,0 +1,72 @@
+﻿@model IEnumerable<OPDCLAIMFORM.OPDEXPENSE>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Employee Name")
+        </th>
+        <th>
+            @Html.DisplayName("Employee Department")
+        </th>
+        <th>
+            @Html.DisplayName("Claim For Month")
+        </th>
+        <th>
+            @Html.DisplayName("Claim For Year")
+        </th>
+        <th>
+            @Html.DisplayName("Status")
+        </th>
+        <th>
+            @Html.DisplayName("Total Amount Claimed")
+        </th>
+        <th>
+            @Html.DisplayName("OPD Type")
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.EMPLOYEE_NAME)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.EMPLOYEE_DEPARTMENT)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CLAIM_MONTH)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CLAIM_YEAR)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.STATUS)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TOTAL_AMOUNT_CLAIMED)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.OPDTYPE)
+    </td>
+    <td>
+        @if (item.OPDTYPE.Equals("OPD Expense"))
+        {
+            @Html.ActionLink("Edit", "MANOPDExpense", "MANAPPROVAL", new { id = item.OPDEXPENSE_ID }, null)  
+           
+        }
+        @if (item.OPDTYPE.Equals("Hospital Expense"))
+        {
+            @Html.ActionLink("Edit", "MANHOSPITALExpense", "MANAPPROVAL", new { id = item.OPDEXPENSE_ID }, null)
+        }
+    </td>
+</tr>
+}
+
+</table>
