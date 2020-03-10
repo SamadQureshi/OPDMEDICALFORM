@@ -1,11 +1,11 @@
 ﻿@model OPDCLAIMFORM.Models.HOSPITALEXPENSE_MASTERDETAIL
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "HR-HospitalExpense";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
+    <h2>HR-HospitalExpense</h2>
 
 
 @using (Html.BeginForm())
@@ -13,7 +13,6 @@
     @Html.AntiForgeryToken()
 
 <div class="form-horizontal">
-    <h4>OPDEXPENSE</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.OPDEXPENSE_ID)

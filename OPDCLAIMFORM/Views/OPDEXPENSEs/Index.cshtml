@@ -62,7 +62,7 @@
     <td>
         @if (item.OPDTYPE.Equals("OPD Expense"))
         {
-            if (item.STATUS.Equals("InProcess"))
+            if (item.STATUS.Equals("InProcess") || item.STATUS.Equals("HRRejected"))
             {
                 @Html.ActionLink("Edit", "Edit", "OPDEXPENSEs", new { id = item.OPDEXPENSE_ID }, null) <span> | </span>
                 @Html.ActionLink("Details", "Details", "OPDEXPENSEs", new { id = item.OPDEXPENSE_ID }, null) <span> | </span>
@@ -77,7 +77,7 @@
         }
         @if (item.OPDTYPE.Equals("Hospital Expense"))
         {
-            if (item.STATUS.Equals("InProcess"))
+            if (item.STATUS.Equals("InProcess") || item.STATUS.Equals("HRRejected"))
             {
                 @Html.ActionLink("Edit", "Edit", "HOSPITALEXPENSE", new { id = item.OPDEXPENSE_ID }, null) <span> | </span>
                 @Html.ActionLink("Details", "Details", "HOSPITALEXPENSE", new { id = item.OPDEXPENSE_ID }, null) <span> | </span>
