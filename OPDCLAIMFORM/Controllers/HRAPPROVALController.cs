@@ -16,7 +16,7 @@ namespace OPDCLAIMFORM.Controllers
         // GET: OPDEXPENSEs
         public ActionResult Index()
         {
-            return View(db.OPDEXPENSEs.Where(e => e.STATUS == "Completed"  || e.STATUS == "HRApproved" || e.STATUS == "HRRejected").ToList());          
+            return View(db.OPDEXPENSEs.Where(e => e.STATUS == "Submitted" || e.STATUS == "HRApproved" || e.STATUS == "HRRejected").ToList());          
         }
 
         // GET: OPDEXPENSEs/Details/5

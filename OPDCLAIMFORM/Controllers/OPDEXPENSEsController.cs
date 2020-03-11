@@ -62,11 +62,13 @@ namespace OPDCLAIMFORM.Controllers
             {
                 oPDEXPENSE.OPDTYPE = "OPD Expense";
                 oPDEXPENSE.STATUS = "InProcess";
+                oPDEXPENSE.CREATED_DATE = DateTime.Now;
                 db.OPDEXPENSEs.Add(oPDEXPENSE);
                 db.SaveChanges();
-                ///ViewData["OPDEXPENSE_ID"] = oPDEXPENSE.OPDEXPENSE_ID;
-                //return RedirectToAction("Index");
-                return RedirectToAction("Index", "OPDEXPENSEPATIENT", new { id = oPDEXPENSE.OPDEXPENSE_ID });
+                ViewData["OPDEXPENSE_ID"] = oPDEXPENSE.OPDEXPENSE_ID;
+
+                return RedirectToAction("Edit", "OPDEXPENSEs", new { id = oPDEXPENSE.OPDEXPENSE_ID });
+
             }
 
             return View(oPDEXPENSE);
@@ -109,6 +111,7 @@ namespace OPDCLAIMFORM.Controllers
         {
             if (ModelState.IsValid)
             {
+                oPDEXPENSE.MODIFIED_DATE = DateTime.Now;
                 db.Entry(oPDEXPENSE).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
