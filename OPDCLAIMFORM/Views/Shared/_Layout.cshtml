@@ -22,11 +22,34 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Expense", "Index", "OPDExpenses")</li>
+                    @if(ViewBag.RollType == "HR"){
                     <li>@Html.ActionLink("HR Approval", "Index", "HRAPPROVAL")</li>
+                    }
+                    @if (ViewBag.RollType == "FIN"){
                     <li>@Html.ActionLink("Finance Approval", "Index", "FINAPPROVAL")</li>
+                    }
+                    @if (ViewBag.RollType == "MAN"){
                     <li>@Html.ActionLink("Management Approval", "Index", "MANAPPROVAL")</li>
+                    }
+
+
                 </ul>
+
+                @if (Request.IsAuthenticated)
+
+                {
+                    <a href="@Url.Action("SignOut", "OFFICEAPIMANAGER", null, Request.Url.Scheme)" class="btn btn-primary btn-lg">LOGOUT</a> @(ViewBag.UserName)
+                }
+                else
+                {
+
+                    <a href="@Url.Action("SignIn", "OFFICEAPIMANAGER", null, Request.Url.Scheme)" class="btn btn-primary btn-lg">LOGIN</a>
+                }
+
+               
+
             </div>
+        
         </div>
     </div>
     <div class="container body-content">

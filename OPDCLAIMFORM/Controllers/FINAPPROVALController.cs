@@ -11,7 +11,7 @@ namespace OPDCLAIMFORM.Controllers
 {
     public class FINAPPROVALController : Controller
     {
-        private MedicalInfoEntities db = new MedicalInfoEntities();
+        private readonly MedicalInfoEntities db = new MedicalInfoEntities();
 
         // GET: OPDEXPENSEs
         public ActionResult Index()

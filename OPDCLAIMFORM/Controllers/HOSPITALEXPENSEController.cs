@@ -11,7 +11,7 @@ namespace OPDCLAIMFORM.Controllers
 {
     public class HOSPITALEXPENSEController : Controller
     {
-        private MedicalInfoEntities db = new MedicalInfoEntities();
+        private readonly MedicalInfoEntities db = new MedicalInfoEntities();
 
         // GET: OPDEXPENSEs
         public ActionResult Index()
@@ -262,8 +262,7 @@ namespace OPDCLAIMFORM.Controllers
         private FileResult GetFile(string fileContent, string fileContentType)
         {
             // Initialization.
-            FileResult file = null;
-
+            FileResult file;
             try
             {
                 // Get file.
