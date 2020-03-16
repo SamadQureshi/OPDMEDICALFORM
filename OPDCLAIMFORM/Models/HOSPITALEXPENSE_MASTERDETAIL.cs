@@ -92,6 +92,8 @@ namespace OPDCLAIMFORM.Models
         public string STATUS { get; set; }
         public string CLAIM_YEAR { get; set; }
 
+        public Nullable<decimal> TOTAL_AMOUNT_APPROVED { get; set; }
+
 
     }
 }

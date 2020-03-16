@@ -10,18 +10,26 @@ namespace OPDCLAIMFORM.Controllers
     {
         public ActionResult Index(int? id)
         {
-           
+            if (Request.IsAuthenticated)
+            {
+                AuthenticateUser();
                 ViewData["OPDEXPENSE_ID"] = id;
 
                 MedicalInfoEntities entities = new MedicalInfoEntities();
 
                 List<OPDEXPENSE_PATIENT> opdExpense_Patient = entities.OPDEXPENSE_PATIENT.Where(e => e.OPDEXPENSE_ID == id).ToList();
-                                   
+
                 //Add a Dummy Row.
                 opdExpense_Patient.Insert(0, new OPDEXPENSE_PATIENT());
 
-            
-            return View(opdExpense_Patient);
+
+                return View(opdExpense_Patient);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+
+            }
 
         }
 
@@ -68,6 +76,14 @@ namespace OPDCLAIMFORM.Controllers
 
             return new EmptyResult();
         }
-       
+
+        private void AuthenticateUser()
+        {
+            OFFICEAPIMANAGERController managerController = new OFFICEAPIMANAGERController();
+
+            ViewBag.RollType = managerController.AuthenticateUser();
+
+        }
+
     }
 }

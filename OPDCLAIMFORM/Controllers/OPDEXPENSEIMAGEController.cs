@@ -14,14 +14,11 @@ namespace OPDCLAIMFORM.Controllers
         // GET: OPDEXPENSEIMAGE
         public ActionResult Index(int id)
         {
-           
-            //ViewData["OPDEXPENSE_ID"] = id;
-            
-            // Initialization.
-            ImgViewModel model = new ImgViewModel { FileAttach = null, ImgLst = new List<OPDEXPENSE_IMAGEOBJ>() };
-
-            try
+            if (Request.IsAuthenticated)
             {
+                AuthenticateUser();
+
+                ImgViewModel model = new ImgViewModel { FileAttach = null, ImgLst = new List<OPDEXPENSE_IMAGEOBJ>() };
 
                 // Settings.
                 model.ImgLst = this.db.GET_OPDEXPENSE_IMAGE1().Select(p => new OPDEXPENSE_IMAGEOBJ
@@ -34,18 +31,17 @@ namespace OPDCLAIMFORM.Controllers
                     OPDExpense_id = p.OPDEXPENSE_ID,
                 }
                 ).Where(e => e.OPDExpense_id == id).ToList();
+
+                return this.View(model);
             }
-            catch (Exception ex)
+            else
             {
-                // Info
-                Console.Write(ex);
+                return RedirectToAction("Index", "Home");
+
             }
-
-            // Info.
-            return this.View(model);
-
 
         }
+
 
 
 
@@ -65,14 +61,14 @@ namespace OPDCLAIMFORM.Controllers
             string fileContent = string.Empty;
             string fileContentType = string.Empty;
 
-            try
+            if (Request.IsAuthenticated)
             {
+                AuthenticateUser();
+
                 model.OPDExpense_ID = Convert.ToInt32(Request.Url.Segments[3].ToString());
 
                 if (ModelState.IsValid)
                 {
-                    // Verification                      
-
                     // Converting to bytes.
                     byte[] uploadedFile = new byte[model.FileAttach.InputStream.Length];
                     model.FileAttach.InputStream.Read(uploadedFile, 0, uploadedFile.Length);
@@ -85,27 +81,26 @@ namespace OPDCLAIMFORM.Controllers
                     this.db.ADD_OPDEXPENSE_IMAGE(model.OPDExpense_ID, model.FileAttach.FileName, fileContentType, fileContent, model.ExpenseName, model.ExpenseAmount);
                 }
 
-                    // Settings.
-                    model.ImgLst = this.db.GET_OPDEXPENSE_IMAGE1().Select(p => new OPDEXPENSE_IMAGEOBJ
-                    {
-                        FileId = p.IMAGE_ID,
-                        FileName = p.IMAGE_NAME,
-                        FileContentType = p.IMAGE_EXT,
-                        ExpenseAmount = p.EXPENSE_AMOUNT,
-                        ExpenseName = p.NAME_EXPENSES,
-                        OPDExpense_id = p.OPDEXPENSE_ID,
+                // Settings.
+                model.ImgLst = this.db.GET_OPDEXPENSE_IMAGE1().Select(p => new OPDEXPENSE_IMAGEOBJ
+                {
+                    FileId = p.IMAGE_ID,
+                    FileName = p.IMAGE_NAME,
+                    FileContentType = p.IMAGE_EXT,
+                    ExpenseAmount = p.EXPENSE_AMOUNT,
+                    ExpenseName = p.NAME_EXPENSES,
+                    OPDExpense_id = p.OPDEXPENSE_ID,
 
-                    }).Where(e => e.OPDExpense_id == model.OPDExpense_ID).ToList();
-                
-            }
-            catch (Exception ex)
-            {
+                }).Where(e => e.OPDExpense_id == model.OPDExpense_ID).ToList();
+
                 // Info
-                Console.Write(ex);
+                return this.View(model);
             }
+            else
+            {
+                return RedirectToAction("Index", "Home");
 
-            // Info
-            return this.View(model);
+            }
         }
 
         #endregion
@@ -125,46 +120,46 @@ namespace OPDCLAIMFORM.Controllers
             // Model binding.
             ImgViewModel model = new ImgViewModel { FileAttach = null, ImgLst = new List<OPDEXPENSE_IMAGEOBJ>() };
 
-            try
-            {
+           // try
+           // {
                 // Loading dile info.
                 var fileInfo = this.db.GET_OPDEXPENSE_IMAGE_DETAILS(fileId).First();
 
                 // Info.
                 return this.GetFile(fileInfo.IMAGE_BASE64, fileInfo.IMAGE_EXT);
-            }
-            catch (Exception ex)
-            {
+            //}
+            //catch (Exception ex)
+            //{
                 // Info
-                Console.Write(ex);
-            }
+                //Console.Write(ex);
+            //}
 
             // Info.
-            return this.View(model);
+            //return this.View(model);
         }
 
 
         // POST: OPDEXPENSEIMAGE/Delete/5
         public ActionResult Delete(int id , int opdexpenseid)
         {
-            // Model binding.
-            ImgViewModel model = new ImgViewModel { FileAttach = null, ImgLst = new List<OPDEXPENSE_IMAGEOBJ>() };
-                             
 
-            try
+            if (Request.IsAuthenticated)
             {
-            
-                // Loading dile info.
-                var fileInfo = this.db.DELETE_OPDEXPENSE_IMAGE(id);               
-            }
-            catch (Exception ex)
-            {
-                // Info
-                Console.Write(ex);
-            }
+                AuthenticateUser();
 
-            // Info.
-            return RedirectToAction("Index", "OPDEXPENSEIMAGE", new { id = opdexpenseid });
+                // Model binding.
+                ImgViewModel model = new ImgViewModel { FileAttach = null, ImgLst = new List<OPDEXPENSE_IMAGEOBJ>() };
+
+                var fileInfo = this.db.DELETE_OPDEXPENSE_IMAGE(id);
+
+                // Info.
+                return RedirectToAction("Index", "OPDEXPENSEIMAGE", new { id = opdexpenseid });
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+
+            }
         }
 
         [HttpPost]
@@ -224,7 +219,13 @@ namespace OPDCLAIMFORM.Controllers
         #endregion
 
         #endregion
+        private void AuthenticateUser()
+        {
+            OFFICEAPIMANAGERController managerController = new OFFICEAPIMANAGERController();
 
+            ViewBag.RollType = managerController.AuthenticateUser();
+
+        }
 
 
 

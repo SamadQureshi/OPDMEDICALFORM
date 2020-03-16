@@ -69,6 +69,7 @@ namespace OPDCLAIMFORM
         public string MANAGEMENT_EMAILADDRESS { get; set; }
         public string STATUS { get; set; }
         public string CLAIM_YEAR { get; set; }
+       
         public Nullable<decimal> TOTAL_AMOUNT_APPROVED { get; set; }
         public string EXPENSE_NUMBER { get; set; }
     

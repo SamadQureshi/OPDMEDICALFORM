@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -19,8 +20,9 @@ namespace OPDCLAIMFORM.Controllers
         public ActionResult Index(string sortOrder, string currentFilter, string searchString)
         {
             if (Request.IsAuthenticated)
-            {              
-
+            {
+                
+                AuthenticateUser();
 
                 ViewBag.CurrentSort = sortOrder;
                 ViewBag.EmployeeNameSortParm = String.IsNullOrEmpty(sortOrder) ? "EmployeeName_desc" : "";              
@@ -95,21 +97,30 @@ namespace OPDCLAIMFORM.Controllers
            
             MedicalInfoEntities entities = new MedicalInfoEntities();
 
-            if (id == null)
+            if (Request.IsAuthenticated)
+            {
+                AuthenticateUser();
+
+                if (id == null)
+                {
+                    return RedirectToAction("Index", "OPDEXPENSEs");
+                }
+
+
+                var result2 = new OPDEXPENSE_MASTERDETAIL()
+                {
+                    listOPDEXPENSEPATIENT = entities.OPDEXPENSE_PATIENT.Where(e => e.OPDEXPENSE_ID == id).ToList(),
+                    listOPDEXPENSEIMAGE = entities.OPDEXPENSE_IMAGE.Where(e => e.OPDEXPENSE_ID == id).ToList(),
+                    opdEXPENSE = entities.OPDEXPENSEs.Where(e => e.OPDEXPENSE_ID == id).FirstOrDefault()
+
+                };
+
+                return View(result2);
+            }
+            else
             {
                 return RedirectToAction("Index", "OPDEXPENSEs");
-            }          
-
-
-            var result2 = new OPDEXPENSE_MASTERDETAIL()
-            {
-                listOPDEXPENSEPATIENT = entities.OPDEXPENSE_PATIENT.Where(e => e.OPDEXPENSE_ID == id).ToList(),
-                listOPDEXPENSEIMAGE = entities.OPDEXPENSE_IMAGE.Where(e => e.OPDEXPENSE_ID == id).ToList(),
-                opdEXPENSE = entities.OPDEXPENSEs.Where(e => e.OPDEXPENSE_ID == id).FirstOrDefault()
-
-            };
-
-            return View(result2);
+            }
         }
 
         // GET: OPDEXPENSEs/Create
@@ -117,6 +128,7 @@ namespace OPDCLAIMFORM.Controllers
         {
             if (Request.IsAuthenticated)
             {
+                AuthenticateUser();
                 return View();
             }
             else
@@ -157,6 +169,7 @@ namespace OPDCLAIMFORM.Controllers
         {
             if (Request.IsAuthenticated)
             {
+                AuthenticateUser();
                 if (id == null)
                 {
                     return RedirectToAction("Index", "OPDEXPENSEs");
@@ -185,7 +198,7 @@ namespace OPDCLAIMFORM.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "OPDEXPENSE_ID,EMPLOYEE_NAME,EMPLOYEE_DEPARTMENT,CLAIM_MONTH,CLAIM_YEAR,TOTAL_AMOUNT_CLAIMED,STATUS,OPDTYPE")] OPDEXPENSE oPDEXPENSE)
+        public ActionResult Edit([Bind(Include = "OPDEXPENSE_ID,EMPLOYEE_NAME,EMPLOYEE_DEPARTMENT,CLAIM_MONTH,CLAIM_YEAR,TOTAL_AMOUNT_CLAIMED,STATUS,OPDTYPE,CREATED_DATE")] OPDEXPENSE oPDEXPENSE)
         {
             if (ModelState.IsValid)
             {
@@ -203,7 +216,7 @@ namespace OPDCLAIMFORM.Controllers
         {
             if (Request.IsAuthenticated)
             {
-
+                AuthenticateUser();
                 if (id == null)
                 {
                     return RedirectToAction("Index", "OPDEXPENSEs");
@@ -227,6 +240,7 @@ namespace OPDCLAIMFORM.Controllers
         {
             if (Request.IsAuthenticated)
             {
+                AuthenticateUser();
                 if (id == 0)
                 {
                     return RedirectToAction("Index", "OPDEXPENSEs");
@@ -320,6 +334,14 @@ namespace OPDCLAIMFORM.Controllers
             string emailAddress = managerController.GetEmailAddress();
 
             return emailAddress;
+        }
+
+        private void AuthenticateUser()
+        {
+            OFFICEAPIMANAGERController managerController = new OFFICEAPIMANAGERController();           
+
+            ViewBag.RollType = managerController.AuthenticateUser();
+
         }
     }
 }

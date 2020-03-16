@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Net.Http;
@@ -201,6 +202,35 @@ namespace OPDCLAIMFORM.Controllers
             string userName = ClaimsPrincipal.Current.FindFirst("name").Value;
 
             return userName;
+        }
+
+        public string AuthenticateUser()
+        {
+
+            string emailAddress = GetEmailAddress();
+            string rollType = string.Empty;
+
+            List<string> HRList = ConfigurationManager.AppSettings["HR:List"].Split(',').ToList<string>();
+
+            List<string> FINList = ConfigurationManager.AppSettings["FIN:List"].Split(',').ToList<string>();
+
+            List<string> MANList = ConfigurationManager.AppSettings["MAN:List"].Split(',').ToList<string>();
+
+            if (HRList.Contains(emailAddress))
+            {
+                rollType = "HR";
+            }
+            else if (FINList.Contains(emailAddress))
+            {
+                rollType = "FIN";
+            }
+            else if (MANList.Contains(emailAddress))
+            {
+                rollType = "MAN";
+            }
+
+            return rollType;
+
         }
 
     }
