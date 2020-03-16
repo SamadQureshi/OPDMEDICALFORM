@@ -83,6 +83,8 @@ namespace OPDCLAIMFORM.Controllers
 
             ViewBag.RollType = managerController.AuthenticateUser();
 
+            ViewBag.UserName = managerController.GetName();
+
         }
 
     }

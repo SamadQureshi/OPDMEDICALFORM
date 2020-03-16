@@ -95,6 +95,7 @@ namespace OPDCLAIMFORM.Controllers
             MedicalInfoEntities entities = new MedicalInfoEntities();
 
             if (Request.IsAuthenticated){
+                AuthenticateUser();
                 if (id == null){
                     RedirectToAction("Index", "HRAPPROVAL");
                 }
@@ -120,6 +121,7 @@ namespace OPDCLAIMFORM.Controllers
         {
             MedicalInfoEntities entities = new MedicalInfoEntities();
             if (Request.IsAuthenticated){
+                AuthenticateUser();
                 if (id == null){
                     RedirectToAction("Index", "HRAPPROVAL");
                 }
@@ -178,6 +180,7 @@ namespace OPDCLAIMFORM.Controllers
         public ActionResult HROPDExpense(int? id)
         {
             if (Request.IsAuthenticated){
+                AuthenticateUser();
                 if (id == null){
                     RedirectToAction("Index", "HRAPPROVAL");
                 }
@@ -229,6 +232,7 @@ namespace OPDCLAIMFORM.Controllers
         public ActionResult HRHospitalExpense(int? id)
         {
             if (Request.IsAuthenticated){
+                AuthenticateUser();
                 if (id == null){
                     RedirectToAction("Index", "HRAPPROVAL");
                 }
@@ -386,6 +390,8 @@ namespace OPDCLAIMFORM.Controllers
         {
             OFFICEAPIMANAGERController managerController = new OFFICEAPIMANAGERController();
             ViewBag.RollType = managerController.AuthenticateUser();
+
+            ViewBag.UserName = managerController.GetName();
 
         }
 

@@ -95,6 +95,7 @@ namespace OPDCLAIMFORM.Controllers
 
             if (Request.IsAuthenticated)
             {
+                AuthenticateUser();
                 if (id == null)
                 {
                     return RedirectToAction("Index", "MANAPPROVAL");
@@ -125,6 +126,7 @@ namespace OPDCLAIMFORM.Controllers
 
             if (Request.IsAuthenticated)
             {
+                AuthenticateUser();
                 if (id == null)
                 {
                     return RedirectToAction("Index", "MANAPPROVAL");
@@ -200,6 +202,8 @@ namespace OPDCLAIMFORM.Controllers
         {
             if (Request.IsAuthenticated)
             {
+
+                AuthenticateUser();
                 if (id == null)
                 {
                     return RedirectToAction("Index", "MANAPPROVAL");
@@ -259,6 +263,7 @@ namespace OPDCLAIMFORM.Controllers
         {
             if (Request.IsAuthenticated)
             {
+                AuthenticateUser();
                 if (id == null)
                 {
                     return RedirectToAction("Index", "MANAPPROVAL");
@@ -450,6 +455,8 @@ namespace OPDCLAIMFORM.Controllers
         {
             OFFICEAPIMANAGERController managerController = new OFFICEAPIMANAGERController();
             ViewBag.RollType = managerController.AuthenticateUser();
+
+            ViewBag.UserName = managerController.GetName();
 
         }
     }

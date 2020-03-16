@@ -95,6 +95,7 @@ namespace OPDCLAIMFORM.Controllers
             MedicalInfoEntities entities = new MedicalInfoEntities();
 
             if (Request.IsAuthenticated){
+                AuthenticateUser();
 
                 if (id == null){
                     return RedirectToAction("Index", "FINAPPROVAL");
@@ -119,6 +120,7 @@ namespace OPDCLAIMFORM.Controllers
         {
             MedicalInfoEntities entities = new MedicalInfoEntities();
             if (Request.IsAuthenticated){
+                AuthenticateUser();
                 if (id == null){
                 return RedirectToAction("Index", "FINAPPROVAL");
             }
@@ -187,6 +189,7 @@ namespace OPDCLAIMFORM.Controllers
         public ActionResult FINOPDExpense(int? id)
         {
             if (Request.IsAuthenticated){
+                AuthenticateUser();
                 if (id == null){
                 return RedirectToAction("Index", "FINAPPROVAL");
             }
@@ -232,6 +235,7 @@ namespace OPDCLAIMFORM.Controllers
         {
 
             if (Request.IsAuthenticated) {
+                AuthenticateUser();
                 if (id == null){
                 return RedirectToAction("Index", "FINAPPROVAL");
             }
@@ -406,6 +410,8 @@ namespace OPDCLAIMFORM.Controllers
         {
             OFFICEAPIMANAGERController managerController = new OFFICEAPIMANAGERController();
             ViewBag.RollType = managerController.AuthenticateUser();
+
+            ViewBag.UserName = managerController.GetName();
 
         }
     }
