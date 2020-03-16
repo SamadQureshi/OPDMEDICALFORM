@@ -46,6 +46,8 @@
     <Property Name="MANAGEMENT_EMAILADDRESS" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="STATUS" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="CLAIM_YEAR" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TOTAL_AMOUNT_APPROVED" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="EXPENSE_NUMBER" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" annotation:StoreGeneratedPattern="Computed" />
   </EntityType>
   <EntityType Name="OPDEXPENSE_IMAGE">
     <Key>

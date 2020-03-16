@@ -4,6 +4,8 @@
     <EntitySetMapping Name="OPDEXPENSEs">
       <EntityTypeMapping TypeName="MedicalInfoModel.OPDEXPENSE">
         <MappingFragment StoreEntitySet="OPDEXPENSE">
+          <ScalarProperty Name="EXPENSE_NUMBER" ColumnName="EXPENSE_NUMBER" />
+          <ScalarProperty Name="TOTAL_AMOUNT_APPROVED" ColumnName="TOTAL_AMOUNT_APPROVED" />
           <ScalarProperty Name="CLAIM_YEAR" ColumnName="CLAIM_YEAR" />
           <ScalarProperty Name="STATUS" ColumnName="STATUS" />
           <ScalarProperty Name="MANAGEMENT_EMAILADDRESS" ColumnName="MANAGEMENT_EMAILADDRESS" />

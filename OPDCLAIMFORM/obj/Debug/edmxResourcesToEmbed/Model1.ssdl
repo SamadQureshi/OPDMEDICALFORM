@@ -44,6 +44,8 @@
     <Property Name="FINANCE_EMAILADDRESS" Type="varchar" MaxLength="100" />
     <Property Name="MANAGEMENT_EMAILADDRESS" Type="varchar" MaxLength="100" />
     <Property Name="STATUS" Type="varchar" MaxLength="100" />
+    <Property Name="TOTAL_AMOUNT_APPROVED" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="EXPENSE_NUMBER" Type="nvarchar" MaxLength="4000" StoreGeneratedPattern="Computed" />
   </EntityType>
   <EntityType Name="OPDEXPENSE_IMAGE">
     <Key>

@@ -49,6 +49,8 @@
           <Property Name="FINANCE_EMAILADDRESS" Type="varchar" MaxLength="100" />
           <Property Name="MANAGEMENT_EMAILADDRESS" Type="varchar" MaxLength="100" />
           <Property Name="STATUS" Type="varchar" MaxLength="100" />
+          <Property Name="TOTAL_AMOUNT_APPROVED" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="EXPENSE_NUMBER" Type="nvarchar" MaxLength="4000" StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="OPDEXPENSE_IMAGE">
           <Key>
@@ -192,6 +194,8 @@
           <Property Name="MANAGEMENT_EMAILADDRESS" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="STATUS" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="CLAIM_YEAR" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TOTAL_AMOUNT_APPROVED" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="EXPENSE_NUMBER" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" annotation:StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="OPDEXPENSE_IMAGE">
           <Key>
@@ -285,7 +289,7 @@
           </FunctionImport>
           <FunctionImport Name="GET_OPDEXPENSE_IMAGE1" ReturnType="Collection(MedicalInfoModel.GET_OPDEXPENSE_IMAGE1_Result)" />
           <FunctionImport Name="DELETE_OPDEXPENSE">
-            <Parameter Name="OPDEXPENSE_ID" Mode="In" Type="Int32" />
+          <Parameter Name="OPDEXPENSE_ID" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GET_OPDEXPENSE_IMAGE_Result">
@@ -323,6 +327,8 @@
           <EntitySetMapping Name="OPDEXPENSEs">
             <EntityTypeMapping TypeName="MedicalInfoModel.OPDEXPENSE">
               <MappingFragment StoreEntitySet="OPDEXPENSE">
+                <ScalarProperty Name="EXPENSE_NUMBER" ColumnName="EXPENSE_NUMBER" />
+                <ScalarProperty Name="TOTAL_AMOUNT_APPROVED" ColumnName="TOTAL_AMOUNT_APPROVED" />
                 <ScalarProperty Name="CLAIM_YEAR" ColumnName="CLAIM_YEAR" />
                 <ScalarProperty Name="STATUS" ColumnName="STATUS" />
                 <ScalarProperty Name="MANAGEMENT_EMAILADDRESS" ColumnName="MANAGEMENT_EMAILADDRESS" />
