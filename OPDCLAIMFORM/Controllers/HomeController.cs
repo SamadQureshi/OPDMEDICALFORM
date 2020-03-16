@@ -7,7 +7,6 @@ using System.Security.Claims;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
-
 namespace OPDCLAIMFORM.Controllers
 {
     public class HomeController : Controller
@@ -16,12 +15,12 @@ namespace OPDCLAIMFORM.Controllers
         public ActionResult Index()
         {
             if (Request.IsAuthenticated)
-            {
-
-
+            {                           
+                
                 string userName = ClaimsPrincipal.Current.FindFirst("name").Value;
-                string emailAddress = ClaimsPrincipal.Current.FindFirst("preferred_username").Value;
+            
                 string userId = ClaimsPrincipal.Current.FindFirst(ClaimTypes.NameIdentifier).Value;
+
                 if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(userId))
                 {
                     // Invalid principal, sign out
@@ -39,6 +38,7 @@ namespace OPDCLAIMFORM.Controllers
                     return RedirectToAction("SignOut","OFFICEAPIMANAGER",null);
                 }
 
+                string emailAddress = GetEmailAddress();
 
                 List<string> HRList = ConfigurationManager.AppSettings["HR:List"].Split(',').ToList<string>();
 
@@ -57,19 +57,25 @@ namespace OPDCLAIMFORM.Controllers
                 else if (MANList.Contains(emailAddress))
                 {
                     ViewBag.RollType = "MAN";
-                }     
-              
-                ///ViewBag.RollType = 
-
+                }
 
                 ViewBag.UserName = userName;
             }
             return View();
         }
 
+        private string GetEmailAddress()
+        {
+            OFFICEAPIMANAGERController managerController = new OFFICEAPIMANAGERController();
+            string emailAddress = managerController.GetEmailAddress();
+
+            return emailAddress;
+        }
+
+
 
     }
 
-      
-        
+
+
 }

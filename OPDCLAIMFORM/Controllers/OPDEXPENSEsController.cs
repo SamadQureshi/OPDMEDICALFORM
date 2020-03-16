@@ -16,10 +16,77 @@ namespace OPDCLAIMFORM.Controllers
         private MedicalInfoEntities db = new MedicalInfoEntities();
 
         // GET: OPDEXPENSEs
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString)
         {
-            // return View(db.OPDEXPENSEs.Where(e => e.OPDTYPE == "OPD Expense").ToList());
-            return View(db.OPDEXPENSEs.ToList());
+            if (Request.IsAuthenticated)
+            {              
+
+
+                ViewBag.CurrentSort = sortOrder;
+                ViewBag.EmployeeNameSortParm = String.IsNullOrEmpty(sortOrder) ? "EmployeeName_desc" : "";              
+                ViewBag.ClaimForMonthSortParm = String.IsNullOrEmpty(sortOrder) ? "ClaimForMonth_desc" : "";
+                ViewBag.StatusSortParm = String.IsNullOrEmpty(sortOrder) ? "Status_desc" : "";
+                ViewBag.OPDTypeSortParm = String.IsNullOrEmpty(sortOrder) ? "OPDType_desc" : "";                
+
+                if (searchString == null)
+                {
+                  searchString = currentFilter;
+                }
+
+                ViewBag.CurrentFilter = searchString;
+
+                //var students = from s in db.OPDEXPENSEs
+                //               select s;a
+                string emailAddress = GetEmailAddress();
+                var students = db.OPDEXPENSEs.Where(e => e.EMPLOYEE_EMAILADDRESS == emailAddress);
+
+
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    students = students.Where(s => s.STATUS.Contains(searchString));
+                }
+                switch (sortOrder)
+                {
+                    case "EmployeeName_desc":
+                        students = students.OrderBy(s => s.EMPLOYEE_NAME);
+                        ViewBag.EmployeeNameSortParm = "EmployeeName_asc";
+                        break;
+                    case "ClaimForMonth_desc":
+                        students = students.OrderBy(s => s.CLAIM_MONTH);
+                        ViewBag.ClaimForMonthSortParm = "ClaimForMonth_asc";
+                        break;
+                    case "Status_desc":
+                        students = students.OrderBy(s => s.STATUS);
+                        ViewBag.StatusSortParm = "Status_asc";
+                        break;
+                    case "OPDType_desc":
+                        students = students.OrderBy(s => s.OPDTYPE);
+                        ViewBag.OPDTypeSortParm = "OPDType_asc";
+                        break;
+                    case "EmployeeName_asc":
+                        students = students.OrderByDescending(s => s.EMPLOYEE_NAME);
+                        break;
+                    case "ClaimForMonth_asc":
+                        students = students.OrderByDescending(s => s.CLAIM_MONTH);                       
+                        break;
+                    case "Status_asc":
+                        students = students.OrderByDescending(s => s.STATUS);                       
+                        break;
+                    case "OPDType_asc":
+                        students = students.OrderByDescending(s => s.OPDTYPE);                    
+                        break;
+                }
+
+
+                return View(students);
+
+                // return View(db.OPDEXPENSEs.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+
+            }
         }
 
         // GET: OPDEXPENSEs/Details/5
@@ -30,7 +97,7 @@ namespace OPDCLAIMFORM.Controllers
 
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index", "OPDEXPENSEs");
             }          
 
 
@@ -48,7 +115,15 @@ namespace OPDCLAIMFORM.Controllers
         // GET: OPDEXPENSEs/Create
         public ActionResult Create()
         {
-            return View();
+            if (Request.IsAuthenticated)
+            {
+                return View();
+            }
+            else
+            {
+               return RedirectToAction("Index", "OPDEXPENSEs");
+            }
+
         }
 
         // POST: OPDEXPENSEs/Create
@@ -57,12 +132,15 @@ namespace OPDCLAIMFORM.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "EMPLOYEE_NAME,EMPLOYEE_DEPARTMENT,CLAIM_MONTH,TOTAL_AMOUNT_CLAIMED,CLAIM_YEAR")] OPDEXPENSE oPDEXPENSE)
-        {
+        {        
+           
             if (ModelState.IsValid)
             {
+               
                 oPDEXPENSE.OPDTYPE = "OPD Expense";
                 oPDEXPENSE.STATUS = "InProcess";
                 oPDEXPENSE.CREATED_DATE = DateTime.Now;
+                oPDEXPENSE.EMPLOYEE_EMAILADDRESS = GetEmailAddress();
                 db.OPDEXPENSEs.Add(oPDEXPENSE);
                 db.SaveChanges();
                 ViewData["OPDEXPENSE_ID"] = oPDEXPENSE.OPDEXPENSE_ID;
@@ -77,29 +155,29 @@ namespace OPDCLAIMFORM.Controllers
         // GET: OPDEXPENSEs/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (Request.IsAuthenticated)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return RedirectToAction("Index", "OPDEXPENSEs");
+                }
+                MedicalInfoEntities entities = new MedicalInfoEntities();
+                var result2 = new OPDEXPENSE_MASTERDETAIL()
+                {
+                    listOPDEXPENSEPATIENT = entities.OPDEXPENSE_PATIENT.Where(e => e.OPDEXPENSE_ID == id).ToList(),
+                    listOPDEXPENSEIMAGE = entities.OPDEXPENSE_IMAGE.Where(e => e.OPDEXPENSE_ID == id).ToList(),
+                    opdEXPENSE = entities.OPDEXPENSEs.Where(e => e.OPDEXPENSE_ID == id).FirstOrDefault()
+
+                };
+                ViewData["OPDEXPENSE_ID"] = id;
+
+                return View(result2);
             }
-            //OPDEXPENSE oPDEXPENSE = db.OPDEXPENSEs.Find(id);
-            MedicalInfoEntities entities = new MedicalInfoEntities();
-            var result2 = new OPDEXPENSE_MASTERDETAIL()
+            else
             {
-                listOPDEXPENSEPATIENT = entities.OPDEXPENSE_PATIENT.Where(e => e.OPDEXPENSE_ID == id).ToList(),
-                listOPDEXPENSEIMAGE = entities.OPDEXPENSE_IMAGE.Where(e => e.OPDEXPENSE_ID == id).ToList(),
-                opdEXPENSE = entities.OPDEXPENSEs.Where(e => e.OPDEXPENSE_ID == id).FirstOrDefault()
+                return RedirectToAction("Index", "OPDEXPENSEs");
+            }
 
-            };
-
-
-
-            //if (oPDEXPENSE == null)
-            //{
-            //    return HttpNotFound();
-            //}
-
-           ViewData["OPDEXPENSE_ID"] = id;
-            return View(result2);
         }
 
         // POST: OPDEXPENSEs/Edit/5
@@ -111,11 +189,11 @@ namespace OPDCLAIMFORM.Controllers
         {
             if (ModelState.IsValid)
             {
-                oPDEXPENSE.MODIFIED_DATE = DateTime.Now;
+                oPDEXPENSE.MODIFIED_DATE = DateTime.Now;               
+                oPDEXPENSE.EMPLOYEE_EMAILADDRESS = GetEmailAddress();
                 db.Entry(oPDEXPENSE).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
-                //return RedirectToAction("Index", "OPDEXPENSEPATIENT", new { id = oPDEXPENSE.OPDEXPENSE_ID });
+                return RedirectToAction("Index");             
             }
             return View(oPDEXPENSE);
         }
@@ -123,39 +201,48 @@ namespace OPDCLAIMFORM.Controllers
         // GET: OPDEXPENSEs/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (Request.IsAuthenticated)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+                if (id == null)
+                {
+                    return RedirectToAction("Index", "OPDEXPENSEs");
+                }
+
+                var fileInfo = this.db.DELETE_OPDEXPENSE(id);
+
+                return RedirectToAction("Index", "OPDEXPENSEs");
+            }
+            else
+            {
+                return RedirectToAction("Index", "OPDEXPENSEs");
             }
 
-            var fileInfo = this.db.DELETE_OPDEXPENSE(id);
-
-            return RedirectToAction("Index");
-
-            //if (id == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
-            //OPDEXPENSE oPDEXPENSE = db.OPDEXPENSEs.Find(id);
-            //if (oPDEXPENSE == null)
-            //{
-            //    return HttpNotFound();
-            //}
-            //return View(oPDEXPENSE);
         }
 
         // POST: OPDEXPENSEs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
-        {          
+        {
+            if (Request.IsAuthenticated)
+            {
+                if (id == 0)
+                {
+                    return RedirectToAction("Index", "OPDEXPENSEs");
+                }
 
-            var fileInfo = this.db.DELETE_OPDEXPENSE(id);
+                else
+                {
+                    var fileInfo = this.db.DELETE_OPDEXPENSE(id);
+                }
 
-           // OPDEXPENSE oPDEXPENSE = db.OPDEXPENSEs.Find(id);
-           // db.OPDEXPENSEs.Remove(oPDEXPENSE);
-           // db.SaveChanges();
-            return RedirectToAction("Index");
+                return RedirectToAction("Index", "OPDEXPENSEs");
+            }
+            else
+            {
+                return RedirectToAction("Index", "OPDEXPENSEs");
+            }
         }
 
         protected override void Dispose(bool disposing)
@@ -226,5 +313,13 @@ namespace OPDCLAIMFORM.Controllers
 
         #endregion
 
+
+        private string GetEmailAddress()
+        {
+            OFFICEAPIMANAGERController managerController = new OFFICEAPIMANAGERController();
+            string emailAddress = managerController.GetEmailAddress();
+
+            return emailAddress;
+        }
     }
 }

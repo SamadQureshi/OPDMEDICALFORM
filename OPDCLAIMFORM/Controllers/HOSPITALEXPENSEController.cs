@@ -87,6 +87,7 @@ namespace OPDCLAIMFORM.Controllers
                 oPDEXPENSE.OPDTYPE = "Hospital Expense";
                 oPDEXPENSE.STATUS = "InProcess";
                 oPDEXPENSE.CREATED_DATE = DateTime.Now;
+                oPDEXPENSE.EMPLOYEE_EMAILADDRESS = GetEmailAddress();
                 db.OPDEXPENSEs.Add(oPDEXPENSE);
                 db.SaveChanges();
                 //return RedirectToAction("Index");
@@ -167,6 +168,7 @@ namespace OPDCLAIMFORM.Controllers
             if (ModelState.IsValid)
             {
                 oPDEXPENSE.MODIFIED_DATE = DateTime.Now;
+                oPDEXPENSE.EMPLOYEE_EMAILADDRESS = GetEmailAddress();
                 db.Entry(oPDEXPENSE).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index", "OPDEXPENSEs");
@@ -280,5 +282,21 @@ namespace OPDCLAIMFORM.Controllers
         }
 
         #endregion
+
+        private string GetEmailAddress()
+        {
+            OFFICEAPIMANAGERController managerController = new OFFICEAPIMANAGERController();
+            string emailAddress = managerController.GetEmailAddress();
+
+            return emailAddress;
+        }
+
+        private string GetName()
+        {
+            OFFICEAPIMANAGERController managerController = new OFFICEAPIMANAGERController();
+            string name = managerController.GetName();
+
+            return name;
+        }
     }
 }

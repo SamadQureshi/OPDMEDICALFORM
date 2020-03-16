@@ -187,7 +187,21 @@ namespace OPDCLAIMFORM.Controllers
             }
         }
 
+        public string GetEmailAddress()
+        {
 
+            string emailAddress = ClaimsPrincipal.Current.FindFirst("preferred_username").Value;
+
+            return emailAddress;
+        }
+
+        public string GetName()
+        {         
+
+            string userName = ClaimsPrincipal.Current.FindFirst("name").Value;
+
+            return userName;
+        }
 
     }
 }

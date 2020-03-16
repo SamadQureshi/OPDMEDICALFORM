@@ -14,9 +14,77 @@ namespace OPDCLAIMFORM.Controllers
         private readonly MedicalInfoEntities db = new MedicalInfoEntities();
 
         // GET: OPDEXPENSEs
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString)
         {
-            return View(db.OPDEXPENSEs.Where(e => e.STATUS == "HRApproved" || e.STATUS == "FINApproved" || e.STATUS == "FINRejected").ToList());
+            if (Request.IsAuthenticated) {
+
+                ViewBag.CurrentSort = sortOrder;
+                ViewBag.EmployeeNameSortParm = String.IsNullOrEmpty(sortOrder) ? "EmployeeName_desc" : "";
+                ViewBag.ClaimForMonthSortParm = String.IsNullOrEmpty(sortOrder) ? "ClaimForMonth_desc" : "";
+                ViewBag.StatusSortParm = String.IsNullOrEmpty(sortOrder) ? "Status_desc" : "";
+                ViewBag.OPDTypeSortParm = String.IsNullOrEmpty(sortOrder) ? "OPDType_desc" : "";
+
+                if (searchString == null)
+                {
+                    searchString = currentFilter;
+                }
+
+                ViewBag.CurrentFilter = searchString;
+
+                string emailAddress = GetEmailAddress();
+
+                //&& e.FINANCE_EMAILADDRESS == emailAddress
+
+                var students = db.OPDEXPENSEs.Where(e => e.STATUS == "HRApproved" || e.STATUS == "FINApproved" || e.STATUS == "FINRejected" );
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    students = students.Where(s => s.STATUS.Contains(searchString));
+                }
+                switch (sortOrder)
+                {
+                    case "EmployeeName_desc":
+                        students = students.OrderBy(s => s.EMPLOYEE_NAME);
+                        ViewBag.EmployeeNameSortParm = "EmployeeName_asc";
+                        break;
+                    case "ClaimForMonth_desc":
+                        students = students.OrderBy(s => s.CLAIM_MONTH);
+                        ViewBag.ClaimForMonthSortParm = "ClaimForMonth_asc";
+                        break;
+                    case "Status_desc":
+                        students = students.OrderBy(s => s.STATUS);
+                        ViewBag.StatusSortParm = "Status_asc";
+                        break;
+                    case "OPDType_desc":
+                        students = students.OrderBy(s => s.OPDTYPE);
+                        ViewBag.OPDTypeSortParm = "OPDType_asc";
+                        break;
+                    case "EmployeeName_asc":
+                        students = students.OrderByDescending(s => s.EMPLOYEE_NAME);
+                        break;
+                    case "ClaimForMonth_asc":
+                        students = students.OrderByDescending(s => s.CLAIM_MONTH);
+                        break;
+                    case "Status_asc":
+                        students = students.OrderByDescending(s => s.STATUS);
+                        break;
+                    case "OPDType_asc":
+                        students = students.OrderByDescending(s => s.OPDTYPE);
+                        break;
+                }
+
+
+                return View(students);
+
+
+
+
+
+
+                //return View(db.OPDEXPENSEs.Where(e => e.STATUS == "HRApproved" || e.STATUS == "FINApproved" || e.STATUS == "FINRejected").ToList());
+            }
+            else {
+                return RedirectToAction("Index", "Home");
+            }               
         }
 
         // GET: OPDEXPENSEs/Details/5
@@ -24,20 +92,23 @@ namespace OPDCLAIMFORM.Controllers
         {
             MedicalInfoEntities entities = new MedicalInfoEntities();
 
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (Request.IsAuthenticated){
+
+                if (id == null){
+                    return RedirectToAction("Index", "FINAPPROVAL");
+                }
+
+                var result2 = new OPDEXPENSE_MASTERDETAIL(){
+                    listOPDEXPENSEPATIENT = entities.OPDEXPENSE_PATIENT.Where(e => e.OPDEXPENSE_ID == id).ToList(),
+                    listOPDEXPENSEIMAGE = entities.OPDEXPENSE_IMAGE.Where(e => e.OPDEXPENSE_ID == id).ToList(),
+                    opdEXPENSE = entities.OPDEXPENSEs.Where(e => e.OPDEXPENSE_ID == id).FirstOrDefault()
+
+                };
+                return View(result2);
             }
-
-            var result2 = new OPDEXPENSE_MASTERDETAIL()
-            {
-                listOPDEXPENSEPATIENT = entities.OPDEXPENSE_PATIENT.Where(e => e.OPDEXPENSE_ID == id).ToList(),
-                listOPDEXPENSEIMAGE = entities.OPDEXPENSE_IMAGE.Where(e => e.OPDEXPENSE_ID == id).ToList(),
-                opdEXPENSE = entities.OPDEXPENSEs.Where(e => e.OPDEXPENSE_ID == id).FirstOrDefault()
-
-            };
-            //RedirectToAction("Index",);
-            return View(result2);
+            else {
+                return RedirectToAction("Index", "FINAPPROVAL");
+            }
         }
 
 
@@ -45,17 +116,14 @@ namespace OPDCLAIMFORM.Controllers
         public ActionResult DetailsForHospitalExpense(int? id)
         {
             MedicalInfoEntities entities = new MedicalInfoEntities();
-
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (Request.IsAuthenticated){
+                if (id == null){
+                return RedirectToAction("Index", "FINAPPROVAL");
             }
 
             OPDEXPENSE oPDEXPENSE = db.OPDEXPENSEs.Find(id);
 
-
-            var result2 = new HOSPITALEXPENSE_MASTERDETAIL()
-            {
+            var result2 = new HOSPITALEXPENSE_MASTERDETAIL(){
                 listOPDEXPENSEPATIENT = entities.OPDEXPENSE_PATIENT.Where(e => e.OPDEXPENSE_ID == id).ToList(),
                 listOPDEXPENSEIMAGE = entities.OPDEXPENSE_IMAGE.Where(e => e.OPDEXPENSE_ID == id).ToList(),
                 OPDEXPENSE_ID = oPDEXPENSE.OPDEXPENSE_ID,
@@ -91,27 +159,32 @@ namespace OPDCLAIMFORM.Controllers
             };
 
             return View(result2);
+            }
+            else {
+                return RedirectToAction("Index", "FINAPPROVAL");
+            }
         }
 
 
         // GET: OPDEXPENSEs/Edit/5
         public ActionResult FINOPDExpense(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (Request.IsAuthenticated){
+                if (id == null){
+                return RedirectToAction("Index", "FINAPPROVAL");
             }
             MedicalInfoEntities entities = new MedicalInfoEntities();
-            var result2 = new OPDEXPENSE_MASTERDETAIL()
-            {
+            var result2 = new OPDEXPENSE_MASTERDETAIL(){
                 listOPDEXPENSEPATIENT = entities.OPDEXPENSE_PATIENT.Where(e => e.OPDEXPENSE_ID == id).ToList(),
                 listOPDEXPENSEIMAGE = entities.OPDEXPENSE_IMAGE.Where(e => e.OPDEXPENSE_ID == id).ToList(),
                 opdEXPENSE = entities.OPDEXPENSEs.Where(e => e.OPDEXPENSE_ID == id).FirstOrDefault()
-
             };
-
             ViewData["OPDEXPENSE_ID"] = id;
             return View(result2);
+            }
+            else{
+                return RedirectToAction("Index", "FINAPPROVAL");
+            }
         }
 
         // POST: OPDEXPENSEs/Edit/5
@@ -121,42 +194,35 @@ namespace OPDCLAIMFORM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult FINOPDExpense([Bind(Include = "OPDEXPENSE_ID,EMPLOYEE_NAME,EMPLOYEE_DEPARTMENT,CLAIM_MONTH,CLAIM_YEAR,TOTAL_AMOUNT_CLAIMED,STATUS,OPDTYPE,HR_COMMENT,HR_APPROVAL,HR_APPROVAL_DATE,HR_NAME,FINANCE_COMMENT,FINANCE_APPROVAL,FINANCE_APPROVAL_DATE,FINANCE_NAME,MANAGEMENT_COMMENT,MANAGEMENT_APPROVAL,MANAGEMENT_APPROVAL_DATE,MANAGEMENT_NAME")] OPDEXPENSE oPDEXPENSE)
         {
-            if (ModelState.IsValid)
-            {
+            if (ModelState.IsValid){
                 oPDEXPENSE.MODIFIED_DATE = DateTime.Now;
                 oPDEXPENSE.FINANCE_APPROVAL_DATE = DateTime.Now;
-
-                if (oPDEXPENSE.STATUS == "FINApproved")
-                {
+                oPDEXPENSE.FINANCE_EMAILADDRESS = GetEmailAddress();
+                if (oPDEXPENSE.STATUS == "FINApproved"){
                     oPDEXPENSE.HR_APPROVAL = true;
                     oPDEXPENSE.FINANCE_APPROVAL = true;
                 }
-
 
                 db.Entry(oPDEXPENSE).State = EntityState.Modified;
                 db.SaveChanges();
 
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "FINAPPROVAL"); 
         }
-
-
-
-
 
         // GET: OPDEXPENSEs/Edit/5
         public ActionResult FINHospitalExpense(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            if (Request.IsAuthenticated) {
+                if (id == null){
+                return RedirectToAction("Index", "FINAPPROVAL");
             }
 
             MedicalInfoEntities entities = new MedicalInfoEntities();
             OPDEXPENSE oPDEXPENSE = db.OPDEXPENSEs.Find(id);
 
-            var result2 = new HOSPITALEXPENSE_MASTERDETAIL()
-            {
+            var result2 = new HOSPITALEXPENSE_MASTERDETAIL(){
                 listOPDEXPENSEPATIENT = entities.OPDEXPENSE_PATIENT.Where(e => e.OPDEXPENSE_ID == id).ToList(),
                 listOPDEXPENSEIMAGE = entities.OPDEXPENSE_IMAGE.Where(e => e.OPDEXPENSE_ID == id).ToList(),
                 OPDEXPENSE_ID = oPDEXPENSE.OPDEXPENSE_ID,
@@ -194,6 +260,10 @@ namespace OPDCLAIMFORM.Controllers
 
             ViewData["OPDEXPENSE_ID"] = id;
             return View(result2);
+            }
+            else{
+                return RedirectToAction("Index", "FINAPPROVAL");
+            }
 
         }
 
@@ -208,7 +278,7 @@ namespace OPDCLAIMFORM.Controllers
             {
                 oPDEXPENSE.MODIFIED_DATE = DateTime.Now;
                 oPDEXPENSE.FINANCE_APPROVAL_DATE = DateTime.Now;
-
+                oPDEXPENSE.FINANCE_EMAILADDRESS = GetEmailAddress();
                 if (oPDEXPENSE.STATUS == "FINApproved")
                 {
                     oPDEXPENSE.HR_APPROVAL = true;
@@ -220,13 +290,8 @@ namespace OPDCLAIMFORM.Controllers
                 db.Entry(oPDEXPENSE).State = EntityState.Modified;
                 db.SaveChanges();
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "FINAPPROVAL");
         }
-
-
-
-
-
 
         /// <summary>
         /// GET: /Img/DownloadFile
@@ -297,5 +362,13 @@ namespace OPDCLAIMFORM.Controllers
 
 
         #endregion
+
+        private string GetEmailAddress()
+        {
+            OFFICEAPIMANAGERController managerController = new OFFICEAPIMANAGERController();
+            string emailAddress = managerController.GetEmailAddress();
+
+            return emailAddress;
+        }
     }
 }
