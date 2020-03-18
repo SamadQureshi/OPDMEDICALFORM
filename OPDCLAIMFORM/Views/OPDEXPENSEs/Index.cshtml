@@ -23,7 +23,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayName("Expense Number")
+            @Html.ActionLink("Expense Number" , "Index", new { sortOrder = ViewBag.ExpenseNumberSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
             @Html.ActionLink("Employee Name", "Index", new { sortOrder = ViewBag.EmployeeNameSortParm, currentFilter = ViewBag.CurrentFilter })
@@ -78,7 +78,14 @@
     <td>
         @if (item.OPDTYPE.Equals("OPD Expense"))
         {
-            if (item.STATUS.Equals("InProcess") || item.STATUS.Equals("HRRejected"))
+            if (item.STATUS.Equals("InProcess"))
+            {
+                @Html.ActionLink("Edit", "Edit", "OPDEXPENSEs", new { id = item.OPDEXPENSE_ID }, null) <span> | </span>
+                @Html.ActionLink("Details", "Details", "OPDEXPENSEs", new { id = item.OPDEXPENSE_ID }, null) <span> | </span>
+                @Html.ActionLink("Delete", "Delete", "OPDEXPENSEs", new { id = item.OPDEXPENSE_ID }, null);
+            }
+
+            else if (item.STATUS.Equals("HRRejected"))
             {
                 @Html.ActionLink("Edit", "Edit", "OPDEXPENSEs", new { id = item.OPDEXPENSE_ID }, null) <span> | </span>
                 @Html.ActionLink("Details", "Details", "OPDEXPENSEs", new { id = item.OPDEXPENSE_ID }, null)
@@ -93,7 +100,13 @@
         }
         @if (item.OPDTYPE.Equals("Hospital Expense"))
         {
-            if (item.STATUS.Equals("InProcess") || item.STATUS.Equals("HRRejected"))
+            if (item.STATUS.Equals("InProcess"))
+            {
+                @Html.ActionLink("Edit", "Edit", "HOSPITALEXPENSE", new { id = item.OPDEXPENSE_ID }, null) <span> | </span>
+                @Html.ActionLink("Details", "Details", "HOSPITALEXPENSE", new { id = item.OPDEXPENSE_ID }, null) <span> | </span>
+                @Html.ActionLink("Delete", "Delete", "HOSPITALEXPENSE", new { id = item.OPDEXPENSE_ID }, null)
+            }
+            else if (item.STATUS.Equals("HRRejected"))
             {
                 @Html.ActionLink("Edit", "Edit", "HOSPITALEXPENSE", new { id = item.OPDEXPENSE_ID }, null) <span> | </span>
                 @Html.ActionLink("Details", "Details", "HOSPITALEXPENSE", new { id = item.OPDEXPENSE_ID }, null)

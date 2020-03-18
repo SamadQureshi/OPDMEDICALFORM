@@ -365,6 +365,7 @@
     <Content Include="Views\MANAPPROVAL\MANHOSPITALExpense.cshtml" />
     <Content Include="Views\MANAPPROVAL\MANOPDExpense.cshtml" />
     <Content Include="Views\MANAPPROVAL\Index.cshtml" />
+    <Content Include="Views\Shared\Employee_Department.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
