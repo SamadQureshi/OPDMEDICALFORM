@@ -19,7 +19,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayName("Expense Number")
+            @Html.ActionLink("Expense Number", "Index", new { sortOrder = ViewBag.ExpenseNumberSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
             @Html.ActionLink("Employee Name", "Index", new { sortOrder = ViewBag.EmployeeNameSortParm, currentFilter = ViewBag.CurrentFilter })

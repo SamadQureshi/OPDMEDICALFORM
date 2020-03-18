@@ -25,7 +25,7 @@ namespace OPDCLAIMFORM.Controllers
                 ViewBag.ClaimForMonthSortParm = String.IsNullOrEmpty(sortOrder) ? "ClaimForMonth_desc" : "";
                 ViewBag.StatusSortParm = String.IsNullOrEmpty(sortOrder) ? "Status_desc" : "";
                 ViewBag.OPDTypeSortParm = String.IsNullOrEmpty(sortOrder) ? "OPDType_desc" : "";
-
+                ViewBag.ExpenseNumberSortParm = String.IsNullOrEmpty(sortOrder) ? "ExpenseNumber_desc" : "";
                 if (searchString == null)
                 {
                     searchString = currentFilter;
@@ -60,6 +60,10 @@ namespace OPDCLAIMFORM.Controllers
                         students = students.OrderBy(s => s.OPDTYPE);
                         ViewBag.OPDTypeSortParm = "OPDType_asc";
                         break;
+                    case "ExpenseNumber_desc":
+                        students = students.OrderBy(s => s.EXPENSE_NUMBER);
+                        ViewBag.ExpenseNumberSortParm = "ExpenseNumber_asc";
+                        break;
                     case "EmployeeName_asc":
                         students = students.OrderByDescending(s => s.EMPLOYEE_NAME);
                         break;
@@ -71,6 +75,9 @@ namespace OPDCLAIMFORM.Controllers
                         break;
                     case "OPDType_asc":
                         students = students.OrderByDescending(s => s.OPDTYPE);
+                        break;
+                    case "ExpenseNumber_asc":
+                        students = students.OrderByDescending(s => s.EXPENSE_NUMBER);
                         break;
                 }
 
