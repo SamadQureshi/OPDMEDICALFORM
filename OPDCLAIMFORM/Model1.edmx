@@ -5,6 +5,13 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="MedicalInfoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DepartmentName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="OPDEXPENSE">
           <Key>
             <PropertyRef Name="OPDEXPENSE_ID" />
@@ -131,6 +138,7 @@
           <Parameter Name="EXPENSE_AMOUNT" Type="decimal" Mode="In" />
         </Function>
         <EntityContainer Name="MedicalInfoModelStoreContainer">
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OPDEXPENSE" EntityType="Self.OPDEXPENSE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OPDEXPENSE_IMAGE" EntityType="Self.OPDEXPENSE_IMAGE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OPDEXPENSE_PATIENT" EntityType="Self.OPDEXPENSE_PATIENT" Schema="dbo" store:Type="Tables" />
@@ -291,6 +299,7 @@
           <FunctionImport Name="DELETE_OPDEXPENSE">
           <Parameter Name="OPDEXPENSE_ID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="Departments" EntityType="MedicalInfoModel.Department" />
         </EntityContainer>
         <ComplexType Name="GET_OPDEXPENSE_IMAGE_Result">
           <Property Type="Int32" Name="IMAGE_ID" Nullable="false" />
@@ -318,6 +327,13 @@
           <Property Type="Decimal" Name="EXPENSE_AMOUNT" Nullable="true" Precision="18" Scale="0" />
           <Property Type="Int32" Name="OPDEXPENSE_ID" Nullable="true" />
         </ComplexType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -434,6 +450,14 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="DELETE_OPDEXPENSE" FunctionName="MedicalInfoModel.Store.DELETE_OPDEXPENSE" />
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="MedicalInfoModel.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

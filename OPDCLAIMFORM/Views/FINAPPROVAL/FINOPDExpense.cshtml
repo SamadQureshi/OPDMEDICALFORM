@@ -11,234 +11,77 @@
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.opdEXPENSE.OPDEXPENSE_ID)
-    @Html.HiddenFor(model => model.opdEXPENSE.OPDTYPE)
-    @Html.HiddenFor(model => model.opdEXPENSE.EMPLOYEE_EMAILADDRESS)
-    @Html.HiddenFor(model => model.opdEXPENSE.MANAGEMENT_APPROVAL_DATE)
-    @Html.HiddenFor(model => model.opdEXPENSE.HR_APPROVAL_DATE)
-    @Html.HiddenFor(model => model.opdEXPENSE.FINANCE_APPROVAL_DATE)
-    @Html.HiddenFor(model => model.opdEXPENSE.HR_EMAILADDRESS)
-    @Html.HiddenFor(model => model.opdEXPENSE.CREATED_DATE)
-    <div class="form-group">
-        @Html.LabelFor(model => model.opdEXPENSE.EMPLOYEE_NAME, "Employee Name", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(model => model.opdEXPENSE.EMPLOYEE_NAME, new { @readonly = "readonly", @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.opdEXPENSE.EMPLOYEE_NAME, "", new { @class = "text-danger" })
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.opdEXPENSE.OPDEXPENSE_ID)
+        @Html.HiddenFor(model => model.opdEXPENSE.OPDTYPE)
+        @Html.HiddenFor(model => model.opdEXPENSE.EMPLOYEE_EMAILADDRESS)
+        @Html.HiddenFor(model => model.opdEXPENSE.MANAGEMENT_APPROVAL_DATE)
+        @Html.HiddenFor(model => model.opdEXPENSE.HR_APPROVAL_DATE)
+        @Html.HiddenFor(model => model.opdEXPENSE.FINANCE_APPROVAL_DATE)
+        @Html.HiddenFor(model => model.opdEXPENSE.HR_EMAILADDRESS)
+        @Html.HiddenFor(model => model.opdEXPENSE.CREATED_DATE)
+
+        @Html.Partial("_OPDExpenseView", Model)
+        <div class="form-group">
+            @Html.LabelFor(model => model.opdEXPENSE.TOTAL_AMOUNT_APPROVED, "Total Amount Approved", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.opdEXPENSE.TOTAL_AMOUNT_APPROVED, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.opdEXPENSE.TOTAL_AMOUNT_APPROVED, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.opdEXPENSE.EMPLOYEE_DEPARTMENT, "Employee Department", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(model => model.opdEXPENSE.EMPLOYEE_DEPARTMENT, new { @readonly = "readonly", @class = "form-control" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.opdEXPENSE.HR_COMMENT, "HR Comment", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.opdEXPENSE.HR_COMMENT, new { @readonly = "readonly", @class = "form-control" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.opdEXPENSE.CLAIM_MONTH, "Claim For Month", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(model => model.opdEXPENSE.CLAIM_MONTH, new { @readonly = "readonly", @class = "form-control" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.opdEXPENSE.HR_NAME, "HR Name", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.opdEXPENSE.HR_NAME, new { @readonly = "readonly", @class = "form-control" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.opdEXPENSE.CLAIM_YEAR, "Claim For Year", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(model => model.opdEXPENSE.CLAIM_YEAR, new { @readonly = "readonly", @class = "form-control" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.opdEXPENSE.FINANCE_COMMENT, "Finance Comment", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.opdEXPENSE.FINANCE_COMMENT, 2, 40, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.opdEXPENSE.FINANCE_COMMENT, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.opdEXPENSE.TOTAL_AMOUNT_CLAIMED, "Total Amount Claimed", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(model => model.opdEXPENSE.TOTAL_AMOUNT_CLAIMED, new { @readonly = "readonly", @class = "form-control" })
-
+        <div class="form-group">
+            @Html.LabelFor(model => model.opdEXPENSE.FINANCE_NAME, "Finance Name", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.opdEXPENSE.FINANCE_NAME, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @Value = (ViewBag.UserName) } })
+                @Html.ValidationMessageFor(model => model.opdEXPENSE.FINANCE_NAME, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.opdEXPENSE.TOTAL_AMOUNT_APPROVED, "Total Amount Approved", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.opdEXPENSE.TOTAL_AMOUNT_APPROVED, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.opdEXPENSE.TOTAL_AMOUNT_APPROVED, "", new { @class = "text-danger" })
-        </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.opdEXPENSE.HR_COMMENT, "HR Comment", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(model => model.opdEXPENSE.HR_COMMENT, new { @readonly = "readonly", @class = "form-control" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.opdEXPENSE.HR_NAME, "HR Name", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(model => model.opdEXPENSE.HR_NAME, new { @readonly = "readonly", @class = "form-control" })
-        </div>
-    </div>
-
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.opdEXPENSE.FINANCE_COMMENT, "Finance Comment", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextAreaFor(model => model.opdEXPENSE.FINANCE_COMMENT, 2, 40, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.opdEXPENSE.FINANCE_COMMENT, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.opdEXPENSE.FINANCE_NAME, "Finance Name", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.opdEXPENSE.FINANCE_NAME, new { htmlAttributes = new { @class = "form-control" , @readonly = "readonly", @Value = (ViewBag.UserName) } })
-            @Html.ValidationMessageFor(model => model.opdEXPENSE.FINANCE_NAME, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-
-
-
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.opdEXPENSE.STATUS, "Status", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.opdEXPENSE.STATUS, new List<SelectListItem>
-                    {
-                       new SelectListItem{ Text="FINApproved", Value = "FINApproved" },
-                       new SelectListItem{ Text="FINRejected", Value = "FINRejected" }
-                    }, new { @class = "form-control select2_demo_4" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-primary" />
-        </div>
-    </div>
-</div>
-}
-<div>
-    <h5>PATIENT INFORMATION</h5>
-    <hr style="height:2px;border:none;color:#333;background-color:#333;">
-    @if (Model.listOPDEXPENSEPATIENT != null && Model.listOPDEXPENSEPATIENT.Count > 0)
-    {
-        <div class="row">
-            <div class="col-md-offset-1 col-md-8">
-                <section>
-                    <table id="tblCustomers" class="table table-bordered table-striped">
-                        <tr>
-                            <th style="width:100px">Sr.</th>
-                            <th style="width:150px">Name</th>
-                            <th style="width:150px">Age</th>
-                            <th style="width:150px">RelationShip</th>
-                        </tr>
-
-                        @foreach (OPDEXPENSE_PATIENT customer in Model.listOPDEXPENSEPATIENT)
+        <div class="form-group">
+            @Html.LabelFor(model => model.opdEXPENSE.STATUS, "Status", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.opdEXPENSE.STATUS, new List<SelectListItem>
                         {
-                            <tr>
-                                <td class="ID">
-                                    <span>@customer.ID</span>
-                                </td>
-                                <td class="NAME">
-                                    <span>@customer.NAME</span>
-                                    <input type="text" value="@customer.NAME" style="display:none" />
-                                </td>
-                                <td class="AGE">
-                                    <span>@customer.AGE</span>
-                                    <input type="text" value="@customer.AGE" style="display:none" />
-                                </td>
-                                <td class="RELATIONSHIP_EMPLOYEE">
-                                    <span>@customer.RELATIONSHIP_EMPLOYEE</span>
-                                    <select id="relationShipListForEdit" style="display:none">
-                                        <option value="SELF">SELF</option>
-                                        <option value="FATHER">FATHER</option>
-                                        <option value="MOTHER">MOTHER</option>
-                                        <option value="SPOUSE">SPOUSE</option>
-                                        <option value="DAUGHTER">DAUGHTER</option>
-                                        <option value="SON">SON</option>
-                                    </select>
-                                </td>
-                            </tr>
-                        }
-                    </table>
-                </section>
+                           new SelectListItem{ Text="FINApproved", Value = "FINApproved" },
+                           new SelectListItem{ Text="FINRejected", Value = "FINRejected" }
+                        }, new { @class = "form-control select2_demo_4" })
             </div>
         </div>
-    }
-    else
-    {
-        <span>No Record Found</span>
 
-    }
-    <hr style="height:3px;border:none;color:#333;background-color:#333;">
-</div>
-<div>
-    <h5>PATIENT RECEIPT INFORMATION</h5>
-    <hr style="height:2px;border:none;color:#333;background-color:#333;">
-    @if (Model.listOPDEXPENSEIMAGE != null && Model.listOPDEXPENSEIMAGE.Count > 0)
-    {
-        <div class="row">
-            <div class="col-md-offset-1 col-md-8">
-                <section>
-                    <table class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th style="width:100px">Sr.</th>
-                                <th style="width:150px">Image Name</th>
-                                <th style="width:150px"></th>
-                                <th style="width:150px">Expense Name</th>
-                                <th style="width:150px">Expense Amount</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @for (int i = 0; i < Model.listOPDEXPENSEIMAGE.Count; i++)
-                            {
-                                <tr>
-                                    <td style="text-align: center;">@(i + 1)</td>
-
-                                    <td style="text-align: center;">
-                                        <div class="input-group" style="height:40px;">
-                                            <i class="fa fa-2x fa-paperclip text-navy"></i>
-                                            <a class="download-file1" href="@Url.Action("DownloadFile", "OPDEXPENSEs", new { fileId = @Model.listOPDEXPENSEIMAGE[i].IMAGE_ID })" target="_blank">
-                                                @Model.listOPDEXPENSEIMAGE[i].IMAGE_NAME
-                                            </a>
-                                        </div>
-                                    </td>
-
-                                    <td style="text-align: center;">
-                                        <div>
-                                            <img src="@Url.Action("DownloadFile", "OPDEXPENSEs", new { fileId = @Model.listOPDEXPENSEIMAGE[i].IMAGE_ID })" width="100" height="100" />
-                                        </div>
-                                    </td>
-
-                                    <td style="text-align: center;">
-                                        <div>
-                                            @Html.DisplayFor(model => @Model.listOPDEXPENSEIMAGE[i].NAME_EXPENSES)
-                                        </div>
-                                    </td>
-
-                                    <td style="text-align: center;">
-                                        <div>
-                                            @Html.DisplayFor(model => @Model.listOPDEXPENSEIMAGE[i].EXPENSE_AMOUNT)
-                                        </div>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </section>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </div>
-    }
-    else
-    {
-        <span> No Record Found</span>
-    }
-    <hr style="height:3px;border:none;color:#333;background-color:#333;">
-</div>
+    </div>
+}
+@Html.Partial("_OPDPatientReceiptImagesView", Model)
 
 <div>
     @Html.ActionLink("Back to List", "Index")

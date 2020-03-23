@@ -18,31 +18,26 @@
     @Html.HiddenFor(model => model.opdEXPENSE.OPDEXPENSE_ID)
     @Html.HiddenFor(model => model.opdEXPENSE.OPDTYPE)
     @Html.HiddenFor(model => model.opdEXPENSE.CREATED_DATE)
-    <div class="form-group">
-        @Html.LabelFor(model => model.opdEXPENSE.EMPLOYEE_NAME, "Employee Name", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.opdEXPENSE.EMPLOYEE_NAME, new { htmlAttributes = new { @class = "form-control" , @readonly = "readonly", @Value = (ViewBag.UserName) } })
-            @Html.ValidationMessageFor(model => model.opdEXPENSE.EMPLOYEE_NAME, "", new { @class = "text-danger" })
+
+    <div class="col-md-12">
+        <div class="form-group bmd-form-group is-filled custom-form-group">
+            @Html.LabelFor(model => model.opdEXPENSE.EMPLOYEE_NAME, "Name of Employee:", htmlAttributes: new { @class = "bmd-label-floating" })
+            @Html.EditorFor(model => model.opdEXPENSE.EMPLOYEE_NAME, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @Value = (ViewBag.UserName) } })
+            @Html.ValidationMessageFor(model => model.opdEXPENSE.EMPLOYEE_NAME, "", new { @class = "error" })
         </div>
     </div>
+    <div class="col-md-12">
+        <div class="form-group bmd-form-group is-filled custom-form-group">
+            @Html.LabelFor(model => model.opdEXPENSE.EMPLOYEE_DEPARTMENT, "Employee Department:", htmlAttributes: new { @class = "bmd-label-static custom-label" })
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.opdEXPENSE.EMPLOYEE_DEPARTMENT, "Employee Department", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.opdEXPENSE.EMPLOYEE_DEPARTMENT, new List<SelectListItem>
-    {
-               new SelectListItem {Text = "Consulting", Value = "Consulting"},
-               new SelectListItem {Text = "Qorsquad", Value = "Qorsquad"},
-               new SelectListItem {Text = "Product", Value = "Product"},
-               new SelectListItem {Text = "SalesAndMarketing", Value = "SalesAndMarketing"},
+            @Html.DropDownListFor(model => model.opdEXPENSE.EMPLOYEE_DEPARTMENT, new SelectList(Enumerable.Empty<SelectListItem>()))
 
-            }, new { @class = "form-control select2_demo_4" })
         </div>
     </div>
+    <div class="col-md-12">
+        <div class="form-group bmd-form-group is-filled custom-form-group">
+            @Html.LabelFor(model => model.opdEXPENSE.CLAIM_MONTH, "Claim For Month", htmlAttributes: new { @class = "bmd-label-static custom-label" })
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.opdEXPENSE.CLAIM_MONTH, "Claim For Month", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
             @Html.DropDownListFor(model => model.opdEXPENSE.CLAIM_MONTH, new List<SelectListItem>
             {
                        new SelectListItem {Text = "JAN", Value = "JAN"},
@@ -58,39 +53,39 @@
                        new SelectListItem {Text = "NOV", Value = "NOV"},
                        new SelectListItem {Text = "DEC", Value = "DEC"},
 
-                    }, new { @class = "form-control select2_demo_4" })
+                    }, new { @class = "selectpicker", @data_style = "btn btn-primary" })
         </div>
     </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.opdEXPENSE.CLAIM_YEAR, "Claim For Year", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+    <div class="col-md-12">
+        <div class="form-group bmd-form-group is-filled custom-form-group">
+            @Html.LabelFor(model => model.opdEXPENSE.CLAIM_YEAR, "Claim For Year", htmlAttributes: new { @class = "bmd-label-static custom-label" })
             @Html.DropDownListFor(model => model.opdEXPENSE.CLAIM_YEAR, new List<SelectListItem>
-        {
-                   new SelectListItem {Text = "2020", Value = "2020"},
-                   new SelectListItem {Text = "2021", Value = "2021"},
-                   new SelectListItem {Text = "2022", Value = "2022"},
-                   new SelectListItem {Text = "2023", Value = "2023"},
-                   new SelectListItem {Text = "2024", Value = "2024"},
-                   new SelectListItem {Text = "2025", Value = "2025"},
-                   new SelectListItem {Text = "2026", Value = "2026"},
-                   new SelectListItem {Text = "2027", Value = "2027"},
-                   new SelectListItem {Text = "2028", Value = "2028"},
-                   new SelectListItem {Text = "2029", Value = "2029"},
-                   new SelectListItem {Text = "2030", Value = "2030"},
-                   new SelectListItem {Text = "2031", Value = "2031"},
+            {
+            new SelectListItem {Text = "2020", Value = "2020"},
+            new SelectListItem {Text = "2021", Value = "2021"},
+            new SelectListItem {Text = "2022", Value = "2022"},
+            new SelectListItem {Text = "2023", Value = "2023"},
+            new SelectListItem {Text = "2024", Value = "2024"},
+            new SelectListItem {Text = "2025", Value = "2025"},
+            new SelectListItem {Text = "2026", Value = "2026"},
+            new SelectListItem {Text = "2027", Value = "2027"},
+            new SelectListItem {Text = "2028", Value = "2028"},
+            new SelectListItem {Text = "2029", Value = "2029"},
+            new SelectListItem {Text = "2030", Value = "2030"},
+            new SelectListItem {Text = "2031", Value = "2031"},
 
-                }, new { @class = "form-control select2_demo_4" })
+            }, new { @class = "selectpicker", @data_style = "btn btn-primary" })
         </div>
     </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.opdEXPENSE.TOTAL_AMOUNT_CLAIMED, "Total Amount Claimed", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+    <div class="col-md-12">
+        <div class="form-group">
+            @Html.LabelFor(model => model.opdEXPENSE.TOTAL_AMOUNT_CLAIMED, "Total Amount Claimed:", htmlAttributes: new { @class = "bmd-label-floating" })
             @Html.EditorFor(model => model.opdEXPENSE.TOTAL_AMOUNT_CLAIMED, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.opdEXPENSE.TOTAL_AMOUNT_CLAIMED, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.opdEXPENSE.TOTAL_AMOUNT_CLAIMED, "", new { @class = "error" })
         </div>
     </div>
+
 
 
     <div class="form-group">
@@ -112,147 +107,12 @@
     </div>
 </div>
 }
-<div>
-    <h5>PATIENT INFORMATION</h5>
-    <hr style="height:2px;border:none;color:#333;background-color:#333;">
-    @Html.ActionLink("Add Patient Information", "Index", "OPDEXPENSEPATIENT", new { id = @ViewData["OPDEXPENSE_ID"] }, null)
-    <br />
-    @if (Model.listOPDEXPENSEPATIENT != null && Model.listOPDEXPENSEPATIENT.Count > 0)
-    {
-        <div class="row">
-            <div class="col-md-offset-1 col-md-8">
-                <section>
-                    <table id="tblCustomers" class="table table-bordered table-striped">
-                        <tr>
-                            <th style="width:100px">Sr.</th>
-                            <th style="width:150px">Name</th>
-                            <th style="width:150px">Age</th>
-                            <th style="width:150px">RelationShip</th>
-                            <th style="width:150px">Delete</th>
-                        </tr>
-
-                        @foreach (OPDEXPENSE_PATIENT customer in Model.listOPDEXPENSEPATIENT)
-                        {
-                            <tr>
-                                <td class="ID">
-                                    <span>@customer.ID</span>
-                                </td>
-                                <td class="NAME">
-                                    <span>@customer.NAME</span>
-                                    <input type="text" value="@customer.NAME" style="display:none" />
-                                </td>
-                                <td class="AGE">
-                                    <span>@customer.AGE</span>
-                                    <input type="text" value="@customer.AGE" style="display:none" />
-                                </td>
-                                <td class="RELATIONSHIP_EMPLOYEE">
-                                    <span>@customer.RELATIONSHIP_EMPLOYEE</span>
-                                    <select id="relationShipListForEdit" style="display:none">
-                                        <option value="SELF">SELF</option>
-                                        <option value="FATHER">FATHER</option>
-                                        <option value="MOTHER">MOTHER</option>
-                                        <option value="SPOUSE">SPOUSE</option>
-                                        <option value="DAUGHTER">DAUGHTER</option>
-                                        <option value="SON">SON</option>
-                                    </select>
-                                </td>
-
-                                <td>
-                                    <a class="Delete" onclick="return DeleteOPDExpensePatient(@customer.ID , this)" href="javascript:;">Delete</a>
-
-                                </td>
-                            </tr>
-                        }
-                    </table>
-                </section>
-            </div>
-        </div>
-    }
-    else
-    {
-        <span>No Record Found</span>
-
-    }
-    <hr style="height:3px;border:none;color:#333;background-color:#333;">
-</div>
-<div>
-    <h5>PATIENT RECEIPT INFORMATION</h5>
-    <hr style="height:2px;border:none;color:#333;background-color:#333;">
-    @Html.ActionLink("Add Receipt Information", "Index", "OPDEXPENSEIMAGE", new { id = @ViewData["OPDEXPENSE_ID"] }, null)
-    <br />
-    @if (Model.listOPDEXPENSEIMAGE != null && Model.listOPDEXPENSEIMAGE.Count > 0)
-    {
-        <div class="row">
-            <div class="col-md-offset-1 col-md-8">
-                <section>
-                    <table class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th style="width:100px">Sr.</th>
-                                <th style="width:150px">Image Name</th>
-                                <th style="width:150px"></th>
-                                <th style="width:150px">Expense Name</th>
-                                <th style="width:150px">Expense Amount</th>
-                                <th style="width:150px">Delete</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @for (int i = 0; i < Model.listOPDEXPENSEIMAGE.Count; i++)
-                            {
-                                <tr>
-                                    <td style="text-align: center;">@(i + 1)</td>
-
-                                    <td style="text-align: center;">
-                                        <div class="input-group" style="height:40px;">
-                                            <i class="fa fa-2x fa-paperclip text-navy"></i>
-                                            <a class="download-file1" href="@Url.Action("DownloadFile", "OPDEXPENSEs", new { fileId = @Model.listOPDEXPENSEIMAGE[i].IMAGE_ID })" target="_blank">
-                                                @Model.listOPDEXPENSEIMAGE[i].IMAGE_NAME
-                                            </a>
-                                        </div>
-                                    </td>
-
-                                    <td style="text-align: center;">
-                                        <div>
-                                            <img src="@Url.Action("DownloadFile", "OPDEXPENSEs", new { fileId = @Model.listOPDEXPENSEIMAGE[i].IMAGE_ID })" width="100" height="100" />
-                                        </div>
-                                    </td>
-
-                                    <td style="text-align: center;">
-                                        <div>
-                                            @Html.DisplayFor(model => @Model.listOPDEXPENSEIMAGE[i].NAME_EXPENSES)
-                                        </div>
-                                    </td>
-
-                                    <td style="text-align: center;">
-                                        <div>
-                                            @Html.DisplayFor(model => @Model.listOPDEXPENSEIMAGE[i].EXPENSE_AMOUNT)
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <a class="Delete" onclick="return DeleteOPDExpenseImage(@Model.listOPDEXPENSEIMAGE[i].IMAGE_ID , this)" href="javascript:;">Delete</a>
-
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </section>
-            </div>
-        </div>
-    }
-    else
-    {
-        <span> No Record Found</span>
-    }
-    <hr style="height:3px;border:none;color:#333;background-color:#333;">
-</div>
 
 
 
 
 <div>
-   
+    @Html.Partial("_OPDPatientReceiptImagesEdit", Model)
 </div>
 
 
@@ -262,58 +122,18 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
-
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script type="text/javascript" src="https://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
 <script type="text/javascript">
 
-  //Delete event handler For OPD Expense Patient.
-        function DeleteOPDExpensePatient(ID , _this) {
-            if (confirm("Do you want to delete this row?")) {               
-                $.ajax({
-                    type: "POST",
-                    url: "/OPDEXPENSEPATIENT/DeleteOPDExpensePatient",
-                    data: '{ID: ' + ID + '}',
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function (data){
-                      
-                            $(_this).closest('tr').remove();
-                        
-                    },
-                    error: function (data) {
-                     
-                           $(_this).closest('tr').remove();
-                       
-                    }
-                });
-            }
-    };
 
-    //Delete event handler For OPD Expense Image.
-        function DeleteOPDExpenseImage(ID , _this) {
-            if (confirm("Do you want to delete this row?")) {               
-                $.ajax({
-                    type: "POST",
-                    url: "/OPDEXPENSEIMAGE/DeleteOPDEXPENSEIMAGE",
-                    data: '{ID: ' + ID + '}',
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function (data){
-                      
-                            $(_this).closest('tr').remove();
-                        
-                    },
-                    error: function (data) {
-                     
-                           $(_this).closest('tr').remove();
-                       
-                    }
-                });
-            }
-        };
+  jQuery(function () {
+        var regionsSelect = $('#opdEXPENSE_EMPLOYEE_DEPARTMENT');
+            $.getJSON('@Url.Action("GetDepartments", "Helper")', function (regions) {
+            if (regions != null && !jQuery.isEmptyObject(regions)) {
+            $.each(regions, function (index, region) {
+            regionsSelect.append($("<option></option>").val(this.Value).html(this.Text));
+            });
 
-    </script>
+            };
+            });
+        });
+</script>

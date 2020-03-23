@@ -1,4 +1,5 @@
-﻿@model IEnumerable<OPDCLAIMFORM.OPDEXPENSE>
+﻿@model PagedList.IPagedList<OPDCLAIMFORM.OPDEXPENSE>
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Claim Form List";
@@ -9,10 +10,10 @@
 
 @using (Html.BeginForm("Index", "OPDEXPENSEs", FormMethod.Get))
 {
-    <p>
-        Find by Status: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-        <input type="submit" value="Search" />
-    </p>
+<p>
+    Find by Expense Number: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+    <input type="submit" value="Search" />
+</p>
 }
 
 
@@ -48,43 +49,48 @@
 
     @foreach (var item in Model)
     {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.EXPENSE_NUMBER)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.EMPLOYEE_NAME)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.EMPLOYEE_DEPARTMENT)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.CLAIM_MONTH)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.CLAIM_YEAR)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.STATUS)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.TOTAL_AMOUNT_CLAIMED)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.OPDTYPE)
-    </td>
-    <td>
-        @if (item.OPDTYPE.Equals("OPD Expense"))
-        {
-            @Html.ActionLink("Edit", "MANOPDExpense", "MANAPPROVAL", new { id = item.OPDEXPENSE_ID }, null)
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EXPENSE_NUMBER)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EMPLOYEE_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EMPLOYEE_DEPARTMENT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CLAIM_MONTH)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CLAIM_YEAR)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.STATUS)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TOTAL_AMOUNT_CLAIMED)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OPDTYPE)
+            </td>
+            <td>
+                @if (item.OPDTYPE.Equals("OPD Expense"))
+                {
+                    @Html.ActionLink("Edit", "MANOPDExpense", "MANAPPROVAL", new { id = item.OPDEXPENSE_ID }, null)
 
-        }
-        @if (item.OPDTYPE.Equals("Hospital Expense"))
-        {
-            @Html.ActionLink("Edit", "MANHOSPITALExpense", "MANAPPROVAL", new { id = item.OPDEXPENSE_ID }, null)
-        }
-    </td>
-</tr>
+                }
+                @if (item.OPDTYPE.Equals("Hospital Expense"))
+                {
+                    @Html.ActionLink("Edit", "MANHOSPITALExpense", "MANAPPROVAL", new { id = item.OPDEXPENSE_ID }, null)
+                }
+            </td>
+        </tr>
     }
 
 </table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

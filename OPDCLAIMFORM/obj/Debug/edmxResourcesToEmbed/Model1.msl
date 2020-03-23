@@ -111,5 +111,13 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="DELETE_OPDEXPENSE" FunctionName="MedicalInfoModel.Store.DELETE_OPDEXPENSE" />
+    <EntitySetMapping Name="Departments">
+      <EntityTypeMapping TypeName="MedicalInfoModel.Department">
+        <MappingFragment StoreEntitySet="Department">
+          <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

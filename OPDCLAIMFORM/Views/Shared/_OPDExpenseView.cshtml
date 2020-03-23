@@ -1,0 +1,44 @@
+﻿
+@model OPDCLAIMFORM.Models.OPDEXPENSE_MASTERDETAIL
+
+<div class="form-group">
+    @Html.LabelFor(model => model.opdEXPENSE.EMPLOYEE_NAME, "Employee Name", htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.TextBoxFor(model => model.opdEXPENSE.EMPLOYEE_NAME, new { @readonly = "readonly", @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.opdEXPENSE.EMPLOYEE_NAME, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.opdEXPENSE.EMPLOYEE_DEPARTMENT, "Employee Department", htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.TextBoxFor(model => model.opdEXPENSE.EMPLOYEE_DEPARTMENT, new { @readonly = "readonly", @class = "form-control" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.opdEXPENSE.CLAIM_MONTH, "Claim For Month", htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.TextBoxFor(model => model.opdEXPENSE.CLAIM_MONTH, new { @readonly = "readonly", @class = "form-control" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.opdEXPENSE.CLAIM_YEAR, "Claim For Year", htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.TextBoxFor(model => model.opdEXPENSE.CLAIM_YEAR, new { @readonly = "readonly", @class = "form-control" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.opdEXPENSE.TOTAL_AMOUNT_CLAIMED, "Total Amount Claimed", htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.TextBoxFor(model => model.opdEXPENSE.TOTAL_AMOUNT_CLAIMED, new { @readonly = "readonly", @class = "form-control" })
+    </div>
+</div>
+
+
+
+
+
+@*, new { @class = "selectpicker", @data_style = "btn btn-primary" }*@

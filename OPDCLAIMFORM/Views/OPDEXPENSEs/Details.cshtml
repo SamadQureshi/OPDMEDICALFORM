@@ -17,251 +17,94 @@
 <div>
 
     <hr />
-    <dl class="dl-horizontal">
-
-        <dt>
-            @Html.DisplayName("Employee Name")
-        </dt>
-
-        <dd class="list-dl">
-            @Html.DisplayFor(model => model.opdEXPENSE.EMPLOYEE_NAME)
-        </dd>
-
-        <dt>
-            @Html.DisplayName("Employee Department")
-        </dt>
-
-        <dd class="list-dl">
-            @Html.DisplayFor(model => model.opdEXPENSE.EMPLOYEE_DEPARTMENT)
-        </dd>
-
-        <dt>
-            @Html.DisplayName("Claim For Month")
-        </dt>
-
-        <dd class="list-dl">
-            @Html.DisplayFor(model => model.opdEXPENSE.CLAIM_MONTH)
-        </dd>
-        <dt>
-            @Html.DisplayName("Claim For Year")
-        </dt>
-
-        <dd class="list-dl">
-            @Html.DisplayFor(model => model.opdEXPENSE.CLAIM_YEAR)
-        </dd>
-        <dt>
-            @Html.DisplayName("Status")
-        </dt>
-
-        <dd class="list-dl">
-            @Html.DisplayFor(model => model.opdEXPENSE.STATUS)
-        </dd>
-
-        <dt>
-            @Html.DisplayName("Total Amount Claimed")
-        </dt>
-
-        <dd class="list-dl">
-            @Html.DisplayFor(model => model.opdEXPENSE.TOTAL_AMOUNT_CLAIMED)
-        </dd>
-
-
-        <dt>
-            @Html.DisplayName("HR Comment")
-        </dt>
-
-        <dd class="list-dl">
-            @Html.DisplayFor(model => model.opdEXPENSE.HR_COMMENT)
-        </dd>
-
-        <dt>
-            @Html.DisplayName("HR Approval")
-        </dt>
-
-        <dd class="list-dl">
-            @Html.DisplayFor(model => model.opdEXPENSE.HR_APPROVAL)
-        </dd>
-
-        <dt>
-            @Html.DisplayName("HR Name")
-        </dt>
-
-        <dd class="list-dl">
-            @Html.DisplayFor(model => model.opdEXPENSE.HR_NAME)
-        </dd>
-
-        <dt>
-            @Html.DisplayName("Finance Comment")
-        </dt>
-
-        <dd class="list-dl">
-            @Html.DisplayFor(model => model.opdEXPENSE.FINANCE_COMMENT)
-        </dd>
-
-        <dt>
-            @Html.DisplayName("Finance Approval")
-        </dt>
-
-        <dd class="list-dl">
-            @Html.DisplayFor(model => model.opdEXPENSE.FINANCE_APPROVAL)
-        </dd>
-
-        <dt>
-            @Html.DisplayName("Finance Name")
-        </dt>
-
-        <dd class="list-dl">
-            @Html.DisplayFor(model => model.opdEXPENSE.FINANCE_NAME)
-        </dd>
-
-        <dt>
-            @Html.DisplayName("Management Comment")
-        </dt>
-
-        <dd class="list-dl">
-            @Html.DisplayFor(model => model.opdEXPENSE.MANAGEMENT_COMMENT)
-        </dd>
-
-        <dt>
-            @Html.DisplayName("Management Approval")
-
-        </dt>
-
-        <dd class="list-dl">
-            @Html.DisplayFor(model => model.opdEXPENSE.MANAGEMENT_APPROVAL)
-        </dd>
-
-        <dt>
-            @Html.DisplayName("Management Name")
-        </dt>
-
-        <dd class="list-dl">
-            @Html.DisplayFor(model => model.opdEXPENSE.MANAGEMENT_NAME)
-        </dd>
 
 
 
+    @Html.Partial("_OPDExpenseView", Model)
 
+    <div class="form-group">
+        @Html.LabelFor(model => model.opdEXPENSE.STATUS, "Status", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.opdEXPENSE.STATUS, new { @readonly = "readonly", @class = "form-control" })
+        </div>
+    </div>
 
+    <div class="form-group">
+        @Html.LabelFor(model => model.opdEXPENSE.HR_COMMENT, "HR Comment", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.opdEXPENSE.HR_COMMENT, new { @readonly = "readonly", @class = "form-control" })
+        </div>
+    </div>
 
+    <div class="form-group">
+        @Html.LabelFor(model => model.opdEXPENSE.HR_APPROVAL, "HR Approval", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.opdEXPENSE.HR_APPROVAL, new { @readonly = "readonly", @class = "form-control" })
+        </div>
+    </div>
 
-    </dl>
-</div>
-<hr style="height:2px;border:none;color:#333;background-color:#333;">
-<h5>PATIENT INFORMATION</h5>
-<hr style="height:2px;border:none;color:#333;background-color:#333;">
+    <div class="form-group">
+        @Html.LabelFor(model => model.opdEXPENSE.HR_NAME, "HR Name", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.opdEXPENSE.HR_NAME, new { @readonly = "readonly", @class = "form-control" })
+        </div>
+    </div>
 
-<div class="row">
-    <div class="col-md-offset-2 col-md-8">
-        <section>
-
-            <table id="tblCustomers" class="table table-bordered table-striped">
-                <tr>
-                    <th style="width: 100px">Id</th>
-                    <th style="width:150px">Name</th>
-                    <th style="width:150px">Age</th>
-                    <th style="width:150px">RelationShip</th>
-                    <th style="width:150px"></th>
-                </tr>
-                @foreach (OPDEXPENSE_PATIENT customer in Model.listOPDEXPENSEPATIENT)
-                {
-                    <tr>
-                        <td class="ID">
-                            <span>@customer.ID</span>
-                        </td>
-                        <td class="NAME">
-                            <span>@customer.NAME</span>
-                            <input type="text" value="@customer.NAME" style="display:none" />
-                        </td>
-                        <td class="AGE">
-                            <span>@customer.AGE</span>
-                            <input type="text" value="@customer.AGE" style="display:none" />
-                        </td>
-                        <td class="RELATIONSHIP_EMPLOYEE">
-                            <span>@customer.RELATIONSHIP_EMPLOYEE</span>
-                            <select id="relationShipListForEdit" style="display:none">
-                                <option value="SELF">SELF</option>
-                                <option value="FATHER">FATHER</option>
-                                <option value="MOTHER">MOTHER</option>
-                                <option value="SPOUSE">SPOUSE</option>
-                                <option value="DAUGHTER">DAUGHTER</option>
-                                <option value="SON">SON</option>
-                            </select>
-                        </td>
-                    </tr>
-                }
-            </table>
-        </section>
+    <div class="form-group">
+        @Html.LabelFor(model => model.opdEXPENSE.FINANCE_COMMENT, "Finance Comment", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.opdEXPENSE.FINANCE_COMMENT, new { @readonly = "readonly", @class = "form-control" })
+        </div>
     </div>
 
 
-</div>
-<hr style="height:2px;border:none;color:#333;background-color:#333;">
-<h5>PATIENT RECEIPT INFORMATION</h5>
-<hr style="height:2px;border:none;color:#333;background-color:#333;">
-
-<div>
-    @if (Model.listOPDEXPENSEIMAGE != null &&
-     Model.listOPDEXPENSEIMAGE.Count > 0)
-    {
-        <div class="row">
-            <div class="col-md-offset-2 col-md-8">
-                <section>
-                    <table class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th style="text-align: center;">Sr.</th>
-                                <th style="text-align: center;">Image Name</th>
-                                <th style="text-align: center;"></th>
-                                <th style="text-align: center;">Expense Name</th>
-                                <th style="text-align: center;">Expense Amount</th>
-
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            @for (int i = 0; i < Model.listOPDEXPENSEIMAGE.Count; i++)
-                            {
-                                <tr>
-                                    <td style="text-align: center;">@(i + 1)</td>
-
-                                    <td style="text-align: center;">
-                                        <div class="input-group" style="height:40px;">
-                                            <i class="fa fa-2x fa-paperclip text-navy"></i>
-                                            <a class="download-file1" href="@Url.Action("DownloadFile", "OPDEXPENSEs", new { fileId = @Model.listOPDEXPENSEIMAGE[i].IMAGE_ID })" target="_blank">
-                                                @Model.listOPDEXPENSEIMAGE[i].IMAGE_NAME
-                                            </a>
-                                        </div>
-                                    </td>
-
-                                    <td style="text-align: center;">
-                                        <div>
-                                            <img src="@Url.Action("DownloadFile", "OPDEXPENSEs", new { fileId = @Model.listOPDEXPENSEIMAGE[i].IMAGE_ID })" width="100" height="100" />
-                                        </div>
-                                    </td>
-
-                                    <td style="text-align: center;">
-                                        <div>
-                                            @Html.DisplayFor(model => @Model.listOPDEXPENSEIMAGE[i].NAME_EXPENSES)
-                                        </div>
-                                    </td>
-
-                                    <td style="text-align: center;">
-                                        <div>
-                                            @Html.DisplayFor(model => @Model.listOPDEXPENSEIMAGE[i].EXPENSE_AMOUNT)
-                                        </div>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </section>
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.opdEXPENSE.FINANCE_APPROVAL, "Finance Approval", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.opdEXPENSE.FINANCE_APPROVAL, new { @readonly = "readonly", @class = "form-control" })
         </div>
-    }
+    </div>
+
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.opdEXPENSE.FINANCE_NAME, "Finance Name", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.opdEXPENSE.FINANCE_NAME, new { @readonly = "readonly", @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.opdEXPENSE.MANAGEMENT_COMMENT, "Management Comment", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.opdEXPENSE.MANAGEMENT_COMMENT, new { @readonly = "readonly", @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.opdEXPENSE.MANAGEMENT_APPROVAL, "Management Approval", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.opdEXPENSE.MANAGEMENT_APPROVAL, new { @readonly = "readonly", @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.opdEXPENSE.MANAGEMENT_NAME, "Management Name", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.opdEXPENSE.MANAGEMENT_NAME, new { @readonly = "readonly", @class = "form-control" })
+        </div>
+    </div>
+
+
+
+
+
+
+
+
 </div>
 
-
+@Html.Partial("_OPDPatientReceiptImagesView", Model)
 <p>
 
     @Html.ActionLink("Back to List", "Index")

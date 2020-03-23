@@ -1,0 +1,186 @@
+﻿@model OPDCLAIMFORM.Models.HOSPITALEXPENSE_MASTERDETAIL
+
+<div>
+    <h5>PATIENT INFORMATION</h5>
+    <hr style="height:2px;border:none;color:#333;background-color:#333;">
+    @Html.ActionLink("Add Patient Information", "Index", "OPDEXPENSEPATIENT", new { id = @ViewData["OPDEXPENSE_ID"] }, null)
+    <br />
+    @if (Model.listOPDEXPENSEPATIENT != null && Model.listOPDEXPENSEPATIENT.Count > 0)
+    {
+        <div class="row">
+            <div class="col-md-offset-1 col-md-8">
+                <section>
+                    <table id="tblCustomers" class="table table-bordered table-striped">
+                        <tr>
+                            <th style="width:100px">Sr.</th>
+                            <th style="width:150px">Name</th>
+                            <th style="width:150px">Age</th>
+                            <th style="width:150px">RelationShip</th>
+                            <th style="width:150px">Delete</th>
+                        </tr>
+
+                        @foreach (OPDEXPENSE_PATIENT customer in Model.listOPDEXPENSEPATIENT)
+                        {
+                            <tr>
+                                <td class="ID">
+                                    <span>@customer.ID</span>
+                                </td>
+                                <td class="NAME">
+                                    <span>@customer.NAME</span>
+                                    <input type="text" value="@customer.NAME" style="display:none" />
+                                </td>
+                                <td class="AGE">
+                                    <span>@customer.AGE</span>
+                                    <input type="text" value="@customer.AGE" style="display:none" />
+                                </td>
+                                <td class="RELATIONSHIP_EMPLOYEE">
+                                    <span>@customer.RELATIONSHIP_EMPLOYEE</span>
+                                    <select id="relationShipListForEdit" style="display:none">
+                                        <option value="SELF">SELF</option>
+                                        <option value="FATHER">FATHER</option>
+                                        <option value="MOTHER">MOTHER</option>
+                                        <option value="SPOUSE">SPOUSE</option>
+                                        <option value="DAUGHTER">DAUGHTER</option>
+                                        <option value="SON">SON</option>
+                                    </select>
+                                </td>
+
+                                <td>
+                                    <a class="Delete" onclick="return DeleteOPDExpensePatient(@customer.ID , this)" href="javascript:;">Delete</a>
+
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </section>
+            </div>
+        </div>
+    }
+    else
+    {
+        <span>No Record Found</span>
+
+    }
+    <hr style="height:3px;border:none;color:#333;background-color:#333;">
+</div>
+<div>
+    <h5>PATIENT RECEIPT INFORMATION</h5>
+    <hr style="height:2px;border:none;color:#333;background-color:#333;">
+    @Html.ActionLink("Add Receipt Information", "Index", "OPDEXPENSEIMAGE", new { id = @ViewData["OPDEXPENSE_ID"] }, null)
+    <br />
+    @if (Model.listOPDEXPENSEIMAGE != null && Model.listOPDEXPENSEIMAGE.Count > 0)
+    {
+        <div class="row">
+            <div class="col-md-offset-1 col-md-8">
+                <section>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th style="width:100px">Sr.</th>
+                                <th style="width:150px">Image Name</th>
+                                <th style="width:150px"></th>
+                                <th style="width:150px">Expense Name</th>
+                                <th style="width:150px">Expense Amount</th>
+                                <th style="width:150px">Delete</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < Model.listOPDEXPENSEIMAGE.Count; i++)
+                            {
+                                <tr>
+                                    <td style="text-align: center;">@(i + 1)</td>
+
+                                    <td style="text-align: center;">
+                                        <div class="input-group" style="height:40px;">
+                                            <i class="fa fa-2x fa-paperclip text-navy"></i>
+                                            <a class="download-file1" href="@Url.Action("DownloadFile", "OPDEXPENSEs", new { fileId = @Model.listOPDEXPENSEIMAGE[i].IMAGE_ID })" target="_blank">
+                                                @Model.listOPDEXPENSEIMAGE[i].IMAGE_NAME
+                                            </a>
+                                        </div>
+                                    </td>
+
+                                    <td style="text-align: center;">
+                                        <div>
+                                            <img src="@Url.Action("DownloadFile", "OPDEXPENSEs", new { fileId = @Model.listOPDEXPENSEIMAGE[i].IMAGE_ID })" width="100" height="100" />
+                                        </div>
+                                    </td>
+
+                                    <td style="text-align: center;">
+                                        <div>
+                                            @Html.DisplayFor(model => @Model.listOPDEXPENSEIMAGE[i].NAME_EXPENSES)
+                                        </div>
+                                    </td>
+
+                                    <td style="text-align: center;">
+                                        <div>
+                                            @Html.DisplayFor(model => @Model.listOPDEXPENSEIMAGE[i].EXPENSE_AMOUNT)
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <a class="Delete" onclick="return DeleteOPDExpenseImage(@Model.listOPDEXPENSEIMAGE[i].IMAGE_ID , this)" href="javascript:;">Delete</a>
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+        </div>
+    }
+    else
+    {
+        <span> No Record Found</span>
+    }
+    <hr style="height:3px;border:none;color:#333;background-color:#333;">
+</div>
+<script type="text/javascript">
+
+    //Delete event handler For OPD Expense Patient.
+    function DeleteOPDExpensePatient(ID, _this) {
+        if (confirm("Do you want to delete this row?")) {
+            $.ajax({
+                type: "POST",
+                url: "/OPDEXPENSEPATIENT/DeleteOPDExpensePatient",
+                data: '{ID: ' + ID + '}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+
+                    $(_this).closest('tr').remove();
+
+                },
+                error: function (data) {
+
+                    $(_this).closest('tr').remove();
+
+                }
+            });
+        }
+    };
+
+    //Delete event handler For OPD Expense Image.
+    function DeleteOPDExpenseImage(ID, _this) {
+        if (confirm("Do you want to delete this row?")) {
+            $.ajax({
+                type: "POST",
+                url: "/OPDEXPENSEIMAGE/DeleteOPDEXPENSEIMAGE",
+                data: '{ID: ' + ID + '}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+
+                    $(_this).closest('tr').remove();
+
+                },
+                error: function (data) {
+
+                    $(_this).closest('tr').remove();
+
+                }
+            });
+        }
+    };
+
+</script>

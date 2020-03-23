@@ -50,6 +50,7 @@ namespace OPDCLAIMFORM.Controllers
             Response.Redirect("/");
         }
 
+
         public async Task<string> GetAccessToken()
         {
             string accessToken = null;
@@ -66,18 +67,28 @@ namespace OPDCLAIMFORM.Controllers
 
             if (!string.IsNullOrEmpty(userId))
             {
-                // Get the user's token cache
-                SessionTokenCache tokenCache = new SessionTokenCache(userId, HttpContext);
+                try
+                {
+                    SessionTokenCache tokenCache = new SessionTokenCache(userId, HttpContext);
 
-                ConfidentialClientApplication cca = new ConfidentialClientApplication(
-                    appId, redirectUri, new ClientCredential(appPassword), tokenCache.GetMsalCacheInstance(), null);
+                    // Get the user's token cache
 
-                // Call AcquireTokenSilentAsync, which will return the cached
-                // access token if it has not expired. If it has expired, it will
-                // handle using the refresh token to get a new one.
-                AuthenticationResult result = await cca.AcquireTokenSilentAsync(scopes, cca.Users.First());
 
-                accessToken = result.AccessToken;
+                    ConfidentialClientApplication cca = new ConfidentialClientApplication(
+                        appId, redirectUri, new ClientCredential(appPassword), tokenCache.GetMsalCacheInstance(), null);
+
+                    // Call AcquireTokenSilentAsync, which will return the cached
+                    // access token if it has not expired. If it has expired, it will
+                    // handle using the refresh token to get a new one.
+                    AuthenticationResult result = await cca.AcquireTokenSilentAsync(scopes, cca.Users.First());
+
+                    accessToken = result.AccessToken;
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
             }
 
             return accessToken;
@@ -187,6 +198,98 @@ namespace OPDCLAIMFORM.Controllers
                 return RedirectToAction("Error", "Home", new { message = "ERROR retrieving contacts", debug = ex.Message });
             }
         }
+
+
+        //public async Task<ActionResult> GetMemberGroup(HttpContextBase httpContext)
+        //{
+        //    string token;
+        //    try
+        //    {
+        //        OFFICEAPIMANAGERController managerController = new OFFICEAPIMANAGERController();
+        //        token = await managerController.GetAccessToken(httpContext);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+
+        //    if (string.IsNullOrEmpty(token))
+        //    {
+        //        // If there's no token in the session, redirect to Home
+        //        return Redirect("/");
+        //    }
+
+        //    GraphServiceClient client = new GraphServiceClient(
+        //        new DelegateAuthenticationProvider(
+        //            (requestMessage) =>
+        //            {
+        //                requestMessage.Headers.Authorization =
+        //                    new AuthenticationHeaderValue("Bearer", token);
+
+        //                return Task.FromResult(0);
+        //            }));
+
+        //    try
+        //    {
+        //        //var mailResults = client.Me.GetMemberGroups().Request();
+        //        var securityEnabledOnly = true;
+        //        var mailResults = await client.Me
+        //            .GetMemberGroups(securityEnabledOnly)
+        //            .Request()
+        //            .PostAsync();
+
+        //        return View(mailResults);
+        //    }
+        //    catch (ServiceException ex)
+        //    {
+        //        return RedirectToAction("Error", "Home", new { message = "ERROR retrieving messages", debug = ex.Message });
+        //    }
+        //}
+
+
+        //public async Task<string> GetAccessToken(HttpContextBase HttpContext)
+        //{
+        //    string accessToken = null;
+
+        //    // Load the app config from web.config
+        //    string appId = ConfigurationManager.AppSettings["ida:AppId"];
+        //    string appPassword = ConfigurationManager.AppSettings["ida:AppPassword"];
+        //    string redirectUri = ConfigurationManager.AppSettings["ida:RedirectUri"];
+        //    string[] scopes = ConfigurationManager.AppSettings["ida:AppScopes"]
+        //        .Replace(' ', ',').Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+        //    // Get the current user's ID
+        //    string userId = ClaimsPrincipal.Current.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+        //    if (!string.IsNullOrEmpty(userId))
+        //    {
+        //        try
+        //        {
+        //            SessionTokenCache tokenCache = new SessionTokenCache(userId, HttpContext);
+
+        //        // Get the user's token cache
+
+
+        //        ConfidentialClientApplication cca = new ConfidentialClientApplication(
+        //            appId, redirectUri, new ClientCredential(appPassword), tokenCache.GetMsalCacheInstance(), null);
+
+        //        // Call AcquireTokenSilentAsync, which will return the cached
+        //        // access token if it has not expired. If it has expired, it will
+        //        // handle using the refresh token to get a new one.
+        //        AuthenticationResult result = await cca.AcquireTokenSilentAsync(scopes, cca.Users.First());
+
+        //        accessToken = result.AccessToken;
+
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            throw ex;
+        //        }
+        //    }
+
+        //    return accessToken;
+        //}   
+
 
         public string GetEmailAddress()
         {

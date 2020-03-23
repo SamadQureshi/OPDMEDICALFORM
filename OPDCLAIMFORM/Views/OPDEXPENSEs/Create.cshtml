@@ -33,15 +33,11 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group bmd-form-group is-filled custom-form-group">
-                                @Html.LabelFor(model => model.EMPLOYEE_DEPARTMENT, "Employee Department:", htmlAttributes: new { @class = "bmd-label-static custom-label" })
-                                @Html.DropDownListFor(model => model.EMPLOYEE_DEPARTMENT, new List<SelectListItem>
-                                {
-                                    new SelectListItem {Text = "Consulting", Value = "Consulting"},
-                                    new SelectListItem {Text = "Qorsquad", Value = "Qorsquad"},
-                                    new SelectListItem {Text = "Product", Value = "Product"},
-                                    new SelectListItem {Text = "SalesAndMarketing", Value = "SalesAndMarketing"},
 
-                                }, new { @class = "selectpicker", @data_style = "btn btn-primary" })
+                                @Html.LabelFor(model => model.EMPLOYEE_DEPARTMENT, "Employee Department:", htmlAttributes: new { @class = "bmd-label-static custom-label" })
+
+                                @Html.DropDownListFor(model => model.EMPLOYEE_DEPARTMENT, new SelectList(Enumerable.Empty<SelectListItem>()))
+
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -106,8 +102,18 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+<script type="text/javascript">
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
 
-}
+  jQuery(function () {
+        var regionsSelect = $('#EMPLOYEE_DEPARTMENT');
+            $.getJSON('@Url.Action("GetDepartments", "Helper")', function (regions) {
+            if (regions != null && !jQuery.isEmptyObject(regions)) {
+            $.each(regions, function (index, region) {
+            regionsSelect.append($("<option></option>").val(this.Value).html(this.Text));
+            });
+
+            };
+            });
+        });
+</script>

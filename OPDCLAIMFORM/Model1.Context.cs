@@ -31,6 +31,7 @@ namespace OPDCLAIMFORM
         public virtual DbSet<OPDEXPENSE_IMAGE> OPDEXPENSE_IMAGE { get; set; }
         public virtual DbSet<OPDEXPENSE_PATIENT> OPDEXPENSE_PATIENT { get; set; }
         public virtual DbSet<RELATIONSHIP_EMPLOYEE> RELATIONSHIP_EMPLOYEE { get; set; }
+        public virtual DbSet<Department> Departments { get; set; }
     
         public virtual int ADD_OPDEXPENSE_IMAGE(Nullable<int> oPDEXPENSE_ID, string iMAGE_NAME, string iMAGE_EXT, string iMAGE_BASE64, string nAME_EXPENSES, Nullable<decimal> eXPENSE_AMOUNT)
         {

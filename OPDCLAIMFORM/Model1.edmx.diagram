@@ -11,6 +11,7 @@
         <EntityTypeShape EntityType="MedicalInfoModel.RELATIONSHIP_EMPLOYEE" Width="1.5" PointX="3.75" PointY="1.125" IsExpanded="true" />
         <AssociationConnector Association="MedicalInfoModel.FK_OPDEXPENSE_IMAGE_OPDEXPENSE" ManuallyRouted="false" />
         <AssociationConnector Association="MedicalInfoModel.FK_OPDEXPENSE_PATIENT_OPDEXPENSE" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="MedicalInfoModel.Department" Width="1.5" PointX="6.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

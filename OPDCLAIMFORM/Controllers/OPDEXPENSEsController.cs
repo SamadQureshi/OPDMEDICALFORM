@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using OPDCLAIMFORM;
 using OPDCLAIMFORM.Models;
+using PagedList;
 
 namespace OPDCLAIMFORM.Controllers
 {
@@ -17,7 +18,7 @@ namespace OPDCLAIMFORM.Controllers
         private MedicalInfoEntities db = new MedicalInfoEntities();
 
         // GET: OPDEXPENSEs
-        public ActionResult Index(string sortOrder, string currentFilter, string searchString)
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
             if (Request.IsAuthenticated)
             {
@@ -31,65 +32,75 @@ namespace OPDCLAIMFORM.Controllers
                 ViewBag.OPDTypeSortParm = String.IsNullOrEmpty(sortOrder) ? "OPDType_desc" : "";
                 ViewBag.ExpenseNumberSortParm = String.IsNullOrEmpty(sortOrder) ? "ExpenseNumber_desc" : "";
 
-                if (searchString == null)
+               if (searchString != null)
                 {
-                  searchString = currentFilter;
+                    page = 1;
+                }
+                else
+                {
+                    searchString = currentFilter;
                 }
 
                 ViewBag.CurrentFilter = searchString;
 
-                //var students = from s in db.OPDEXPENSEs
+                //var opdExp = from s in db.OPDEXPENSEs
                 //               select s;a
                 string emailAddress = GetEmailAddress();
-                var students = db.OPDEXPENSEs.Where(e => e.EMPLOYEE_EMAILADDRESS == emailAddress);
+                var opdExp = db.OPDEXPENSEs.Where(e => e.EMPLOYEE_EMAILADDRESS == emailAddress);
 
 
                 if (!String.IsNullOrEmpty(searchString))
                 {
-                    students = students.Where(s => s.STATUS.Contains(searchString));
+                    opdExp = opdExp.Where(s => s.EXPENSE_NUMBER.Contains(searchString));
                 }
                 switch (sortOrder)
                 {
                     case "EmployeeName_desc":
-                        students = students.OrderBy(s => s.EMPLOYEE_NAME);
+                        opdExp = opdExp.OrderBy(s => s.EMPLOYEE_NAME);
                         ViewBag.EmployeeNameSortParm = "EmployeeName_asc";
                         break;
                     case "ClaimForMonth_desc":
-                        students = students.OrderBy(s => s.CLAIM_MONTH);
+                        opdExp = opdExp.OrderBy(s => s.CLAIM_MONTH);
                         ViewBag.ClaimForMonthSortParm = "ClaimForMonth_asc";
                         break;
                     case "Status_desc":
-                        students = students.OrderBy(s => s.STATUS);
+                        opdExp = opdExp.OrderBy(s => s.STATUS);
                         ViewBag.StatusSortParm = "Status_asc";
                         break;
                     case "OPDType_desc":
-                        students = students.OrderBy(s => s.OPDTYPE);
+                        opdExp = opdExp.OrderBy(s => s.OPDTYPE);
                         ViewBag.OPDTypeSortParm = "OPDType_asc";
                         break;
                     case "ExpenseNumber_desc":
-                        students = students.OrderBy(s => s.EXPENSE_NUMBER);
+                        opdExp = opdExp.OrderBy(s => s.EXPENSE_NUMBER);
                         ViewBag.ExpenseNumberSortParm = "ExpenseNumber_asc";
                         break;
 
                     case "EmployeeName_asc":
-                        students = students.OrderByDescending(s => s.EMPLOYEE_NAME);
+                        opdExp = opdExp.OrderByDescending(s => s.EMPLOYEE_NAME);
                         break;
                     case "ClaimForMonth_asc":
-                        students = students.OrderByDescending(s => s.CLAIM_MONTH);                       
+                        opdExp = opdExp.OrderByDescending(s => s.CLAIM_MONTH);                       
                         break;
                     case "Status_asc":
-                        students = students.OrderByDescending(s => s.STATUS);                       
+                        opdExp = opdExp.OrderByDescending(s => s.STATUS);                       
                         break;
                     case "OPDType_asc":
-                        students = students.OrderByDescending(s => s.OPDTYPE);                    
+                        opdExp = opdExp.OrderByDescending(s => s.OPDTYPE);                    
                         break;
                     case "ExpenseNumber_asc":
-                        students = students.OrderByDescending(s => s.EXPENSE_NUMBER);
+                        opdExp = opdExp.OrderByDescending(s => s.EXPENSE_NUMBER);
+                        break;
+                    default:  // Name ascending 
+                        opdExp = opdExp.OrderBy(s => s.EXPENSE_NUMBER);
                         break;
                 }
 
+                int pageSize = 30;
+                int pageNumber = (page ?? 1);
+                return View(opdExp.ToPagedList(pageNumber, pageSize));
 
-                return View(students);
+                //return View(opdExp);
 
                 // return View(db.OPDEXPENSEs.ToList());
             }

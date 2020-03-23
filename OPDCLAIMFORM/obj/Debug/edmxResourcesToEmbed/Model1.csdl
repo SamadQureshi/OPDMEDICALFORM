@@ -143,6 +143,7 @@
     <FunctionImport Name="DELETE_OPDEXPENSE">
       <Parameter Name="OPDEXPENSE_ID" Mode="In" Type="Int32" />
     </FunctionImport>
+    <EntitySet Name="Departments" EntityType="MedicalInfoModel.Department" />
   </EntityContainer>
   <ComplexType Name="GET_OPDEXPENSE_IMAGE_Result">
     <Property Type="Int32" Name="IMAGE_ID" Nullable="false" />
@@ -170,4 +171,11 @@
     <Property Type="Decimal" Name="EXPENSE_AMOUNT" Nullable="true" Precision="18" Scale="0" />
     <Property Type="Int32" Name="OPDEXPENSE_ID" Nullable="true" />
   </ComplexType>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DepartmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
 </Schema>

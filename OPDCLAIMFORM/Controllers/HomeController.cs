@@ -1,10 +1,13 @@
-﻿using Microsoft.Identity.Client;
+﻿using Microsoft.Graph;
+using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 namespace OPDCLAIMFORM.Controllers
@@ -15,8 +18,12 @@ namespace OPDCLAIMFORM.Controllers
         public ActionResult Index()
         {
             if (Request.IsAuthenticated)
-            {                           
-                
+            {
+              
+               
+
+
+
                 string userName = ClaimsPrincipal.Current.FindFirst("name").Value;
             
                 string userId = ClaimsPrincipal.Current.FindFirst(ClaimTypes.NameIdentifier).Value;
@@ -36,7 +43,9 @@ namespace OPDCLAIMFORM.Controllers
                 {
                     // Cache is empty, sign out
                     return RedirectToAction("SignOut","OFFICEAPIMANAGER",null);
-                }
+                }         
+
+
 
                 string emailAddress = GetEmailAddress();
 
@@ -61,6 +70,13 @@ namespace OPDCLAIMFORM.Controllers
 
                 ViewBag.UserName = userName;
             }
+
+
+            //OFFICEAPIMANAGERController managerController = new OFFICEAPIMANAGERController();
+            //var emailAddressrrr = managerController.GetMemberGroup(HttpContext);
+
+
+
             return View();
         }
 
@@ -72,6 +88,7 @@ namespace OPDCLAIMFORM.Controllers
             return emailAddress;
         }
 
+       
 
 
     }
