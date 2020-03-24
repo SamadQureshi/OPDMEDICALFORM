@@ -26,7 +26,6 @@ D:\SourceCode\OPDCLAIMFORM\OPDCLAIMFORM\bin\roslyn\System.Diagnostics.Diagnostic
 D:\SourceCode\OPDCLAIMFORM\OPDCLAIMFORM\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
 D:\SourceCode\OPDCLAIMFORM\OPDCLAIMFORM\bin\roslyn\System.Diagnostics.StackTrace.dll
 D:\SourceCode\OPDCLAIMFORM\OPDCLAIMFORM\bin\roslyn\System.Globalization.Calendars.dll
-D:\SourceCode\OPDCLAIMFORM\OPDCLAIMFORM\bin\roslyn\System.IO.Compression.dll
 D:\SourceCode\OPDCLAIMFORM\OPDCLAIMFORM\bin\roslyn\System.IO.Compression.ZipFile.dll
 D:\SourceCode\OPDCLAIMFORM\OPDCLAIMFORM\bin\roslyn\System.IO.FileSystem.dll
 D:\SourceCode\OPDCLAIMFORM\OPDCLAIMFORM\bin\roslyn\System.IO.FileSystem.Primitives.dll
