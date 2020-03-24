@@ -18,12 +18,8 @@ namespace OPDCLAIMFORM.Controllers
         public ActionResult Index()
         {
             if (Request.IsAuthenticated)
-            {
-              
+            {           
                
-
-
-
                 string userName = ClaimsPrincipal.Current.FindFirst("name").Value;
             
                 string userId = ClaimsPrincipal.Current.FindFirst(ClaimTypes.NameIdentifier).Value;
@@ -74,9 +70,7 @@ namespace OPDCLAIMFORM.Controllers
 
             //OFFICEAPIMANAGERController managerController = new OFFICEAPIMANAGERController();
             //var emailAddressrrr = managerController.GetMemberGroup(HttpContext);
-
-
-
+                       
             return View();
         }
 

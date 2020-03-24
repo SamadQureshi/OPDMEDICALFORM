@@ -7,196 +7,239 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
+using NLog;
+using System.Configuration;
+
 namespace OPDCLAIMFORM.Controllers
 {
     public class FINAPPROVALController : Controller
     {
         private readonly MedicalInfoEntities db = new MedicalInfoEntities();
-
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         // GET: OPDEXPENSEs
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            if (Request.IsAuthenticated) {
+            try
+            {
 
-                AuthenticateUser();
-
-                ViewBag.CurrentSort = sortOrder;
-                ViewBag.EmployeeNameSortParm = String.IsNullOrEmpty(sortOrder) ? "EmployeeName_desc" : "";
-                ViewBag.ClaimForMonthSortParm = String.IsNullOrEmpty(sortOrder) ? "ClaimForMonth_desc" : "";
-                ViewBag.StatusSortParm = String.IsNullOrEmpty(sortOrder) ? "Status_desc" : "";
-                ViewBag.OPDTypeSortParm = String.IsNullOrEmpty(sortOrder) ? "OPDType_desc" : "";
-                ViewBag.ExpenseNumberSortParm = String.IsNullOrEmpty(sortOrder) ? "ExpenseNumber_desc" : "";
-                if (searchString != null)
+                if (Request.IsAuthenticated)
                 {
-                    page = 1;
+
+                    AuthenticateUser();
+
+                    ViewBag.CurrentSort = sortOrder;
+                    ViewBag.EmployeeNameSortParm = String.IsNullOrEmpty(sortOrder) ? "EmployeeName_desc" : "";
+                    ViewBag.ClaimForMonthSortParm = String.IsNullOrEmpty(sortOrder) ? "ClaimForMonth_desc" : "";
+                    ViewBag.StatusSortParm = String.IsNullOrEmpty(sortOrder) ? "Status_desc" : "";
+                    ViewBag.OPDTypeSortParm = String.IsNullOrEmpty(sortOrder) ? "OPDType_desc" : "";
+                    ViewBag.ExpenseNumberSortParm = String.IsNullOrEmpty(sortOrder) ? "ExpenseNumber_desc" : "";
+                    if (searchString != null)
+                    {
+                        page = 1;
+                    }
+                    else
+                    {
+                        searchString = currentFilter;
+                    }
+                    ViewBag.CurrentFilter = searchString;
+
+                    string emailAddress = GetEmailAddress();
+
+                    //&& e.FINANCE_EMAILADDRESS == emailAddress
+
+                    var opdExp = db.OPDEXPENSEs.Where(e => e.STATUS == "HRApproved" || e.STATUS == "FINApproved" || e.STATUS == "FINRejected");
+                    if (!String.IsNullOrEmpty(searchString))
+                    {
+                        opdExp = opdExp.Where(s => s.EXPENSE_NUMBER.Contains(searchString));
+                    }
+                    switch (sortOrder)
+                    {
+                        case "EmployeeName_desc":
+                            opdExp = opdExp.OrderBy(s => s.EMPLOYEE_NAME);
+                            ViewBag.EmployeeNameSortParm = "EmployeeName_asc";
+                            break;
+                        case "ClaimForMonth_desc":
+                            opdExp = opdExp.OrderBy(s => s.CLAIM_MONTH);
+                            ViewBag.ClaimForMonthSortParm = "ClaimForMonth_asc";
+                            break;
+                        case "Status_desc":
+                            opdExp = opdExp.OrderBy(s => s.STATUS);
+                            ViewBag.StatusSortParm = "Status_asc";
+                            break;
+                        case "OPDType_desc":
+                            opdExp = opdExp.OrderBy(s => s.OPDTYPE);
+                            ViewBag.OPDTypeSortParm = "OPDType_asc";
+                            break;
+                        case "ExpenseNumber_desc":
+                            opdExp = opdExp.OrderBy(s => s.EXPENSE_NUMBER);
+                            ViewBag.ExpenseNumberSortParm = "ExpenseNumber_asc";
+                            break;
+                        case "EmployeeName_asc":
+                            opdExp = opdExp.OrderByDescending(s => s.EMPLOYEE_NAME);
+                            break;
+                        case "ClaimForMonth_asc":
+                            opdExp = opdExp.OrderByDescending(s => s.CLAIM_MONTH);
+                            break;
+                        case "Status_asc":
+                            opdExp = opdExp.OrderByDescending(s => s.STATUS);
+                            break;
+                        case "OPDType_asc":
+                            opdExp = opdExp.OrderByDescending(s => s.OPDTYPE);
+                            break;
+                        case "ExpenseNumber_asc":
+                            opdExp = opdExp.OrderByDescending(s => s.EXPENSE_NUMBER);
+                            break;
+                        default:  // Name ascending 
+                            opdExp = opdExp.OrderBy(s => s.EXPENSE_NUMBER);
+                            break;
+                    }
+
+                    int pageSize = Convert.ToInt32(ConfigurationManager.AppSettings["PageSize"]);
+                    int pageNumber = (page ?? 1);
+                    return View(opdExp.ToPagedList(pageNumber, pageSize));
+
+                    //return View(opdExp);
+
+                    //return View(db.OPDEXPENSEs.Where(e => e.STATUS == "HRApproved" || e.STATUS == "FINApproved" || e.STATUS == "FINRejected").ToList());
                 }
                 else
                 {
-                    searchString = currentFilter;
+                    return RedirectToAction("Index", "Home");
                 }
-                ViewBag.CurrentFilter = searchString;
-
-                string emailAddress = GetEmailAddress();
-
-                //&& e.FINANCE_EMAILADDRESS == emailAddress
-
-                var opdExp = db.OPDEXPENSEs.Where(e => e.STATUS == "HRApproved" || e.STATUS == "FINApproved" || e.STATUS == "FINRejected" );
-                if (!String.IsNullOrEmpty(searchString))
-                {
-                    opdExp = opdExp.Where(s => s.EXPENSE_NUMBER.Contains(searchString));
-                }
-                switch (sortOrder)
-                {
-                    case "EmployeeName_desc":
-                        opdExp = opdExp.OrderBy(s => s.EMPLOYEE_NAME);
-                        ViewBag.EmployeeNameSortParm = "EmployeeName_asc";
-                        break;
-                    case "ClaimForMonth_desc":
-                        opdExp = opdExp.OrderBy(s => s.CLAIM_MONTH);
-                        ViewBag.ClaimForMonthSortParm = "ClaimForMonth_asc";
-                        break;
-                    case "Status_desc":
-                        opdExp = opdExp.OrderBy(s => s.STATUS);
-                        ViewBag.StatusSortParm = "Status_asc";
-                        break;
-                    case "OPDType_desc":
-                        opdExp = opdExp.OrderBy(s => s.OPDTYPE);
-                        ViewBag.OPDTypeSortParm = "OPDType_asc";
-                        break;
-                    case "ExpenseNumber_desc":
-                        opdExp = opdExp.OrderBy(s => s.EXPENSE_NUMBER);
-                        ViewBag.ExpenseNumberSortParm = "ExpenseNumber_asc";
-                        break;
-                    case "EmployeeName_asc":
-                        opdExp = opdExp.OrderByDescending(s => s.EMPLOYEE_NAME);
-                        break;
-                    case "ClaimForMonth_asc":
-                        opdExp = opdExp.OrderByDescending(s => s.CLAIM_MONTH);
-                        break;
-                    case "Status_asc":
-                        opdExp = opdExp.OrderByDescending(s => s.STATUS);
-                        break;
-                    case "OPDType_asc":
-                        opdExp = opdExp.OrderByDescending(s => s.OPDTYPE);
-                        break;
-                    case "ExpenseNumber_asc":
-                        opdExp = opdExp.OrderByDescending(s => s.EXPENSE_NUMBER);
-                        break;
-                    default:  // Name ascending 
-                        opdExp = opdExp.OrderBy(s => s.EXPENSE_NUMBER);
-                        break;
-                }
-
-                int pageSize = 3;
-                int pageNumber = (page ?? 1);
-                return View(opdExp.ToPagedList(pageNumber, pageSize));
-
-                //return View(opdExp);
-
-
-
-
-
-
-                //return View(db.OPDEXPENSEs.Where(e => e.STATUS == "HRApproved" || e.STATUS == "FINApproved" || e.STATUS == "FINRejected").ToList());
             }
-            else {
-                return RedirectToAction("Index", "Home");
-            }               
+            catch (Exception ex)
+            {
+
+                logger.Error("FINAPPROVAL : Index()" + ex.Message.ToString());
+
+                return View(new HttpStatusCodeResult(HttpStatusCode.BadRequest));
+            }
         }
 
         // GET: OPDEXPENSEs/Details/5
         public ActionResult DetailsForOPDExpense(int? id)
         {
             MedicalInfoEntities entities = new MedicalInfoEntities();
+            try
+            {
+                if (Request.IsAuthenticated)
+                {
+                    AuthenticateUser();
 
-            if (Request.IsAuthenticated){
-                AuthenticateUser();
+                    if (id == null)
+                    {
+                        return RedirectToAction("Index", "FINAPPROVAL");
+                    }
 
-                if (id == null){
+                    var result2 = new OPDEXPENSE_MASTERDETAIL()
+                    {
+                        listOPDEXPENSEPATIENT = entities.OPDEXPENSE_PATIENT.Where(e => e.OPDEXPENSE_ID == id).ToList(),
+                        listOPDEXPENSEIMAGE = entities.OPDEXPENSE_IMAGE.Where(e => e.OPDEXPENSE_ID == id).ToList(),
+                        opdEXPENSE = entities.OPDEXPENSEs.Where(e => e.OPDEXPENSE_ID == id).FirstOrDefault()
+
+                    };
+                    return View(result2);
+                }
+                else
+                {
                     return RedirectToAction("Index", "FINAPPROVAL");
                 }
 
-                var result2 = new OPDEXPENSE_MASTERDETAIL(){
-                    listOPDEXPENSEPATIENT = entities.OPDEXPENSE_PATIENT.Where(e => e.OPDEXPENSE_ID == id).ToList(),
-                    listOPDEXPENSEIMAGE = entities.OPDEXPENSE_IMAGE.Where(e => e.OPDEXPENSE_ID == id).ToList(),
-                    opdEXPENSE = entities.OPDEXPENSEs.Where(e => e.OPDEXPENSE_ID == id).FirstOrDefault()
-
-                };
-                return View(result2);
             }
-            else {
-                return RedirectToAction("Index", "FINAPPROVAL");
+            catch (Exception ex)
+            {
+
+                logger.Error("FINAPPROVAL : DetailsForOPDExpense()" + ex.Message.ToString());
+
+                return View(new HttpStatusCodeResult(HttpStatusCode.BadRequest));
             }
         }
+
 
 
 
         public ActionResult DetailsForHospitalExpense(int? id)
         {
             MedicalInfoEntities entities = new MedicalInfoEntities();
-            if (Request.IsAuthenticated){
-                AuthenticateUser();
-                if (id == null){
-                return RedirectToAction("Index", "FINAPPROVAL");
+
+            try
+            {
+
+                if (Request.IsAuthenticated)
+                {
+                    AuthenticateUser();
+                    if (id == null)
+                    {
+                        return RedirectToAction("Index", "FINAPPROVAL");
+                    }
+
+                    OPDEXPENSE oPDEXPENSE = db.OPDEXPENSEs.Find(id);
+
+                    var result2 = new HOSPITALEXPENSE_MASTERDETAIL()
+                    {
+                        listOPDEXPENSEPATIENT = entities.OPDEXPENSE_PATIENT.Where(e => e.OPDEXPENSE_ID == id).ToList(),
+                        listOPDEXPENSEIMAGE = entities.OPDEXPENSE_IMAGE.Where(e => e.OPDEXPENSE_ID == id).ToList(),
+                        OPDEXPENSE_ID = oPDEXPENSE.OPDEXPENSE_ID,
+                        CLAIM_YEAR = oPDEXPENSE.CLAIM_YEAR,
+                        CLAIMANT_SUFFERED_ILLNESS = oPDEXPENSE.CLAIMANT_SUFFERED_ILLNESS,
+                        CLAIMANT_SUFFERED_ILLNESS_DETAILS = oPDEXPENSE.CLAIMANT_SUFFERED_ILLNESS_DETAILS,
+                        CLAIMANT_SUFFERED_ILLNESS_DATE = oPDEXPENSE.CLAIMANT_SUFFERED_ILLNESS_DATE,
+                        DATE_ILLNESS_NOTICED = oPDEXPENSE.DATE_ILLNESS_NOTICED,
+                        DATE_RECOVERY = oPDEXPENSE.DATE_RECOVERY,
+                        DIAGNOSIS = oPDEXPENSE.DIAGNOSIS,
+                        DOCTOR_NAME = oPDEXPENSE.DOCTOR_NAME,
+                        DRUGS_PRESCRIBED_BOOL = oPDEXPENSE.DRUGS_PRESCRIBED_BOOL,
+                        DRUGS_PRESCRIBED_DESCRIPTION = oPDEXPENSE.DRUGS_PRESCRIBED_DESCRIPTION,
+                        HOSPITAL_NAME = oPDEXPENSE.HOSPITAL_NAME,
+
+
+
+                        EMPLOYEE_DEPARTMENT = oPDEXPENSE.EMPLOYEE_DEPARTMENT,
+                        EMPLOYEE_NAME = oPDEXPENSE.EMPLOYEE_NAME,
+                        EMPLOYEE_EMAILADDRESS = oPDEXPENSE.EMPLOYEE_EMAILADDRESS,
+
+                        FINANCE_APPROVAL = oPDEXPENSE.FINANCE_APPROVAL,
+                        FINANCE_COMMENT = oPDEXPENSE.FINANCE_COMMENT,
+                        FINANCE_NAME = oPDEXPENSE.FINANCE_NAME,
+                        FINANCE_APPROVAL_DATE = oPDEXPENSE.FINANCE_APPROVAL_DATE,
+                        FINANCE_EMAILADDRESS = oPDEXPENSE.FINANCE_EMAILADDRESS,
+
+                        HR_APPROVAL = oPDEXPENSE.HR_APPROVAL,
+                        HR_COMMENT = oPDEXPENSE.HR_COMMENT,
+                        HR_NAME = oPDEXPENSE.HR_NAME,
+                        HR_APPROVAL_DATE = oPDEXPENSE.HR_APPROVAL_DATE,
+                        HR_EMAILADDRESS = oPDEXPENSE.HR_EMAILADDRESS,
+
+                        MANAGEMENT_APPROVAL = oPDEXPENSE.MANAGEMENT_APPROVAL,
+                        MANAGEMENT_COMMENT = oPDEXPENSE.MANAGEMENT_COMMENT,
+                        MANAGEMENT_NAME = oPDEXPENSE.MANAGEMENT_NAME,
+                        MANAGEMENT_APPROVAL_DATE = oPDEXPENSE.MANAGEMENT_APPROVAL_DATE,
+                        MANAGEMENT_EMAILADDRESS = oPDEXPENSE.MANAGEMENT_EMAILADDRESS,
+
+
+                        PERIOD_CONFINEMENT_DATE_FROM = oPDEXPENSE.PERIOD_CONFINEMENT_DATE_FROM,
+                        PERIOD_CONFINEMENT_DATE_TO = oPDEXPENSE.PERIOD_CONFINEMENT_DATE_TO,
+                        STATUS = oPDEXPENSE.STATUS,
+                        TOTAL_AMOUNT_CLAIMED = oPDEXPENSE.TOTAL_AMOUNT_CLAIMED,
+                        TOTAL_AMOUNT_APPROVED = oPDEXPENSE.TOTAL_AMOUNT_APPROVED,
+                        CREATED_DATE = oPDEXPENSE.CREATED_DATE,
+                        MODIFIED_DATE = oPDEXPENSE.MODIFIED_DATE
+                    };
+
+                    return View(result2);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "FINAPPROVAL");
+                }
+
             }
+            catch (Exception ex)
+            {
 
-            OPDEXPENSE oPDEXPENSE = db.OPDEXPENSEs.Find(id);
+                logger.Error("FINAPPROVAL : DetailsForHospitalExpense()" + ex.Message.ToString());
 
-            var result2 = new HOSPITALEXPENSE_MASTERDETAIL(){
-                listOPDEXPENSEPATIENT = entities.OPDEXPENSE_PATIENT.Where(e => e.OPDEXPENSE_ID == id).ToList(),
-                listOPDEXPENSEIMAGE = entities.OPDEXPENSE_IMAGE.Where(e => e.OPDEXPENSE_ID == id).ToList(),
-                OPDEXPENSE_ID = oPDEXPENSE.OPDEXPENSE_ID,
-                CLAIM_YEAR = oPDEXPENSE.CLAIM_YEAR,
-                CLAIMANT_SUFFERED_ILLNESS = oPDEXPENSE.CLAIMANT_SUFFERED_ILLNESS,
-                CLAIMANT_SUFFERED_ILLNESS_DETAILS = oPDEXPENSE.CLAIMANT_SUFFERED_ILLNESS_DETAILS,
-                CLAIMANT_SUFFERED_ILLNESS_DATE = oPDEXPENSE.CLAIMANT_SUFFERED_ILLNESS_DATE,
-                DATE_ILLNESS_NOTICED = oPDEXPENSE.DATE_ILLNESS_NOTICED,
-                DATE_RECOVERY = oPDEXPENSE.DATE_RECOVERY,
-                DIAGNOSIS = oPDEXPENSE.DIAGNOSIS,
-                DOCTOR_NAME = oPDEXPENSE.DOCTOR_NAME,
-                DRUGS_PRESCRIBED_BOOL = oPDEXPENSE.DRUGS_PRESCRIBED_BOOL,
-                DRUGS_PRESCRIBED_DESCRIPTION = oPDEXPENSE.DRUGS_PRESCRIBED_DESCRIPTION,
-                HOSPITAL_NAME = oPDEXPENSE.HOSPITAL_NAME,
-
-
-
-                EMPLOYEE_DEPARTMENT = oPDEXPENSE.EMPLOYEE_DEPARTMENT,
-                EMPLOYEE_NAME = oPDEXPENSE.EMPLOYEE_NAME,               
-                EMPLOYEE_EMAILADDRESS = oPDEXPENSE.EMPLOYEE_EMAILADDRESS,
-
-                FINANCE_APPROVAL = oPDEXPENSE.FINANCE_APPROVAL,
-                FINANCE_COMMENT = oPDEXPENSE.FINANCE_COMMENT,
-                FINANCE_NAME = oPDEXPENSE.FINANCE_NAME,
-                FINANCE_APPROVAL_DATE = oPDEXPENSE.FINANCE_APPROVAL_DATE,
-                FINANCE_EMAILADDRESS = oPDEXPENSE.FINANCE_EMAILADDRESS,
-
-                HR_APPROVAL = oPDEXPENSE.HR_APPROVAL,
-                HR_COMMENT = oPDEXPENSE.HR_COMMENT,
-                HR_NAME = oPDEXPENSE.HR_NAME,
-                HR_APPROVAL_DATE = oPDEXPENSE.HR_APPROVAL_DATE,
-                HR_EMAILADDRESS = oPDEXPENSE.HR_EMAILADDRESS,
-
-                MANAGEMENT_APPROVAL = oPDEXPENSE.MANAGEMENT_APPROVAL,
-                MANAGEMENT_COMMENT = oPDEXPENSE.MANAGEMENT_COMMENT,
-                MANAGEMENT_NAME = oPDEXPENSE.MANAGEMENT_NAME,
-                MANAGEMENT_APPROVAL_DATE = oPDEXPENSE.MANAGEMENT_APPROVAL_DATE,
-                MANAGEMENT_EMAILADDRESS = oPDEXPENSE.MANAGEMENT_EMAILADDRESS,
-
-
-                PERIOD_CONFINEMENT_DATE_FROM = oPDEXPENSE.PERIOD_CONFINEMENT_DATE_FROM,
-                PERIOD_CONFINEMENT_DATE_TO = oPDEXPENSE.PERIOD_CONFINEMENT_DATE_TO,
-                STATUS = oPDEXPENSE.STATUS,
-                TOTAL_AMOUNT_CLAIMED = oPDEXPENSE.TOTAL_AMOUNT_CLAIMED,
-                TOTAL_AMOUNT_APPROVED = oPDEXPENSE.TOTAL_AMOUNT_APPROVED,
-                CREATED_DATE = oPDEXPENSE.CREATED_DATE,
-                MODIFIED_DATE = oPDEXPENSE.MODIFIED_DATE
-            };
-
-            return View(result2);
-            }
-            else {
-                return RedirectToAction("Index", "FINAPPROVAL");
+                return View(new HttpStatusCodeResult(HttpStatusCode.BadRequest));
             }
         }
 
@@ -204,22 +247,37 @@ namespace OPDCLAIMFORM.Controllers
         // GET: OPDEXPENSEs/Edit/5
         public ActionResult FINOPDExpense(int? id)
         {
-            if (Request.IsAuthenticated){
-                AuthenticateUser();
-                if (id == null){
-                return RedirectToAction("Index", "FINAPPROVAL");
+            try
+            {
+                if (Request.IsAuthenticated)
+                {
+                    AuthenticateUser();
+                    if (id == null)
+                    {
+                        return RedirectToAction("Index", "FINAPPROVAL");
+                    }
+                    MedicalInfoEntities entities = new MedicalInfoEntities();
+                    var result2 = new OPDEXPENSE_MASTERDETAIL()
+                    {
+                        listOPDEXPENSEPATIENT = entities.OPDEXPENSE_PATIENT.Where(e => e.OPDEXPENSE_ID == id).ToList(),
+                        listOPDEXPENSEIMAGE = entities.OPDEXPENSE_IMAGE.Where(e => e.OPDEXPENSE_ID == id).ToList(),
+                        opdEXPENSE = entities.OPDEXPENSEs.Where(e => e.OPDEXPENSE_ID == id).FirstOrDefault()
+                    };
+                    ViewData["OPDEXPENSE_ID"] = id;
+                    return View(result2);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "FINAPPROVAL");
+                }
+
             }
-            MedicalInfoEntities entities = new MedicalInfoEntities();
-            var result2 = new OPDEXPENSE_MASTERDETAIL(){
-                listOPDEXPENSEPATIENT = entities.OPDEXPENSE_PATIENT.Where(e => e.OPDEXPENSE_ID == id).ToList(),
-                listOPDEXPENSEIMAGE = entities.OPDEXPENSE_IMAGE.Where(e => e.OPDEXPENSE_ID == id).ToList(),
-                opdEXPENSE = entities.OPDEXPENSEs.Where(e => e.OPDEXPENSE_ID == id).FirstOrDefault()
-            };
-            ViewData["OPDEXPENSE_ID"] = id;
-            return View(result2);
-            }
-            else{
-                return RedirectToAction("Index", "FINAPPROVAL");
+            catch (Exception ex)
+            {
+
+                logger.Error("FINAPPROVAL : FINOPDExpense()" + ex.Message.ToString());
+
+                return View(new HttpStatusCodeResult(HttpStatusCode.BadRequest));
             }
         }
 
@@ -230,89 +288,116 @@ namespace OPDCLAIMFORM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult FINOPDExpense([Bind(Include = "OPDEXPENSE_ID,EMPLOYEE_NAME,EMPLOYEE_DEPARTMENT,CLAIM_MONTH,CLAIM_YEAR,TOTAL_AMOUNT_CLAIMED,STATUS,OPDTYPE,HR_COMMENT,HR_APPROVAL,HR_APPROVAL_DATE,HR_NAME,FINANCE_COMMENT,FINANCE_APPROVAL,FINANCE_APPROVAL_DATE,FINANCE_NAME,MANAGEMENT_COMMENT,MANAGEMENT_APPROVAL,MANAGEMENT_APPROVAL_DATE,MANAGEMENT_NAME,TOTAL_AMOUNT_APPROVED,CREATED_DATE,EMPLOYEE_EMAILADDRESS,HR_EMAILADDRESS")] OPDEXPENSE oPDEXPENSE)
         {
-            if (ModelState.IsValid){
-                oPDEXPENSE.MODIFIED_DATE = DateTime.Now;
-                oPDEXPENSE.FINANCE_APPROVAL_DATE = DateTime.Now;
-                oPDEXPENSE.FINANCE_EMAILADDRESS = GetEmailAddress();
-                if (oPDEXPENSE.STATUS == "FINApproved"){
-                    oPDEXPENSE.HR_APPROVAL = true;
-                    oPDEXPENSE.FINANCE_APPROVAL = true;
-                }
+            try
+            {
 
-                db.Entry(oPDEXPENSE).State = EntityState.Modified;
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    oPDEXPENSE.MODIFIED_DATE = DateTime.Now;
+                    oPDEXPENSE.FINANCE_APPROVAL_DATE = DateTime.Now;
+                    oPDEXPENSE.FINANCE_EMAILADDRESS = GetEmailAddress();
+                    if (oPDEXPENSE.STATUS == "FINApproved")
+                    {
+                        oPDEXPENSE.HR_APPROVAL = true;
+                        oPDEXPENSE.FINANCE_APPROVAL = true;
+                    }
+
+                    db.Entry(oPDEXPENSE).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                }
+                return RedirectToAction("Index", "FINAPPROVAL");
 
             }
-            return RedirectToAction("Index", "FINAPPROVAL"); 
+            catch (Exception ex)
+            {
+
+                logger.Error("FINAPPROVAL : FINOPDExpense([Bind])" + ex.Message.ToString());
+
+                return View(new HttpStatusCodeResult(HttpStatusCode.BadRequest));
+            }
         }
 
         // GET: OPDEXPENSEs/Edit/5
         public ActionResult FINHospitalExpense(int? id)
         {
+            try
+            {
+                if (Request.IsAuthenticated)
+                {
+                    AuthenticateUser();
+                    if (id == null)
+                    {
+                        return RedirectToAction("Index", "FINAPPROVAL");
+                    }
 
-            if (Request.IsAuthenticated) {
-                AuthenticateUser();
-                if (id == null){
-                return RedirectToAction("Index", "FINAPPROVAL");
+                    MedicalInfoEntities entities = new MedicalInfoEntities();
+                    OPDEXPENSE oPDEXPENSE = db.OPDEXPENSEs.Find(id);
+
+                    var result2 = new HOSPITALEXPENSE_MASTERDETAIL()
+                    {
+                        listOPDEXPENSEPATIENT = entities.OPDEXPENSE_PATIENT.Where(e => e.OPDEXPENSE_ID == id).ToList(),
+                        listOPDEXPENSEIMAGE = entities.OPDEXPENSE_IMAGE.Where(e => e.OPDEXPENSE_ID == id).ToList(),
+                        OPDEXPENSE_ID = oPDEXPENSE.OPDEXPENSE_ID,
+                        CLAIMANT_SUFFERED_ILLNESS = oPDEXPENSE.CLAIMANT_SUFFERED_ILLNESS,
+                        CLAIMANT_SUFFERED_ILLNESS_DETAILS = oPDEXPENSE.CLAIMANT_SUFFERED_ILLNESS_DETAILS,
+                        CLAIMANT_SUFFERED_ILLNESS_DATE = oPDEXPENSE.CLAIMANT_SUFFERED_ILLNESS_DATE,
+                        CLAIM_YEAR = oPDEXPENSE.CLAIM_YEAR,
+                        DATE_ILLNESS_NOTICED = oPDEXPENSE.DATE_ILLNESS_NOTICED,
+                        DATE_RECOVERY = oPDEXPENSE.DATE_RECOVERY,
+                        DIAGNOSIS = oPDEXPENSE.DIAGNOSIS,
+                        DOCTOR_NAME = oPDEXPENSE.DOCTOR_NAME,
+                        DRUGS_PRESCRIBED_BOOL = oPDEXPENSE.DRUGS_PRESCRIBED_BOOL,
+                        DRUGS_PRESCRIBED_DESCRIPTION = oPDEXPENSE.DRUGS_PRESCRIBED_DESCRIPTION,
+                        HOSPITAL_NAME = oPDEXPENSE.HOSPITAL_NAME,
+
+                        EMPLOYEE_DEPARTMENT = oPDEXPENSE.EMPLOYEE_DEPARTMENT,
+                        EMPLOYEE_NAME = oPDEXPENSE.EMPLOYEE_NAME,
+                        EMPLOYEE_EMAILADDRESS = oPDEXPENSE.EMPLOYEE_EMAILADDRESS,
+
+                        FINANCE_APPROVAL = oPDEXPENSE.FINANCE_APPROVAL,
+                        FINANCE_COMMENT = oPDEXPENSE.FINANCE_COMMENT,
+                        FINANCE_NAME = oPDEXPENSE.FINANCE_NAME,
+                        FINANCE_APPROVAL_DATE = oPDEXPENSE.FINANCE_APPROVAL_DATE,
+                        FINANCE_EMAILADDRESS = oPDEXPENSE.FINANCE_EMAILADDRESS,
+
+                        HR_APPROVAL = oPDEXPENSE.HR_APPROVAL,
+                        HR_COMMENT = oPDEXPENSE.HR_COMMENT,
+                        HR_NAME = oPDEXPENSE.HR_NAME,
+                        HR_APPROVAL_DATE = oPDEXPENSE.HR_APPROVAL_DATE,
+                        HR_EMAILADDRESS = oPDEXPENSE.HR_EMAILADDRESS,
+
+                        MANAGEMENT_APPROVAL = oPDEXPENSE.MANAGEMENT_APPROVAL,
+                        MANAGEMENT_COMMENT = oPDEXPENSE.MANAGEMENT_COMMENT,
+                        MANAGEMENT_NAME = oPDEXPENSE.MANAGEMENT_NAME,
+                        MANAGEMENT_APPROVAL_DATE = oPDEXPENSE.MANAGEMENT_APPROVAL_DATE,
+                        MANAGEMENT_EMAILADDRESS = oPDEXPENSE.MANAGEMENT_EMAILADDRESS,
+
+
+                        PERIOD_CONFINEMENT_DATE_FROM = oPDEXPENSE.PERIOD_CONFINEMENT_DATE_FROM,
+                        PERIOD_CONFINEMENT_DATE_TO = oPDEXPENSE.PERIOD_CONFINEMENT_DATE_TO,
+                        STATUS = oPDEXPENSE.STATUS,
+                        OPDTYPE = oPDEXPENSE.OPDTYPE,
+                        TOTAL_AMOUNT_CLAIMED = oPDEXPENSE.TOTAL_AMOUNT_CLAIMED,
+                        TOTAL_AMOUNT_APPROVED = oPDEXPENSE.TOTAL_AMOUNT_APPROVED,
+                        CREATED_DATE = oPDEXPENSE.CREATED_DATE,
+                        MODIFIED_DATE = oPDEXPENSE.MODIFIED_DATE
+                    };
+
+                    ViewData["OPDEXPENSE_ID"] = id;
+                    return View(result2);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "FINAPPROVAL");
+                }
             }
+            catch (Exception ex)
+            {
 
-            MedicalInfoEntities entities = new MedicalInfoEntities();
-            OPDEXPENSE oPDEXPENSE = db.OPDEXPENSEs.Find(id);
+                logger.Error("FINAPPROVAL : FINHospitalExpense()" + ex.Message.ToString());
 
-            var result2 = new HOSPITALEXPENSE_MASTERDETAIL(){
-                listOPDEXPENSEPATIENT = entities.OPDEXPENSE_PATIENT.Where(e => e.OPDEXPENSE_ID == id).ToList(),
-                listOPDEXPENSEIMAGE = entities.OPDEXPENSE_IMAGE.Where(e => e.OPDEXPENSE_ID == id).ToList(),
-                OPDEXPENSE_ID = oPDEXPENSE.OPDEXPENSE_ID,
-                CLAIMANT_SUFFERED_ILLNESS = oPDEXPENSE.CLAIMANT_SUFFERED_ILLNESS,
-                CLAIMANT_SUFFERED_ILLNESS_DETAILS = oPDEXPENSE.CLAIMANT_SUFFERED_ILLNESS_DETAILS,
-                CLAIMANT_SUFFERED_ILLNESS_DATE = oPDEXPENSE.CLAIMANT_SUFFERED_ILLNESS_DATE,
-                CLAIM_YEAR = oPDEXPENSE.CLAIM_YEAR,
-                DATE_ILLNESS_NOTICED = oPDEXPENSE.DATE_ILLNESS_NOTICED,
-                DATE_RECOVERY = oPDEXPENSE.DATE_RECOVERY,
-                DIAGNOSIS = oPDEXPENSE.DIAGNOSIS,
-                DOCTOR_NAME = oPDEXPENSE.DOCTOR_NAME,
-                DRUGS_PRESCRIBED_BOOL = oPDEXPENSE.DRUGS_PRESCRIBED_BOOL,
-                DRUGS_PRESCRIBED_DESCRIPTION = oPDEXPENSE.DRUGS_PRESCRIBED_DESCRIPTION,
-                HOSPITAL_NAME = oPDEXPENSE.HOSPITAL_NAME,
-
-                EMPLOYEE_DEPARTMENT = oPDEXPENSE.EMPLOYEE_DEPARTMENT,
-                EMPLOYEE_NAME = oPDEXPENSE.EMPLOYEE_NAME,
-                EMPLOYEE_EMAILADDRESS = oPDEXPENSE.EMPLOYEE_EMAILADDRESS,
-
-                FINANCE_APPROVAL = oPDEXPENSE.FINANCE_APPROVAL,
-                FINANCE_COMMENT = oPDEXPENSE.FINANCE_COMMENT,
-                FINANCE_NAME = oPDEXPENSE.FINANCE_NAME,
-                FINANCE_APPROVAL_DATE = oPDEXPENSE.FINANCE_APPROVAL_DATE,
-                FINANCE_EMAILADDRESS = oPDEXPENSE.FINANCE_EMAILADDRESS,
-
-                HR_APPROVAL = oPDEXPENSE.HR_APPROVAL,
-                HR_COMMENT = oPDEXPENSE.HR_COMMENT,
-                HR_NAME = oPDEXPENSE.HR_NAME,
-                HR_APPROVAL_DATE = oPDEXPENSE.HR_APPROVAL_DATE,
-                HR_EMAILADDRESS = oPDEXPENSE.HR_EMAILADDRESS,
-
-                MANAGEMENT_APPROVAL = oPDEXPENSE.MANAGEMENT_APPROVAL,
-                MANAGEMENT_COMMENT = oPDEXPENSE.MANAGEMENT_COMMENT,
-                MANAGEMENT_NAME = oPDEXPENSE.MANAGEMENT_NAME,
-                MANAGEMENT_APPROVAL_DATE = oPDEXPENSE.MANAGEMENT_APPROVAL_DATE,
-                MANAGEMENT_EMAILADDRESS = oPDEXPENSE.MANAGEMENT_EMAILADDRESS,
-
-
-                PERIOD_CONFINEMENT_DATE_FROM = oPDEXPENSE.PERIOD_CONFINEMENT_DATE_FROM,
-                PERIOD_CONFINEMENT_DATE_TO = oPDEXPENSE.PERIOD_CONFINEMENT_DATE_TO,
-                STATUS = oPDEXPENSE.STATUS,
-                OPDTYPE = oPDEXPENSE.OPDTYPE,
-                TOTAL_AMOUNT_CLAIMED = oPDEXPENSE.TOTAL_AMOUNT_CLAIMED,
-                TOTAL_AMOUNT_APPROVED = oPDEXPENSE.TOTAL_AMOUNT_APPROVED,
-                CREATED_DATE = oPDEXPENSE.CREATED_DATE,
-                MODIFIED_DATE = oPDEXPENSE.MODIFIED_DATE
-            };
-
-            ViewData["OPDEXPENSE_ID"] = id;
-            return View(result2);
-            }
-            else{
-                return RedirectToAction("Index", "FINAPPROVAL");
+                return View(new HttpStatusCodeResult(HttpStatusCode.BadRequest));
             }
 
         }
@@ -324,23 +409,32 @@ namespace OPDCLAIMFORM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult FINHospitalExpense([Bind(Include = "OPDEXPENSE_ID,EMPLOYEE_NAME,EMPLOYEE_DEPARTMENT,CLAIM_MONTH,TOTAL_AMOUNT_CLAIMED,DATE_ILLNESS_NOTICED,DATE_RECOVERY,DIAGNOSIS,CLAIMANT_SUFFERED_ILLNESS,CLAIMANT_SUFFERED_ILLNESS_DATE,CLAIMANT_SUFFERED_ILLNESS_DETAILS,HOSPITAL_NAME,DOCTOR_NAME,PERIOD_CONFINEMENT_DATE_FROM,PERIOD_CONFINEMENT_DATE_TO,DRUGS_PRESCRIBED_BOOL,DRUGS_PRESCRIBED_DESCRIPTION,OPDTYPE,STATUS,HR_COMMENT,HR_APPROVAL_DATE,HR_APPROVAL,HR_NAME,FINANCE_COMMENT,FINANCE_APPROVAL,FINANCE_APPROVAL_DATE,FINANCE_NAME,MANAGEMENT_COMMENT,MANAGEMENT_APPROVAL,MANAGEMENT_APPROVAL_DATE,MANAGEMENT_NAME,CLAIM_YEAR,TOTAL_AMOUNT_APPROVED,CREATED_DATE,EMPLOYEE_EMAILADDRESS,HR_EMAILADDRESS")] OPDEXPENSE oPDEXPENSE)
         {
-            if (ModelState.IsValid)
+            try
             {
-                oPDEXPENSE.MODIFIED_DATE = DateTime.Now;
-                oPDEXPENSE.FINANCE_APPROVAL_DATE = DateTime.Now;
-                oPDEXPENSE.FINANCE_EMAILADDRESS = GetEmailAddress();
-                if (oPDEXPENSE.STATUS == "FINApproved")
+
+                if (ModelState.IsValid)
                 {
-                    oPDEXPENSE.HR_APPROVAL = true;
-                    oPDEXPENSE.FINANCE_APPROVAL = true;
+                    oPDEXPENSE.MODIFIED_DATE = DateTime.Now;
+                    oPDEXPENSE.FINANCE_APPROVAL_DATE = DateTime.Now;
+                    oPDEXPENSE.FINANCE_EMAILADDRESS = GetEmailAddress();
+                    if (oPDEXPENSE.STATUS == "FINApproved")
+                    {
+                        oPDEXPENSE.HR_APPROVAL = true;
+                        oPDEXPENSE.FINANCE_APPROVAL = true;
+                    }
+
+                    db.Entry(oPDEXPENSE).State = EntityState.Modified;
+                    db.SaveChanges();
                 }
-
-
-
-                db.Entry(oPDEXPENSE).State = EntityState.Modified;
-                db.SaveChanges();
+                return RedirectToAction("Index", "FINAPPROVAL");
             }
-            return RedirectToAction("Index", "FINAPPROVAL");
+            catch (Exception ex)
+            {
+
+                logger.Error("FINAPPROVAL :  FINHospitalExpense([Bind])" + ex.Message.ToString());
+
+                return View(new HttpStatusCodeResult(HttpStatusCode.BadRequest));
+            }
         }
 
         /// <summary>
