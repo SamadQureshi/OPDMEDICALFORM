@@ -121,8 +121,10 @@ jQuery(function () {
             $.each(regions, function (index, region) {
                 regionsSelect.append($("<option></option>").val(this.Value).html(this.Text));
             });
-
         };
+        if (regionsSelect.length != 0) {
+            regionsSelect.selectpicker();
+        }
     });
 });
 </script>
