@@ -146,3 +146,4 @@ table.dataTable tr.child span.dtr-title {
 	padding-right: 5px !important;
 	white-space: nowrap;
 }
+form { width: 100%; }
