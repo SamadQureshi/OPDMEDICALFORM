@@ -31,11 +31,8 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group bmd-form-group is-filled custom-form-group">
-
                                 @Html.LabelFor(model => model.EMPLOYEE_DEPARTMENT, "Employee Department:", htmlAttributes: new { @class = "bmd-label-static custom-label" })
-
                                 @Html.DropDownListFor(model => model.EMPLOYEE_DEPARTMENT, new SelectList(Enumerable.Empty<SelectListItem>()))
-
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -55,7 +52,6 @@
                                    new SelectListItem {Text = "OCT", Value = "OCT"},
                                    new SelectListItem {Text = "NOV", Value = "NOV"},
                                    new SelectListItem {Text = "DEC", Value = "DEC"},
-
                                 }, new { @class = "selectpicker", @data_style = "btn btn-primary" })
                             </div>
                         </div>
@@ -76,7 +72,6 @@
                                    new SelectListItem {Text = "2029", Value = "2029"},
                                    new SelectListItem {Text = "2030", Value = "2030"},
                                    new SelectListItem {Text = "2031", Value = "2031"},
-
                                 }, new { @class = "selectpicker", @data_style = "btn btn-primary" })
                             </div>
                         </div>
@@ -108,6 +103,9 @@ jQuery(function () {
                 regionsSelect.append($("<option></option>").val(this.Value).html(this.Text));
             });
         };
+        if (regionsSelect.length != 0) {
+            regionsSelect.selectpicker();
+        }
     });
 });
 </script>
