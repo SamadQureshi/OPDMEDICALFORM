@@ -343,23 +343,7 @@ md = {
 		"initComplete": function(settings, json) {
 			$(".custom-select").selectpicker();
 		}
-	});
-	
-	$('#tblCustomers').DataTable({
-        "pagingType": "full_numbers",
-        "lengthMenu": [
-          [10, 25, 50, -1],
-          [10, 25, 50, "All"]
-        ],
-        responsive: true,
-        language: {
-          search: "_INPUT_",
-          searchPlaceholder: "Search records",
-        },
-		"initComplete": function(settings, json) {
-			$(".custom-select").selectpicker();
-		}
-	});
+	});	
 
 	var table = $('#datatable').DataTable();
   },
