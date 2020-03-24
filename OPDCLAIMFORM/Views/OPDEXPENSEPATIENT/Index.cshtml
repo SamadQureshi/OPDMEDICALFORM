@@ -208,7 +208,7 @@
                 if (!$('#txtNAME').val()) {
                     if ($("#txtNAME").parent().next(".validation").length == 0) // only add if not added
                     {
-                        $("#txtNAME").parent().after("<div class='validation' style='color:red;text-align: center;'>Please Enter Name</div>");
+                        $("#txtNAME").parent().after("<div class='validation' style='color:red;'>Please Enter Name</div>");
                     }
                     //e.preventDefault(); // prevent form from POST to server
                     $('#txtNAME').focus();
@@ -219,7 +219,7 @@
                 if (!$('#txtAGE').val()) {
                     if ($("#txtAGE").parent().next(".validation").length == 0) // only add if not added
                     {
-                        $("#txtAGE").parent().after("<div class='validation' style='color:red;text-align: center;'>Please Enter Age</div>");
+                        $("#txtAGE").parent().after("<div class='validation' style='color:red;>Please Enter Age</div>");
                     }
                     //e.preventDefault(); // prevent form from POST to server
                     if (!focusSet) {
