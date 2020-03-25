@@ -33,53 +33,52 @@
                             @Html.HiddenFor(model => model.opdEXPENSE.CREATED_DATE)
 
                             @Html.Partial("_OPDExpenseView", Model)
-                            <div class="col-md-6">
-                                @Html.LabelFor(model => model.opdEXPENSE.TOTAL_AMOUNT_APPROVED, "Total Amount Approved", htmlAttributes: new { @class = "bmd-label-floating" })
+                            <div class="col-md-6">                                
                                 <div class="form-group">
+                                    @Html.LabelFor(model => model.opdEXPENSE.TOTAL_AMOUNT_APPROVED, "Total Amount Approved", htmlAttributes: new { @class = "bmd-label-floating" })
                                     @Html.EditorFor(model => model.opdEXPENSE.TOTAL_AMOUNT_APPROVED, new { htmlAttributes = new { @class = "form-control" } })
                                     @Html.ValidationMessageFor(model => model.opdEXPENSE.TOTAL_AMOUNT_APPROVED, "", new { @class = "text-danger" })
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
-                                @Html.LabelFor(model => model.opdEXPENSE.HR_COMMENT, "HR Comment", htmlAttributes: new { @class = "bmd-label-floating" })
+                            <div class="col-md-6">                               
                                 <div class="form-group">
+                                    @Html.LabelFor(model => model.opdEXPENSE.HR_COMMENT, "HR Comment", htmlAttributes: new { @class = "bmd-label-floating" })
                                     @Html.TextBoxFor(model => model.opdEXPENSE.HR_COMMENT, new { @readonly = "readonly", @class = "form-control" })
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
-                                @Html.LabelFor(model => model.opdEXPENSE.HR_NAME, "HR Name", htmlAttributes: new { @class = "bmd-label-floating" })
+                            <div class="col-md-6">                                
                                 <div class="form-group">
+                                    @Html.LabelFor(model => model.opdEXPENSE.HR_NAME, "HR Name", htmlAttributes: new { @class = "bmd-label-floating" })
                                     @Html.TextBoxFor(model => model.opdEXPENSE.HR_NAME, new { @readonly = "readonly", @class = "form-control" })
                                 </div>
                             </div>
 
-
-                            <div class="col-md-6">
-                                @Html.LabelFor(model => model.opdEXPENSE.FINANCE_COMMENT, "Finance Comment", htmlAttributes: new { @class = "bmd-label-static custom-label" })
+                            <div class="col-md-6">                                
                                 <div class="form-group bmd-form-group is-filled custom-form-group">
+                                    @Html.LabelFor(model => model.opdEXPENSE.FINANCE_COMMENT, "Finance Comment", htmlAttributes: new { @class = "bmd-label-static custom-label" })
                                     @Html.TextAreaFor(model => model.opdEXPENSE.FINANCE_COMMENT, 2, 40, new { @class = "form-control custom-textarea" })
                                     @Html.ValidationMessageFor(model => model.opdEXPENSE.FINANCE_COMMENT, "", new { @class = "text-danger" })
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
-                                @Html.LabelFor(model => model.opdEXPENSE.FINANCE_NAME, "Finance Name", htmlAttributes: new { @class = "bmd-label-floating" })
+                            <div class="col-md-6">                                
                                 <div class="form-group">
+                                    @Html.LabelFor(model => model.opdEXPENSE.FINANCE_NAME, "Finance Name", htmlAttributes: new { @class = "bmd-label-floating" })
                                     @Html.EditorFor(model => model.opdEXPENSE.FINANCE_NAME, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @Value = (ViewBag.UserName) } })
                                     @Html.ValidationMessageFor(model => model.opdEXPENSE.FINANCE_NAME, "", new { @class = "text-danger" })
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
-                                @Html.LabelFor(model => model.opdEXPENSE.STATUS, "Status", htmlAttributes: new { @class = "bmd-label-floating" })
-                                <div class="form-group">
+                            <div class="col-md-6">                                
+                                <div class="form-group bmd-form-group is-filled custom-form-group">
+                                    @Html.LabelFor(model => model.opdEXPENSE.STATUS, "Status", htmlAttributes: new { @class = "bmd-label-static custom-label" })
                                     @Html.DropDownListFor(model => model.opdEXPENSE.STATUS, new List<SelectListItem>
-                                            {
-                                               new SelectListItem{ Text="FINApproved", Value = "FINApproved" },
-                                               new SelectListItem{ Text="FINRejected", Value = "FINRejected" }
-                                            }, new { @class = "selectpicker", @data_style = "btn btn-primary" })
+                                    {
+                                        new SelectListItem{ Text="FINApproved", Value = "FINApproved" },
+                                        new SelectListItem{ Text="FINRejected", Value = "FINRejected" }
+                                    }, new { @class = "selectpicker", @data_style = "btn btn-primary" })
                                 </div>
                             </div>
 

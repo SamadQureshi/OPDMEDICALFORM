@@ -348,7 +348,7 @@ md = {
 	var table = $('#datatable').DataTable();
   },
   
-  initShowSwal: function(type, id) {
+  initShowSwal: function(type, url, id) {
         if (type == 'basic') {
             swal({
                 title: "Here's a message!",
@@ -395,7 +395,7 @@ md = {
         } else if (type == 'warning-message-and-cancel') {
             swal({
                 title: 'Are you sure?',
-                text: 'You will not be able to recover this imaginary file!',
+                text: 'You will not be able to recover this data!',
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Yes, delete it!',
@@ -407,18 +407,20 @@ md = {
 				if (result.value) {
 					swal({
 						title: 'Deleted!',
-						text: 'Your imaginary file has been deleted.',
+						text: 'Selected data has been deleted.',
 						type: 'success',
 						confirmButtonClass: "btn btn-success",
 						buttonsStyling: false
-					}).catch(swal.noop)
+					}).then(function() {
+						window.location = "/"+url+"/Delete/"+id;
+					}).catch(swal.noop);
 				} else if (
 					/* Read more about handling dismissals below */
 					result.dismiss === Swal.DismissReason.cancel
 					) {
 					swal({
                         title: 'Cancelled',
-                        text: 'Your imaginary file is safe :)',
+                        text: 'Your data is safe :)',
                         type: 'error',
                         confirmButtonClass: "btn btn-info",
                         buttonsStyling: false

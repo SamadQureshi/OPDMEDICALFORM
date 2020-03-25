@@ -53,7 +53,7 @@
                                                 {
                                                     <a href="@Url.Action("Edit", "OPDExpenses", new { id = item.OPDEXPENSE_ID }, null)" class="btn btn-link btn-warning btn-just-icon edit"><i class="material-icons">edit</i></a>
                                                     <a href="@Url.Action("Details", "OPDExpenses", new { id = item.OPDEXPENSE_ID }, null)" class="btn btn-link btn-info btn-just-icon like"><i class="material-icons">dvr</i></a>
-                                                    <a href="javascript:;" onclick="md.initShowSwal('warning-message-and-cancel')" class="btn btn-link btn-danger btn-just-icon remove"><i class="material-icons">close</i></a>
+                                                    <a href="javascript:;" onclick="md.initShowSwal('warning-message-and-cancel', 'OPDExpenses', @Html.DisplayFor(modelItem => item.OPDEXPENSE_ID))" class="btn btn-link btn-danger btn-just-icon remove"><i class="material-icons">close</i></a>
                                                 }
                                                 else if (item.STATUS.Equals("HRRejected"))
                                                 {
@@ -72,7 +72,7 @@
                                                 {
                                                     <a href="@Url.Action("Edit", "HOSPITALExpense", new { id = item.OPDEXPENSE_ID }, null)" class="btn btn-link btn-warning btn-just-icon edit"><i class="material-icons">edit</i></a>
                                                     <a href="@Url.Action("Details", "HOSPITALExpense", new { id = item.OPDEXPENSE_ID }, null)" class="btn btn-link btn-info btn-just-icon like"><i class="material-icons">dvr</i></a>
-                                                    <a href="javascript:;" onclick="md.initShowSwal('warning-message-and-cancel', @Html.DisplayFor(modelItem => item.OPDEXPENSE_ID))" class="btn btn-link btn-danger btn-just-icon remove"><i class="material-icons">close</i></a>
+                                                    <a href="javascript:;" onclick="md.initShowSwal('warning-message-and-cancel', 'HOSPITALExpense', @Html.DisplayFor(modelItem => item.OPDEXPENSE_ID))" class="btn btn-link btn-danger btn-just-icon remove"><i class="material-icons">close</i></a>
                                                 }
                                                 else if (item.STATUS.Equals("HRRejected"))
                                                 {
