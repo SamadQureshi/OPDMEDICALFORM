@@ -9,7 +9,7 @@ namespace OPDCLAIMFORM
         public static void RegisterBundles(BundleCollection bundles)
         {           
 
-                bundles.Add(new ScriptBundle("~/bundles/jquery").Include("~/Scripts/jquery-{version}.js"));
+            bundles.Add(new ScriptBundle("~/bundles/jquery").Include("~/Scripts/jquery-{version}.js"));
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include("~/Scripts/jquery.validate*"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
@@ -24,7 +24,7 @@ namespace OPDCLAIMFORM
                 ));
 
             // Plugins for the Projects
-            bundles.Add(new ScriptBundle("~/Scripts/plugins").Include(
+            bundles.Add(new ScriptBundle("~/bundles/plugins").Include(
                 "~/Scripts/plugins/moment.min.js",
                 "~/Scripts/plugins/sweetalert2.js",
                 //"~/Scripts/plugins/jquery.validate.min.js",
@@ -38,7 +38,7 @@ namespace OPDCLAIMFORM
                 "~/Scripts/plugins/bootstrap-notify.js",
                 "~/Scripts/material-dashboard.js"));
 
-            bundles.Add(new ScriptBundle("~/Scripts/ajax").Include(              
+            bundles.Add(new ScriptBundle("~/bundles/ajax").Include(              
                 "~/Scripts/ajax/json2.js"
             ));
 

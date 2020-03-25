@@ -9,7 +9,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/Scripts/ajax")
+    @Scripts.Render("~/bundles/ajax")
 
 </head>
 <body>
@@ -224,7 +224,7 @@
     </div>
 
     @Scripts.Render("~/bundles/core")
-    @Scripts.Render("~/Scripts/plugins")
+    @Scripts.Render("~/bundles/plugins")
 
     @RenderSection("scripts", required: false)
 </body>
