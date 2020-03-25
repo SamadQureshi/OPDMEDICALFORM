@@ -2,9 +2,16 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>Claim Form</h1>
-    <p class="lead">Welcome to QORData Claim Form Application.</p>
-    <p><a href="https://www.qordata.com/" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+    <div class="jumbotron">
+        <h1>Claim Form</h1>
+        <p class="lead">Welcome to QORData Claim Form Application.</p>
+        @if (Request.IsAuthenticated)
+        {
+            <p><a href="https://www.qordata.com/" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+        }
+        else
+        {
+            <p><a href="@Url.Action("SignIn", "OFFICEAPIMANAGER", null, Request.Url.Scheme)" class="btn btn-primary btn-lg">Login</a></p>
+        }        
+    </div>
 
