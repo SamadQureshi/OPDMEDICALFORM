@@ -18,7 +18,7 @@ namespace OPDCLAIMFORM.Controllers
         {
 
             //return View(db.OPDEXPENSEs.Where(e => e.OPDTYPE == "Hospital Expense").ToList());
-            return RedirectToAction("Index", "OPDEXPENSEs");
+            return RedirectToAction("Index", "OPDExpenses");
 
 
         }
@@ -35,7 +35,7 @@ namespace OPDCLAIMFORM.Controllers
 
                     if (id == null)
                     {
-                        return RedirectToAction("Index", "OPDEXPENSEs");
+                        return RedirectToAction("Index", "OPDExpenses");
                     }
 
                     OPDEXPENSE oPDEXPENSE = db.OPDEXPENSEs.Find(id);
@@ -82,7 +82,7 @@ namespace OPDCLAIMFORM.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Index", "OPDEXPENSEs");
+                    return RedirectToAction("Index", "OPDExpenses");
                 }
 
             }
@@ -108,7 +108,7 @@ namespace OPDCLAIMFORM.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Index", "OPDEXPENSEs");
+                    return RedirectToAction("Index", "OPDExpenses");
                 }
             }
             catch (Exception ex)
@@ -166,7 +166,7 @@ namespace OPDCLAIMFORM.Controllers
 
                     if (id == null)
                     {
-                        return RedirectToAction("Index", "OPDEXPENSEs");
+                        return RedirectToAction("Index", "OPDExpenses");
                     }
 
                     MedicalInfoEntities entities = new MedicalInfoEntities();
@@ -216,7 +216,7 @@ namespace OPDCLAIMFORM.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Index", "OPDEXPENSEs");
+                    return RedirectToAction("Index", "OPDExpenses");
                 }
             }
             catch (Exception ex)
@@ -245,7 +245,7 @@ namespace OPDCLAIMFORM.Controllers
                     oPDEXPENSE.EMPLOYEE_EMAILADDRESS = GetEmailAddress();
                     db.Entry(oPDEXPENSE).State = EntityState.Modified;
                     db.SaveChanges();
-                    return RedirectToAction("Index", "OPDEXPENSEs");
+                    return RedirectToAction("Index", "OPDExpenses");
                 }
                 return View(oPDEXPENSE);
             }
@@ -268,16 +268,16 @@ namespace OPDCLAIMFORM.Controllers
                     AuthenticateUser();
                     if (id == null)
                     {
-                        return RedirectToAction("Index", "OPDEXPENSEs");
+                        return RedirectToAction("Index", "OPDExpenses");
                     }
 
                     var fileInfo = this.db.DELETE_OPDEXPENSE(id);
 
-                    return RedirectToAction("Index", "OPDEXPENSEs");
+                    return RedirectToAction("Index", "OPDExpenses");
                 }
                 else
                 {
-                    return RedirectToAction("Index", "OPDEXPENSEs");
+                    return RedirectToAction("Index", "OPDExpenses");
                 }
 
             }
@@ -303,7 +303,7 @@ namespace OPDCLAIMFORM.Controllers
                     AuthenticateUser();
                     if (id == 0)
                     {
-                        return RedirectToAction("Index", "OPDEXPENSEs");
+                        return RedirectToAction("Index", "OPDExpenses");
                     }
 
                     else
@@ -311,11 +311,11 @@ namespace OPDCLAIMFORM.Controllers
                         var fileInfo = this.db.DELETE_OPDEXPENSE(id);
                     }
 
-                    return RedirectToAction("Index", "OPDEXPENSEs");
+                    return RedirectToAction("Index", "OPDExpenses");
                 }
                 else
                 {
-                    return RedirectToAction("Index", "OPDEXPENSEs");
+                    return RedirectToAction("Index", "OPDExpenses");
                 }
 
 

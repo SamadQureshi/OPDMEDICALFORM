@@ -23,7 +23,7 @@
                     </div>
                     <div class="form-group">
                         <label for="examplePass" class="bmd-label-floating">Relationship</label>
-                        <select id="relationShipList" class="selectpicker" data-style="btn btn-primary">
+                        <select id="relationShipList" class="selectpicker" data-style="btn btn-rose">
                             <option value="SELF">SELF</option>
                             <option value="FATHER">FATHER</option>
                             <option value="MOTHER">MOTHER</option>
@@ -99,11 +99,9 @@
         </div>
     </div>
     <div class="col-md-12">
-        @Html.ActionLink("Back to List", "Index", "OPDEXPENSEs") <span>|</span> @Html.ActionLink("Add Image", "Index", "OPDEXPENSEIMAGE", new { id = @ViewData["OPDEXPENSE_ID"] }, null)
+        @Html.ActionLink("Back to List", "Index", "OPDExpenses") <span>|</span> @Html.ActionLink("Add Image", "Index", "OPDEXPENSEIMAGE", new { id = @ViewData["OPDEXPENSE_ID"] }, null)
     </div>
 </div>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script type="text/javascript" src="https://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
 <script type="text/javascript">
         $(function () {
             //Remove the dummy row if data present.
@@ -159,8 +157,8 @@
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (r) {
-                        var row = $("#tblCustomers tr:last-child");
-                        if ($("#tblCustomers tr:last-child span").eq(0).html() != "&nbsp;") {
+                        var row = $("#tblCustomers tr:last");
+                        if ($("#tblCustomers tr:last span").eq(0).html() != "&nbsp;") {
                             row = row.clone();
                         }
                         AppendRow(row, r.ID, r.NAME, r.AGE, r.RELATIONSHIP_EMPLOYEE);

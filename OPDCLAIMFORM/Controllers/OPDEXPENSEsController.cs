@@ -94,7 +94,7 @@ namespace OPDCLAIMFORM.Controllers
                             opdExp = opdExp.OrderBy(s => s.EXPENSE_NUMBER);
                             break;
                     }
-                    logger.Info("Sample informational message");
+                    
                     int pageSize = Convert.ToInt32(ConfigurationManager.AppSettings["PageSize"]);
                     int pageNumber = (page ?? 1);
                     return View(opdExp.ToPagedList(pageNumber, pageSize));
@@ -132,7 +132,7 @@ namespace OPDCLAIMFORM.Controllers
 
                     if (id == null)
                     {
-                        return RedirectToAction("Index", "OPDEXPENSEs");
+                        return RedirectToAction("Index", "OPDExpenses");
                     }
 
 
@@ -148,7 +148,7 @@ namespace OPDCLAIMFORM.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Details()", "OPDEXPENSEs");
+                    return RedirectToAction("Details()", "OPDExpenses");
                 }
             }
             catch (Exception ex)
@@ -172,7 +172,7 @@ namespace OPDCLAIMFORM.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Index", "OPDEXPENSEs");
+                    return RedirectToAction("Index", "OPDExpenses");
                 }
             }
             catch (Exception ex)
@@ -205,7 +205,7 @@ namespace OPDCLAIMFORM.Controllers
                     db.SaveChanges();
                     ViewData["OPDEXPENSE_ID"] = oPDEXPENSE.OPDEXPENSE_ID;
 
-                    return RedirectToAction("Edit", "OPDEXPENSEs", new { id = oPDEXPENSE.OPDEXPENSE_ID });
+                    return RedirectToAction("Edit", "OPDExpenses", new { id = oPDEXPENSE.OPDEXPENSE_ID });
 
                 }
                 return View(oPDEXPENSE);
@@ -228,7 +228,7 @@ namespace OPDCLAIMFORM.Controllers
                     AuthenticateUser();
                     if (id == null)
                     {
-                        return RedirectToAction("Index", "OPDEXPENSEs");
+                        return RedirectToAction("Index", "OPDExpenses");
                     }
                     MedicalInfoEntities entities = new MedicalInfoEntities();
                     var result2 = new OPDEXPENSE_MASTERDETAIL()
@@ -244,7 +244,7 @@ namespace OPDCLAIMFORM.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Index", "OPDEXPENSEs");
+                    return RedirectToAction("Index", "OPDExpenses");
                 }
             }
             catch (Exception ex)
@@ -293,16 +293,16 @@ namespace OPDCLAIMFORM.Controllers
                     AuthenticateUser();
                     if (id == null)
                     {
-                        return RedirectToAction("Index", "OPDEXPENSEs");
+                        return RedirectToAction("Index", "OPDExpenses");
                     }
 
                     var fileInfo = this.db.DELETE_OPDEXPENSE(id);
 
-                    return RedirectToAction("Index", "OPDEXPENSEs");
+                    return RedirectToAction("Index", "OPDExpenses");
                 }
                 else
                 {
-                    return RedirectToAction("Index", "OPDEXPENSEs");
+                    return RedirectToAction("Index", "OPDExpenses");
                 }
             }
             catch (Exception ex)
@@ -326,7 +326,7 @@ namespace OPDCLAIMFORM.Controllers
                     AuthenticateUser();
                     if (id == 0)
                     {
-                        return RedirectToAction("Index", "OPDEXPENSEs");
+                        return RedirectToAction("Index", "OPDExpenses");
                     }
 
                     else
@@ -334,11 +334,11 @@ namespace OPDCLAIMFORM.Controllers
                         var fileInfo = this.db.DELETE_OPDEXPENSE(id);
                     }
 
-                    return RedirectToAction("Index", "OPDEXPENSEs");
+                    return RedirectToAction("Index", "OPDExpenses");
                 }
                 else
                 {
-                    return RedirectToAction("Index", "OPDEXPENSEs");
+                    return RedirectToAction("Index", "OPDExpenses");
                 }
             }
             catch (Exception ex)
