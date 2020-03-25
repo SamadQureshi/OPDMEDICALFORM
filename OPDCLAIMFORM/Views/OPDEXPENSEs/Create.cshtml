@@ -94,7 +94,11 @@
         @Html.ActionLink("Back to List", "Index")
     </div>
 </div>
-<script type="text/javascript">
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+    <script type="text/javascript">
 jQuery(function () {
     var regionsSelect = $('#EMPLOYEE_DEPARTMENT');
     $.getJSON('@Url.Action("GetDepartments", "Helper")', function (regions) {
@@ -108,4 +112,5 @@ jQuery(function () {
         }
     });
 });
-</script>
+    </script>
+}
