@@ -90,9 +90,9 @@
                                 <tr>
                                     <td>@(i + 1)</td>
 
-                                    <td style="text-align: center;">
-                                        <div class="input-group" style="height:40px;">
-                                            <i class="fa fa-2x fa-paperclip text-navy"></i>
+                                    <td>
+                                        <div class="input-group">
+                                            <i class="fa fa-2x fa-paperclip text-navy pr-1"></i>
                                             <a class="download-file1" href="@Url.Action("DownloadFile", "OPDExpenses", new { fileId = @Model.listOPDEXPENSEIMAGE[i].IMAGE_ID })" target="_blank">
                                                 @Model.listOPDEXPENSEIMAGE[i].IMAGE_NAME
                                             </a>

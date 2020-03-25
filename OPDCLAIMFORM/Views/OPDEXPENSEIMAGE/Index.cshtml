@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header card-header-rose card-header-icon">
+                <div class="card-header card-header-primary card-header-icon">
                     <div class="card-text">
                         <h4 class="card-title">Receipt List</h4>
                     </div>
@@ -41,11 +41,8 @@
                                     @Html.ValidationMessageFor(m => m.FileAttach, "", new { @class = "text-danger custom-danger" })
                                 </div>
                                 <div class="col-md-4 col-4">
-                                    <input type="submit" class="btn btn-fill btn-rose" value="Upload" />
+                                    <input type="submit" class="btn btn-fill btn-primary" value="Upload" />
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                
                             </div>
                         </div>
                     }
@@ -56,7 +53,7 @@
         {
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header card-header-rose card-header-icon">
+                    <div class="card-header card-header-primary card-header-icon">
                         <div class="card-icon">
                             <i class="material-icons">description</i>
                         </div>
@@ -83,8 +80,8 @@
                                             <td>@(i + 1)</td>
 
                                             <td>
-                                                <div class="input-group" style="height:40px;">
-                                                    <i class="fa fa-2x fa-paperclip text-navy"></i>
+                                                <div class="input-group">
+                                                    <i class="fa fa-2x fa-paperclip text-navy pr-1"></i>
                                                     <a class="download-file1" href="@Url.Action("DownloadFile", "OPDEXPENSEIMAGE", new { fileId = @Model.ImgLst[i].FileId })" target="_blank">
                                                         @Model.ImgLst[i].FileName
                                                     </a>
@@ -110,7 +107,9 @@
                                             </td>
                                             <td>
                                                 <div>
-                                                    @Html.ActionLink("Delete", "Delete", new { id = @Model.ImgLst[i].FileId, opdexpenseid = @Model.ImgLst[i].OPDExpense_id })
+                                                    @{string dumyDeleteID = @Html.DisplayFor(model => @Model.ImgLst[i].FileId) + "?opdexpenseid=" + @Html.DisplayFor(model => @Model.ImgLst[i].OPDExpense_id);}
+                                                    <a href="javascript:;" onclick="md.initShowSwal('warning-message-and-cancel', 'OPDEXPENSEIMAGE', '@dumyDeleteID')" class="btn btn-link btn-danger btn-just-icon remove"><i class="material-icons">close</i></a>
+                                                    @*@Html.ActionLink("Delete", "Delete", new { id = @Model.ImgLst[i].FileId, opdexpenseid = @Model.ImgLst[i].OPDExpense_id })*@
                                                 </div>
                                             </td>
                                         </tr>

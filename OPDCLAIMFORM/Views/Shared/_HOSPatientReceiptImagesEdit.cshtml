@@ -51,10 +51,9 @@
                                             <option value="SON">SON</option>
                                         </select>
                                     </td>
-                                <td>
-                                    <a class="Delete" onclick="return DeleteOPDExpensePatient(@customer.ID , this)" href="javascript:;">Delete</a>
-
-                                </td>
+                                    <td>
+                                        <a href="javascript:;" onclick="return DeleteOPDExpensePatient(@customer.ID , this)" class="Delete btn btn-link btn-danger delete-btn btn-just-icon remove"><i class="material-icons">close</i></a>
+                                    </td>
                                 </tr>
                             }
                         </tbody>
@@ -102,9 +101,9 @@
                                 <tr>
                                     <td>@(i + 1)</td>
 
-                                    <td style="text-align: center;">
-                                        <div class="input-group" style="height:40px;">
-                                            <i class="fa fa-2x fa-paperclip text-navy"></i>
+                                    <td>
+                                        <div class="input-group">
+                                            <i class="fa fa-2x fa-paperclip text-navy pr-1"></i>
                                             <a class="download-file1" href="@Url.Action("DownloadFile", "OPDExpenses", new { fileId = @Model.listOPDEXPENSEIMAGE[i].IMAGE_ID })" target="_blank">
                                                 @Model.listOPDEXPENSEIMAGE[i].IMAGE_NAME
                                             </a>
@@ -129,8 +128,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a class="Delete" onclick="return DeleteOPDExpenseImage(@Model.listOPDEXPENSEIMAGE[i].IMAGE_ID , this)" href="javascript:;">Delete</a>
-
+                                        <a href="javascript:;" onclick="return DeleteOPDExpenseImage(@Model.listOPDEXPENSEIMAGE[i].IMAGE_ID , this)" class="Delete btn btn-link btn-danger delete-btn btn-just-icon remove"><i class="material-icons">close</i></a>
                                     </td>
                                 </tr>
                             }
@@ -149,48 +147,64 @@
 
     //Delete event handler For OPD Expense Patient.
     function DeleteOPDExpensePatient(ID, _this) {
-        if (confirm("Do you want to delete this row?")) {
-            $.ajax({
-                type: "POST",
-                url: "/OPDEXPENSEPATIENT/DeleteOPDExpensePatient",
-                data: '{ID: ' + ID + '}',
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (data) {
-
-                    $(_this).closest('tr').remove();
-
-                },
-                error: function (data) {
-
-                    $(_this).closest('tr').remove();
-
-                }
-            });
-        }
+        swal({                
+            title: 'Are you sure?',
+            text: "Do you want to delete this row?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'Cancel',
+            confirmButtonClass: "btn btn-success",
+            cancelButtonClass: "btn btn-danger",
+            buttonsStyling: false
+        }).then(function (result) {
+            if (result.value) {                    
+                $.ajax({
+                    type: "POST",
+                    url: "/OPDEXPENSEPATIENT/DeleteOPDExpensePatient",
+                    data: '{ID: ' + ID + '}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        $(_this).closest('tr').remove();
+                    },
+                    error: function (data) {
+                        $(_this).closest('tr').remove();
+                    }
+                });
+            }
+        });
     };
 
     //Delete event handler For OPD Expense Image.
     function DeleteOPDExpenseImage(ID, _this) {
-        if (confirm("Do you want to delete this row?")) {
-            $.ajax({
-                type: "POST",
-                url: "/OPDEXPENSEIMAGE/DeleteOPDEXPENSEIMAGE",
-                data: '{ID: ' + ID + '}',
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (data) {
-
-                    $(_this).closest('tr').remove();
-
-                },
-                error: function (data) {
-
-                    $(_this).closest('tr').remove();
-
-                }
-            });
-        }
+        swal({                
+            title: 'Are you sure?',
+            text: "Do you want to delete this row?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'Cancel',
+            confirmButtonClass: "btn btn-success",
+            cancelButtonClass: "btn btn-danger",
+            buttonsStyling: false
+        }).then(function (result) {
+            if (result.value) {                    
+                $.ajax({
+                    type: "POST",
+                    url: "/OPDEXPENSEIMAGE/DeleteOPDEXPENSEIMAGE",
+                    data: '{ID: ' + ID + '}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        $(_this).closest('tr').remove();
+                    },
+                    error: function (data) {
+                        $(_this).closest('tr').remove();
+                    }
+                });
+            }
+        });
     };
 
 </script>
