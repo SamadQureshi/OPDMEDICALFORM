@@ -1,132 +1,126 @@
 ﻿@model OPDCLAIMFORM.Models.HOSPITALEXPENSE_MASTERDETAIL
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Manager-HospitalExpense";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Manager-HospitalExpense</h2>
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-<div class="form-horizontal">
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.OPDEXPENSE_ID)
-    @Html.HiddenFor(model => model.OPDTYPE)
-    @Html.HiddenFor(model => model.MANAGEMENT_APPROVAL_DATE)
-    @Html.HiddenFor(model => model.HR_APPROVAL_DATE)
-    @Html.HiddenFor(model => model.FINANCE_APPROVAL_DATE)
-    @Html.HiddenFor(model => model.CREATED_DATE)
-    @Html.HiddenFor(model => model.EMPLOYEE_EMAILADDRESS)
-    @Html.HiddenFor(model => model.HR_EMAILADDRESS)
-    @Html.HiddenFor(model => model.FINANCE_EMAILADDRESS)
-
-    @Html.Partial("_HOSExpenseView", Model)
-
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.TOTAL_AMOUNT_APPROVED, "Total Amount Approved", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.TOTAL_AMOUNT_APPROVED, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.TOTAL_AMOUNT_APPROVED, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-
-
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.HR_COMMENT, "HR Comment", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(model => model.HR_COMMENT, new { @readonly = "readonly", @class = "form-control" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.HR_NAME, "HR Name", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(model => model.HR_NAME, new { @readonly = "readonly", @class = "form-control" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.FINANCE_COMMENT, "Finance Comment", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(model => model.FINANCE_COMMENT, new { @readonly = "readonly", @class = "form-control" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.FINANCE_NAME, "Finance Name", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(model => model.FINANCE_NAME, new { @readonly = "readonly", @class = "form-control" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.MANAGEMENT_COMMENT, "Management Comment", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextAreaFor(model => model.MANAGEMENT_COMMENT, 2, 40, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.MANAGEMENT_COMMENT, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.MANAGEMENT_NAME, "Management Name", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.MANAGEMENT_NAME, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @Value = (ViewBag.UserName) } })
-            @Html.ValidationMessageFor(model => model.MANAGEMENT_NAME, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.STATUS, "Status", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.STATUS, new List<SelectListItem>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-primary card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">assignment</i>
+                    </div>
+                    <h4 class="card-title">Manager-HospitalExpense</h4>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm())
                     {
-                       new SelectListItem{ Text="MANApproved", Value = "MANApproved" },
-                       new SelectListItem{ Text="MANRejected", Value = "MANRejected" }
-                    }, new { @class = "form-control select2_demo_4" })
+                        @Html.AntiForgeryToken()
+
+                    <div class="row mt-3">                       
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.OPDEXPENSE_ID)
+                        @Html.HiddenFor(model => model.OPDTYPE)
+                        @Html.HiddenFor(model => model.MANAGEMENT_APPROVAL_DATE)
+                        @Html.HiddenFor(model => model.HR_APPROVAL_DATE)
+                        @Html.HiddenFor(model => model.FINANCE_APPROVAL_DATE)
+                        @Html.HiddenFor(model => model.CREATED_DATE)
+                        @Html.HiddenFor(model => model.EMPLOYEE_EMAILADDRESS)
+                        @Html.HiddenFor(model => model.HR_EMAILADDRESS)
+                        @Html.HiddenFor(model => model.FINANCE_EMAILADDRESS)
+
+                        @Html.Partial("_HOSExpenseView", Model)
+
+
+                        <div class="col-md-6">
+                            @Html.LabelFor(model => model.TOTAL_AMOUNT_APPROVED, "Total Amount Approved", htmlAttributes: new { @class = "bmd-label-floating" })
+                            <div class="form-group">
+                                @Html.EditorFor(model => model.TOTAL_AMOUNT_APPROVED, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.TOTAL_AMOUNT_APPROVED, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            @Html.LabelFor(model => model.HR_COMMENT, "HR Comment", htmlAttributes: new { @class = "bmd-label-floating" })
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.HR_COMMENT, new { @readonly = "readonly", @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            @Html.LabelFor(model => model.HR_NAME, "HR Name", htmlAttributes: new { @class = "bmd-label-floating" })
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.HR_NAME, new { @readonly = "readonly", @class = "form-control" })
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6">
+                            @Html.LabelFor(model => model.FINANCE_COMMENT, "Finance Comment", htmlAttributes: new { @class = "bmd-label-floating" })
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.FINANCE_COMMENT, new { @readonly = "readonly", @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            @Html.LabelFor(model => model.FINANCE_NAME, "Finance Name", htmlAttributes: new { @class = "bmd-label-floating" })
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.FINANCE_NAME, new { @readonly = "readonly", @class = "form-control" })
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6">
+                            @Html.LabelFor(model => model.MANAGEMENT_COMMENT, "Management Comment", htmlAttributes: new { @class = "bmd-label-static custom-label" })
+                            <div class="form-group">
+                                @Html.TextAreaFor(model => model.MANAGEMENT_COMMENT, 2, 40, new { @class = "form-control custom-textarea" })
+                                @Html.ValidationMessageFor(model => model.MANAGEMENT_COMMENT, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            @Html.LabelFor(model => model.MANAGEMENT_NAME, "Management Name", htmlAttributes: new { @class = "bmd-label-floating" })
+                            <div class="form-group">
+                                @Html.EditorFor(model => model.MANAGEMENT_NAME, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @Value = (ViewBag.UserName) } })
+                                @Html.ValidationMessageFor(model => model.MANAGEMENT_NAME, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.STATUS, "Status", htmlAttributes: new { @class = "bmd-label-floating" })
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(model => model.STATUS, new List<SelectListItem>
+                                        {
+                                           new SelectListItem{ Text="MANApproved", Value = "MANApproved" },
+                                           new SelectListItem{ Text="MANRejected", Value = "MANRejected" }
+                                        }, new { @class = "selectpicker", @data_style = "btn btn-primary" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input type="submit" value="Save" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
         </div>
-    </div>
 
+        @Html.Partial("_HOSPatientReceiptImagesView", Model)
 
-
-
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-primary" />
+        <div>
+            @Html.ActionLink("Back to List", "Index")
         </div>
+
+
     </div>
-</div>
-}
-
-@Html.Partial("_HOSPatientReceiptImagesView", Model)
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-
-<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script type="text/javascript" src="https://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
-    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
-    <script type="text/javascript">
-
-        $(function () {
-            $(".datepicker").datepicker({
-                dateformat: "MM-dd-yyyy"
-            });
-        })
-
-    </script>
-}
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }
