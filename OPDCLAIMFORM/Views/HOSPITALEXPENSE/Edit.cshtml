@@ -24,6 +24,7 @@
                 @Html.HiddenFor(model => model.OPDEXPENSE_ID)
                 @Html.HiddenFor(model => model.OPDTYPE)
                 @Html.HiddenFor(model => model.CREATED_DATE)
+                @Html.Hidden("employeeDepartment", Model.EMPLOYEE_DEPARTMENT)
                 <div class="card-body">
                     <div class="row mt-3">
                         <div class="col-md-6">
@@ -191,6 +192,7 @@ jQuery(function () {
             });
         };
         if (regionsSelect.length != 0) {
+            regionsSelect.val($('input#employeeDepartment').val());
             regionsSelect.selectpicker();
         }
     });
