@@ -142,7 +142,7 @@ namespace OPDCLAIMFORM.Controllers
                     return RedirectToAction("Edit", "HOSPITALEXPENSE", new { id = oPDEXPENSE.OPDEXPENSE_ID });
                 }
 
-                return View(oPDEXPENSE);
+                return RedirectToAction("Index", "OPDExpenses"); 
             }
             catch (Exception ex)
             {
@@ -247,7 +247,7 @@ namespace OPDCLAIMFORM.Controllers
                     db.SaveChanges();
                     return RedirectToAction("Index", "OPDExpenses");
                 }
-                return View(oPDEXPENSE);
+                return RedirectToAction("Index", "OPDExpenses"); 
             }
             catch (Exception ex)
             {
