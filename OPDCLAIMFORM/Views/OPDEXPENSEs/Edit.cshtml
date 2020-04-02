@@ -19,11 +19,11 @@
                     </div>
                     <h4 class="card-title">OPD Expense</h4>
                 </div>
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 @Html.HiddenFor(model => model.opdEXPENSE.OPDEXPENSE_ID)
                 @Html.HiddenFor(model => model.opdEXPENSE.OPDTYPE)
                 @Html.HiddenFor(model => model.opdEXPENSE.CREATED_DATE)
-                @Html.Hidden("employeeDepartment",Model.opdEXPENSE.EMPLOYEE_DEPARTMENT)
+                @Html.Hidden("employeeDepartment", Model.opdEXPENSE.EMPLOYEE_DEPARTMENT)
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="card-body">
                     <div class="row mt-3">
                         <div class="col-md-12">
@@ -104,6 +104,7 @@
                 <div class="card-footer ml-auto mr-auto">
                     <button type="submit" class="btn btn-primary create-btn">Save</button>
                 </div>
+
             </div>                           
         </div>
     }

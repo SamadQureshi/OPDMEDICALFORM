@@ -492,9 +492,23 @@ function debounce(func, wait, immediate) {
 
 /* Create Form */
 $(document).ready(function () {
-	$("#CLAIMANT_SUFFERED_ILLNESS_DATE").attr("disabled", "disabled");
-	$("#CLAIMANT_SUFFERED_ILLNESS_DETAILS").attr("disabled", "disabled");
-	$("#DRUGS_PRESCRIBED_DESCRIPTION").attr("disabled", "disabled");
+
+
+
+	//$("#CLAIMANT_SUFFERED_ILLNESS_DATE").attr("disabled", "disabled");
+	//$("#CLAIMANT_SUFFERED_ILLNESS_DETAILS").attr("disabled", "disabled");
+	//$("#DRUGS_PRESCRIBED_DESCRIPTION").attr("disabled", "disabled");
+
+    if ($("#CLAIMANT_SUFFERED_ILLNESS option:selected").text() == "True") {
+        $("#CLAIMANT_SUFFERED_ILLNESS_DATE").removeAttr("disabled");
+        $("#CLAIMANT_SUFFERED_ILLNESS_DETAILS").removeAttr("disabled");
+    }
+   
+
+    if ($("#DRUGS_PRESCRIBED_BOOL option:selected").text() == "True") {
+        $("#DRUGS_PRESCRIBED_DESCRIPTION").removeAttr("disabled");
+    }   
+
 	
 	$("#CLAIMANT_SUFFERED_ILLNESS").on("changed.bs.select", function(e, clickedIndex, newValue, oldValue) {
 		if ($("#CLAIMANT_SUFFERED_ILLNESS option:selected").text() == "True") {

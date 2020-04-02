@@ -234,20 +234,97 @@ namespace OPDCLAIMFORM.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "OPDEXPENSE_ID,EMPLOYEE_NAME,EMPLOYEE_DEPARTMENT,CLAIM_MONTH,TOTAL_AMOUNT_CLAIMED,HR_COMMENT,HR_APPROVAL,HR_APPROVAL_DATE,HR_NAME,FINANCE_COMMENT,FINANCE_APPROVAL,FINANCE_APPROVAL_DATE,FINANCE_NAME,MANAGEMENT_COMMENT,MANAGEMENT_APPROVAL,MANAGEMENT_APPROVAL_DATE,MANAGEMENT_NAME,DATE_ILLNESS_NOTICED,DATE_RECOVERY,DIAGNOSIS,CLAIMANT_SUFFERED_ILLNESS,CLAIMANT_SUFFERED_ILLNESS_DATE,CLAIMANT_SUFFERED_ILLNESS_DETAILS,HOSPITAL_NAME,DOCTOR_NAME,PERIOD_CONFINEMENT_DATE_FROM,PERIOD_CONFINEMENT_DATE_TO,DRUGS_PRESCRIBED_BOOL,DRUGS_PRESCRIBED_DESCRIPTION,OPDTYPE,STATUS,CLAIM_YEAR,CREATED_DATE")] OPDEXPENSE oPDEXPENSE)
+        public ActionResult Edit([Bind(Include = "OPDEXPENSE_ID,EMPLOYEE_NAME,EMPLOYEE_DEPARTMENT,CLAIM_MONTH,TOTAL_AMOUNT_CLAIMED,HR_COMMENT,HR_APPROVAL,HR_APPROVAL_DATE,HR_NAME,FINANCE_COMMENT,FINANCE_APPROVAL,FINANCE_APPROVAL_DATE,FINANCE_NAME,MANAGEMENT_COMMENT,MANAGEMENT_APPROVAL,MANAGEMENT_APPROVAL_DATE,MANAGEMENT_NAME,DATE_ILLNESS_NOTICED,DATE_RECOVERY,DIAGNOSIS,CLAIMANT_SUFFERED_ILLNESS,CLAIMANT_SUFFERED_ILLNESS_DATE,CLAIMANT_SUFFERED_ILLNESS_DETAILS,HOSPITAL_NAME,DOCTOR_NAME,PERIOD_CONFINEMENT_DATE_FROM,PERIOD_CONFINEMENT_DATE_TO,DRUGS_PRESCRIBED_BOOL,DRUGS_PRESCRIBED_DESCRIPTION,OPDTYPE,STATUS,CLAIM_YEAR,CREATED_DATE,CLAIMANT_SUFFERED_ILLNESS_DATE,CLAIMANT_SUFFERED_ILLNESS_DETAILS,DRUGS_PRESCRIBED_DESCRIPTION")] OPDEXPENSE oPDEXPENSE)
         {
 
             try
             {
-                if (ModelState.IsValid)
+
+                MedicalInfoEntities entities = new MedicalInfoEntities();
+       
+
+
+                var hospitalInformation = new HOSPITALEXPENSE_MASTERDETAIL()
                 {
-                    oPDEXPENSE.MODIFIED_DATE = DateTime.Now;
-                    oPDEXPENSE.EMPLOYEE_EMAILADDRESS = GetEmailAddress();
-                    db.Entry(oPDEXPENSE).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index", "OPDExpenses");
+                    listOPDEXPENSEPATIENT = entities.OPDEXPENSE_PATIENT.Where(e => e.OPDEXPENSE_ID == oPDEXPENSE.OPDEXPENSE_ID).ToList(),
+                    listOPDEXPENSEIMAGE = entities.OPDEXPENSE_IMAGE.Where(e => e.OPDEXPENSE_ID == oPDEXPENSE.OPDEXPENSE_ID).ToList(),
+                    OPDEXPENSE_ID = oPDEXPENSE.OPDEXPENSE_ID,
+                    CLAIMANT_SUFFERED_ILLNESS = oPDEXPENSE.CLAIMANT_SUFFERED_ILLNESS,
+                    CLAIMANT_SUFFERED_ILLNESS_DETAILS = oPDEXPENSE.CLAIMANT_SUFFERED_ILLNESS_DETAILS,
+                    CLAIMANT_SUFFERED_ILLNESS_DATE = oPDEXPENSE.CLAIMANT_SUFFERED_ILLNESS_DATE,
+                    DATE_ILLNESS_NOTICED = oPDEXPENSE.DATE_ILLNESS_NOTICED,
+                    DATE_RECOVERY = oPDEXPENSE.DATE_RECOVERY,
+                    DIAGNOSIS = oPDEXPENSE.DIAGNOSIS,
+                    DOCTOR_NAME = oPDEXPENSE.DOCTOR_NAME,
+                    DRUGS_PRESCRIBED_BOOL = oPDEXPENSE.DRUGS_PRESCRIBED_BOOL,
+                    DRUGS_PRESCRIBED_DESCRIPTION = oPDEXPENSE.DRUGS_PRESCRIBED_DESCRIPTION,
+                    EMPLOYEE_DEPARTMENT = oPDEXPENSE.EMPLOYEE_DEPARTMENT,
+                    EMPLOYEE_NAME = oPDEXPENSE.EMPLOYEE_NAME,
+                    FINANCE_APPROVAL = oPDEXPENSE.FINANCE_APPROVAL,
+                    FINANCE_COMMENT = oPDEXPENSE.FINANCE_COMMENT,
+                    FINANCE_NAME = oPDEXPENSE.FINANCE_NAME,
+                    HOSPITAL_NAME = oPDEXPENSE.HOSPITAL_NAME,
+                    HR_APPROVAL = oPDEXPENSE.HR_APPROVAL,
+                    HR_COMMENT = oPDEXPENSE.HR_COMMENT,
+                    HR_NAME = oPDEXPENSE.HR_NAME,
+                    MANAGEMENT_APPROVAL = oPDEXPENSE.MANAGEMENT_APPROVAL,
+                    MANAGEMENT_COMMENT = oPDEXPENSE.MANAGEMENT_COMMENT,
+                    MANAGEMENT_NAME = oPDEXPENSE.MANAGEMENT_NAME,
+                    PERIOD_CONFINEMENT_DATE_FROM = oPDEXPENSE.PERIOD_CONFINEMENT_DATE_FROM,
+                    PERIOD_CONFINEMENT_DATE_TO = oPDEXPENSE.PERIOD_CONFINEMENT_DATE_TO,
+                    STATUS = oPDEXPENSE.STATUS,
+                    OPDTYPE = oPDEXPENSE.OPDTYPE,
+                    TOTAL_AMOUNT_CLAIMED = oPDEXPENSE.TOTAL_AMOUNT_CLAIMED,
+                    CLAIM_YEAR = oPDEXPENSE.CLAIM_YEAR,
+                    CREATED_DATE = oPDEXPENSE.CREATED_DATE,
+                    MODIFIED_DATE = oPDEXPENSE.MODIFIED_DATE
+                };
+
+                AuthenticateUser();
+
+                if (oPDEXPENSE.STATUS == "Submitted")
+                {
+                    if (hospitalInformation.listOPDEXPENSEPATIENT.Count > 0)
+                    {
+                        if (hospitalInformation.listOPDEXPENSEIMAGE.Count > 0)
+                        {
+                            if (ModelState.IsValid)
+                            {
+                                oPDEXPENSE.MODIFIED_DATE = DateTime.Now;
+                                oPDEXPENSE.EMPLOYEE_EMAILADDRESS = GetEmailAddress();
+                                db.Entry(oPDEXPENSE).State = EntityState.Modified;
+                                db.SaveChanges();
+                                return RedirectToAction("Index", "OPDExpenses");
+                            }
+
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "Please Add Patient Receipts");
+                            return View(hospitalInformation);
+                        }
+
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Please Add Patient Information");
+                        return View(hospitalInformation);
+                    }
                 }
-                return RedirectToAction("Index", "OPDExpenses"); 
+                else
+                {
+                    if (ModelState.IsValid)
+                    {
+                        oPDEXPENSE.MODIFIED_DATE = DateTime.Now;
+                        oPDEXPENSE.EMPLOYEE_EMAILADDRESS = GetEmailAddress();
+                        db.Entry(oPDEXPENSE).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Index", "OPDExpenses");
+                    }
+                }
+
+                           
+                return View(hospitalInformation); 
             }
             catch (Exception ex)
             {

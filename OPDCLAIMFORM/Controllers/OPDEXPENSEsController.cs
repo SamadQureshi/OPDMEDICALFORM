@@ -265,14 +265,60 @@ namespace OPDCLAIMFORM.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
+               
+                MedicalInfoEntities entities = new MedicalInfoEntities();
+                var opdInformation = new OPDEXPENSE_MASTERDETAIL()
                 {
-                    oPDEXPENSE.MODIFIED_DATE = DateTime.Now;
-                    oPDEXPENSE.EMPLOYEE_EMAILADDRESS = GetEmailAddress();
-                    db.Entry(oPDEXPENSE).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    listOPDEXPENSEPATIENT = entities.OPDEXPENSE_PATIENT.Where(e => e.OPDEXPENSE_ID == oPDEXPENSE.OPDEXPENSE_ID).ToList(),
+                    listOPDEXPENSEIMAGE = entities.OPDEXPENSE_IMAGE.Where(e => e.OPDEXPENSE_ID == oPDEXPENSE.OPDEXPENSE_ID).ToList(),
+                    opdEXPENSE = entities.OPDEXPENSEs.Where(e => e.OPDEXPENSE_ID == oPDEXPENSE.OPDEXPENSE_ID).FirstOrDefault()
+
+                };
+
+                AuthenticateUser();
+
+                if (oPDEXPENSE.STATUS == "Submitted")
+                { 
+                    if (opdInformation.listOPDEXPENSEPATIENT.Count > 0)
+                    {
+                        if (opdInformation.listOPDEXPENSEIMAGE.Count > 0)
+                        {
+                            if (ModelState.IsValid)
+                            {
+                                oPDEXPENSE.MODIFIED_DATE = DateTime.Now;
+                                oPDEXPENSE.EMPLOYEE_EMAILADDRESS = GetEmailAddress();
+                                db.Entry(oPDEXPENSE).State = EntityState.Modified;
+                                db.SaveChanges();
+                                return RedirectToAction("Index");
+                            }
+
+
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "Please Add Patient Receipts");
+                            return View(opdInformation);
+                        }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Please Add Patient Information");
+                        return View(opdInformation);
+                    }
                 }
+                else
+                {
+                    if (ModelState.IsValid)
+                    {
+                        oPDEXPENSE.MODIFIED_DATE = DateTime.Now;
+                        oPDEXPENSE.EMPLOYEE_EMAILADDRESS = GetEmailAddress();
+                        db.Entry(oPDEXPENSE).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+
+                }
+               
                 return View(oPDEXPENSE);
             }
             catch (Exception ex)
