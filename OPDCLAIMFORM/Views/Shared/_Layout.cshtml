@@ -39,7 +39,7 @@
                             </a>
                             <div class="collapse" id="collapseExample">
                                 <ul class="nav">
-                                    <li class="nav-item">
+                                    @*<li class="nav-item">
                                         <a class="nav-link" href="#">
                                             <span class="sidebar-mini"> MP </span>
                                             <span class="sidebar-normal"> My Profile </span>
@@ -50,7 +50,7 @@
                                             <span class="sidebar-mini"> EP </span>
                                             <span class="sidebar-normal"> Edit Profile </span>
                                         </a>
-                                    </li>
+                                    </li>*@
                                     @if (Request.IsAuthenticated)
                                     {
                                         <li class="nav-item">
@@ -192,8 +192,8 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
                                     @*<a class="dropdown-item" href="#">Profile</a>
-                                    <a class="dropdown-item" href="#">Settings</a>*@
-                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Settings</a>
+                                    <div class="dropdown-divider"></div>*@
                                     @if (Request.IsAuthenticated)
                                     {
                                         <a href="@Url.Action("SignOut", "OFFICEAPIMANAGER", null, Request.Url.Scheme)" class="dropdown-item">Log out</a>

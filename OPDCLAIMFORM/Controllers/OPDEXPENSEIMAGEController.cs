@@ -12,16 +12,18 @@ namespace OPDCLAIMFORM.Controllers
     {
         private readonly MedicalInfoEntities db = new MedicalInfoEntities();
         // GET: OPDEXPENSEIMAGE
-        public ActionResult Index(int id)
+        public ActionResult Index(int id, String opdType)
         {
             if (Request.IsAuthenticated)
             {
                 AuthenticateUser();
 
+                ViewData["OPDEXPENSE_ID"] = id;
+                ViewData["OPDTYPE"] = opdType;
                 ImgViewModel model = new ImgViewModel { FileAttach = null, ImgLst = new List<OPDEXPENSE_IMAGEOBJ>() };
 
                 // Settings.
-                model.ImgLst = this.db.GET_OPDEXPENSE_IMAGE1().Select(p => new OPDEXPENSE_IMAGEOBJ
+                model.ImgLst = this.db.GET_OPDEXPENSE_IMAGE().Select(p => new OPDEXPENSE_IMAGEOBJ
                 {
                     FileId = p.IMAGE_ID,
                     FileName = p.IMAGE_NAME,
@@ -29,6 +31,7 @@ namespace OPDCLAIMFORM.Controllers
                     ExpenseAmount = p.EXPENSE_AMOUNT,
                     ExpenseName = p.NAME_EXPENSES,
                     OPDExpense_id = p.OPDEXPENSE_ID,
+                    OPDType = p.OPDTYPE
                 }
                 ).Where(e => e.OPDExpense_id == id).ToList();
 
@@ -82,7 +85,7 @@ namespace OPDCLAIMFORM.Controllers
                 }
 
                 // Settings.
-                model.ImgLst = this.db.GET_OPDEXPENSE_IMAGE1().Select(p => new OPDEXPENSE_IMAGEOBJ
+                model.ImgLst = this.db.GET_OPDEXPENSE_IMAGE().Select(p => new OPDEXPENSE_IMAGEOBJ
                 {
                     FileId = p.IMAGE_ID,
                     FileName = p.IMAGE_NAME,
@@ -90,6 +93,7 @@ namespace OPDCLAIMFORM.Controllers
                     ExpenseAmount = p.EXPENSE_AMOUNT,
                     ExpenseName = p.NAME_EXPENSES,
                     OPDExpense_id = p.OPDEXPENSE_ID,
+                    OPDType = p.OPDTYPE
 
                 }).Where(e => e.OPDExpense_id == model.OPDExpense_ID).ToList();
 

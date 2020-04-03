@@ -97,19 +97,6 @@
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="DELETE_OPDEXPENSE_IMAGE" FunctionName="MedicalInfoModel.Store.DELETE_OPDEXPENSE_IMAGE" />
     <FunctionImportMapping FunctionImportName="sp_insert_file" FunctionName="MedicalInfoModel.Store.sp_insert_file" />
-    <FunctionImportMapping FunctionImportName="GET_OPDEXPENSE_IMAGE1" FunctionName="MedicalInfoModel.Store.GET_OPDEXPENSE_IMAGE">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="MedicalInfoModel.GET_OPDEXPENSE_IMAGE1_Result">
-          <ScalarProperty Name="IMAGE_ID" ColumnName="IMAGE_ID" />
-          <ScalarProperty Name="IMAGE_NAME" ColumnName="IMAGE_NAME" />
-          <ScalarProperty Name="IMAGE_EXT" ColumnName="IMAGE_EXT" />
-          <ScalarProperty Name="IMAGE_BASE64" ColumnName="IMAGE_BASE64" />
-          <ScalarProperty Name="NAME_EXPENSES" ColumnName="NAME_EXPENSES" />
-          <ScalarProperty Name="EXPENSE_AMOUNT" ColumnName="EXPENSE_AMOUNT" />
-          <ScalarProperty Name="OPDEXPENSE_ID" ColumnName="OPDEXPENSE_ID" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="DELETE_OPDEXPENSE" FunctionName="MedicalInfoModel.Store.DELETE_OPDEXPENSE" />
     <EntitySetMapping Name="Departments">
       <EntityTypeMapping TypeName="MedicalInfoModel.Department">
@@ -119,5 +106,19 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="GET_OPDEXPENSE_IMAGE" FunctionName="MedicalInfoModel.Store.GET_OPDEXPENSE_IMAGE">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MedicalInfoModel.GET_OPDEXPENSE_IMAGE_Result">
+          <ScalarProperty Name="IMAGE_ID" ColumnName="IMAGE_ID" />
+          <ScalarProperty Name="IMAGE_NAME" ColumnName="IMAGE_NAME" />
+          <ScalarProperty Name="IMAGE_EXT" ColumnName="IMAGE_EXT" />
+          <ScalarProperty Name="IMAGE_BASE64" ColumnName="IMAGE_BASE64" />
+          <ScalarProperty Name="NAME_EXPENSES" ColumnName="NAME_EXPENSES" />
+          <ScalarProperty Name="EXPENSE_AMOUNT" ColumnName="EXPENSE_AMOUNT" />
+          <ScalarProperty Name="OPDEXPENSE_ID" ColumnName="OPDEXPENSE_ID" />
+          <ScalarProperty Name="OPDTYPE" ColumnName="OPDTYPE" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

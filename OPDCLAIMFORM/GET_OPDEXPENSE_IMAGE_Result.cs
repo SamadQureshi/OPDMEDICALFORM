@@ -19,5 +19,7 @@ namespace OPDCLAIMFORM
         public string IMAGE_BASE64 { get; set; }
         public string NAME_EXPENSES { get; set; }
         public Nullable<decimal> EXPENSE_AMOUNT { get; set; }
+        public Nullable<int> OPDEXPENSE_ID { get; set; }
+        public string OPDTYPE { get; set; }
     }
 }

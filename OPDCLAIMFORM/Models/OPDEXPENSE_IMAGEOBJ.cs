@@ -30,6 +30,8 @@ namespace OPDCLAIMFORM.Models
 
         public int? OPDExpense_id { get; set; }
 
+        public string OPDType { get; set; }
+
         #endregion
 
 

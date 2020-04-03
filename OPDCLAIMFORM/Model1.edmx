@@ -281,7 +281,6 @@
             <Parameter Name="NAME_EXPENSES" Mode="In" Type="String" />
             <Parameter Name="EXPENSE_AMOUNT" Mode="In" Type="Decimal" />
           </FunctionImport>
-          <FunctionImport Name="GET_OPDEXPENSE_IMAGE" ReturnType="Collection(MedicalInfoModel.GET_OPDEXPENSE_IMAGE_Result)" />
           <FunctionImport Name="GET_OPDEXPENSE_IMAGE_DETAILS" ReturnType="Collection(MedicalInfoModel.GET_OPDEXPENSE_IMAGE_DETAILS_Result)">
           <Parameter Name="IMAGE_ID" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -295,20 +294,12 @@
             <Parameter Name="NAME_EXPENSES" Mode="In" Type="String" />
             <Parameter Name="EXPENSE_AMOUNT" Mode="In" Type="Decimal" />
           </FunctionImport>
-          <FunctionImport Name="GET_OPDEXPENSE_IMAGE1" ReturnType="Collection(MedicalInfoModel.GET_OPDEXPENSE_IMAGE1_Result)" />
           <FunctionImport Name="DELETE_OPDEXPENSE">
           <Parameter Name="OPDEXPENSE_ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="Departments" EntityType="MedicalInfoModel.Department" />
-        </EntityContainer>
-        <ComplexType Name="GET_OPDEXPENSE_IMAGE_Result">
-          <Property Type="Int32" Name="IMAGE_ID" Nullable="false" />
-          <Property Type="String" Name="IMAGE_NAME" Nullable="true" />
-          <Property Type="String" Name="IMAGE_EXT" Nullable="true" />
-          <Property Type="String" Name="IMAGE_BASE64" Nullable="true" />
-          <Property Type="String" Name="NAME_EXPENSES" Nullable="true" MaxLength="5000" />
-          <Property Type="Decimal" Name="EXPENSE_AMOUNT" Nullable="true" Precision="18" Scale="0" />
-        </ComplexType>
+          <FunctionImport Name="GET_OPDEXPENSE_IMAGE" ReturnType="Collection(MedicalInfoModel.GET_OPDEXPENSE_IMAGE_Result)" />         
+        </EntityContainer>      
         <ComplexType Name="GET_OPDEXPENSE_IMAGE_DETAILS_Result">
           <Property Type="Int32" Name="IMAGE_ID" Nullable="false" />
           <Property Type="Int32" Name="OPDEXPENSE_ID" Nullable="true" />
@@ -317,16 +308,7 @@
           <Property Type="String" Name="IMAGE_BASE64" Nullable="true" />
           <Property Type="Decimal" Name="EXPENSE_AMOUNT" Nullable="true" Precision="18" Scale="0" />
           <Property Type="String" Name="NAME_EXPENSES" Nullable="true" MaxLength="5000" />
-        </ComplexType>
-        <ComplexType Name="GET_OPDEXPENSE_IMAGE1_Result">
-          <Property Type="Int32" Name="IMAGE_ID" Nullable="false" />
-          <Property Type="String" Name="IMAGE_NAME" Nullable="true" />
-          <Property Type="String" Name="IMAGE_EXT" Nullable="true" />
-          <Property Type="String" Name="IMAGE_BASE64" Nullable="true" />
-          <Property Type="String" Name="NAME_EXPENSES" Nullable="true" MaxLength="5000" />
-          <Property Type="Decimal" Name="EXPENSE_AMOUNT" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="Int32" Name="OPDEXPENSE_ID" Nullable="true" />
-        </ComplexType>
+        </ComplexType>       
         <EntityType Name="Department">
           <Key>
             <PropertyRef Name="ID" />
@@ -334,6 +316,16 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DepartmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <ComplexType Name="GET_OPDEXPENSE_IMAGE_Result">
+          <Property Type="Int32" Name="IMAGE_ID" Nullable="false" />
+          <Property Type="String" Name="IMAGE_NAME" Nullable="true" />
+          <Property Type="String" Name="IMAGE_EXT" Nullable="true" />
+          <Property Type="String" Name="IMAGE_BASE64" Nullable="true" />
+          <Property Type="String" Name="NAME_EXPENSES" Nullable="true" MaxLength="5000" />
+          <Property Type="Decimal" Name="EXPENSE_AMOUNT" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="OPDEXPENSE_ID" Nullable="true" />
+          <Property Type="String" Name="OPDTYPE" Nullable="true" MaxLength="100" />
+        </ComplexType>       
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -436,19 +428,6 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="DELETE_OPDEXPENSE_IMAGE" FunctionName="MedicalInfoModel.Store.DELETE_OPDEXPENSE_IMAGE" />
           <FunctionImportMapping FunctionImportName="sp_insert_file" FunctionName="MedicalInfoModel.Store.sp_insert_file" />
-          <FunctionImportMapping FunctionImportName="GET_OPDEXPENSE_IMAGE1" FunctionName="MedicalInfoModel.Store.GET_OPDEXPENSE_IMAGE">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MedicalInfoModel.GET_OPDEXPENSE_IMAGE1_Result">
-                <ScalarProperty Name="IMAGE_ID" ColumnName="IMAGE_ID" />
-                <ScalarProperty Name="IMAGE_NAME" ColumnName="IMAGE_NAME" />
-                <ScalarProperty Name="IMAGE_EXT" ColumnName="IMAGE_EXT" />
-                <ScalarProperty Name="IMAGE_BASE64" ColumnName="IMAGE_BASE64" />
-                <ScalarProperty Name="NAME_EXPENSES" ColumnName="NAME_EXPENSES" />
-                <ScalarProperty Name="EXPENSE_AMOUNT" ColumnName="EXPENSE_AMOUNT" />
-                <ScalarProperty Name="OPDEXPENSE_ID" ColumnName="OPDEXPENSE_ID" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="DELETE_OPDEXPENSE" FunctionName="MedicalInfoModel.Store.DELETE_OPDEXPENSE" />
           <EntitySetMapping Name="Departments">
             <EntityTypeMapping TypeName="MedicalInfoModel.Department">
@@ -458,6 +437,20 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GET_OPDEXPENSE_IMAGE" FunctionName="MedicalInfoModel.Store.GET_OPDEXPENSE_IMAGE">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MedicalInfoModel.GET_OPDEXPENSE_IMAGE_Result">
+                <ScalarProperty Name="IMAGE_ID" ColumnName="IMAGE_ID" />
+                <ScalarProperty Name="IMAGE_NAME" ColumnName="IMAGE_NAME" />
+                <ScalarProperty Name="IMAGE_EXT" ColumnName="IMAGE_EXT" />
+                <ScalarProperty Name="IMAGE_BASE64" ColumnName="IMAGE_BASE64" />
+                <ScalarProperty Name="NAME_EXPENSES" ColumnName="NAME_EXPENSES" />
+                <ScalarProperty Name="EXPENSE_AMOUNT" ColumnName="EXPENSE_AMOUNT" />
+                <ScalarProperty Name="OPDEXPENSE_ID" ColumnName="OPDEXPENSE_ID" />
+                <ScalarProperty Name="OPDTYPE" ColumnName="OPDTYPE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>          
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

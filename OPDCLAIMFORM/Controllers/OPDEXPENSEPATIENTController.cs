@@ -8,12 +8,13 @@ namespace OPDCLAIMFORM.Controllers
 {
     public class OPDEXPENSEPATIENTController : Controller
     {
-        public ActionResult Index(int? id)
+        public ActionResult Index(int? id, String opdType)
         {
             if (Request.IsAuthenticated)
             {
                 AuthenticateUser();
                 ViewData["OPDEXPENSE_ID"] = id;
+                ViewData["OPDTYPE"] = opdType;
 
                 MedicalInfoEntities entities = new MedicalInfoEntities();
 

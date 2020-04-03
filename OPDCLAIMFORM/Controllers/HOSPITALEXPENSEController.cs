@@ -212,6 +212,7 @@ namespace OPDCLAIMFORM.Controllers
                     };
 
                     ViewData["OPDEXPENSE_ID"] = id;
+                    ViewData["OPDTYPE"] = oPDEXPENSE.OPDTYPE;
                     return View(result2);
                 }
                 else

@@ -204,8 +204,9 @@ namespace OPDCLAIMFORM.Controllers
                     db.OPDEXPENSEs.Add(oPDEXPENSE);
                     db.SaveChanges();
                     ViewData["OPDEXPENSE_ID"] = oPDEXPENSE.OPDEXPENSE_ID;
+                    ViewData["OPDTYPE"] = oPDEXPENSE.OPDTYPE;
 
-                    return RedirectToAction("Edit", "OPDExpenses", new { id = oPDEXPENSE.OPDEXPENSE_ID });
+                    return RedirectToAction("Edit", "OPDExpenses", new { id = oPDEXPENSE.OPDEXPENSE_ID  });
 
                 }
                 return View(oPDEXPENSE);
@@ -239,7 +240,7 @@ namespace OPDCLAIMFORM.Controllers
 
                     };
                     ViewData["OPDEXPENSE_ID"] = id;
-
+                    ViewData["OPDTYPE"] = result2.opdEXPENSE.OPDTYPE;
                     return View(result2);
                 }
                 else

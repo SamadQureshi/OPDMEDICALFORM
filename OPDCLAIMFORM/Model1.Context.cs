@@ -62,11 +62,6 @@ namespace OPDCLAIMFORM
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ADD_OPDEXPENSE_IMAGE", oPDEXPENSE_IDParameter, iMAGE_NAMEParameter, iMAGE_EXTParameter, iMAGE_BASE64Parameter, nAME_EXPENSESParameter, eXPENSE_AMOUNTParameter);
         }
     
-        public virtual ObjectResult<GET_OPDEXPENSE_IMAGE_Result> GET_OPDEXPENSE_IMAGE()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GET_OPDEXPENSE_IMAGE_Result>("GET_OPDEXPENSE_IMAGE");
-        }
-    
         public virtual ObjectResult<GET_OPDEXPENSE_IMAGE_DETAILS_Result> GET_OPDEXPENSE_IMAGE_DETAILS(Nullable<int> iMAGE_ID)
         {
             var iMAGE_IDParameter = iMAGE_ID.HasValue ?
@@ -110,11 +105,6 @@ namespace OPDCLAIMFORM
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_insert_file", iMAGE_NAMEParameter, iMAGE_EXTParameter, iMAGE_BASE64Parameter, nAME_EXPENSESParameter, eXPENSE_AMOUNTParameter);
         }
     
-        public virtual ObjectResult<GET_OPDEXPENSE_IMAGE1_Result> GET_OPDEXPENSE_IMAGE1()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GET_OPDEXPENSE_IMAGE1_Result>("GET_OPDEXPENSE_IMAGE1");
-        }
-    
         public virtual int DELETE_OPDEXPENSE(Nullable<int> oPDEXPENSE_ID)
         {
             var oPDEXPENSE_IDParameter = oPDEXPENSE_ID.HasValue ?
@@ -122,6 +112,11 @@ namespace OPDCLAIMFORM
                 new ObjectParameter("OPDEXPENSE_ID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DELETE_OPDEXPENSE", oPDEXPENSE_IDParameter);
+        }
+    
+        public virtual ObjectResult<GET_OPDEXPENSE_IMAGE_Result> GET_OPDEXPENSE_IMAGE()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GET_OPDEXPENSE_IMAGE_Result>("GET_OPDEXPENSE_IMAGE");
         }
     }
 }

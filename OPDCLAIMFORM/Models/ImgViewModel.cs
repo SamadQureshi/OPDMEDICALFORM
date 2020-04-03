@@ -33,6 +33,7 @@ namespace OPDCLAIMFORM.Models
         [Display(Name = "Expense Name")]
         public string ExpenseName { get; set; }
 
+        public string OPDType { get; set; }
         #endregion
 
     }
