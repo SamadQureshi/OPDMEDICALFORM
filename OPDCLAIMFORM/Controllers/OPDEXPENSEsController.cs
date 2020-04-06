@@ -11,6 +11,8 @@ using OPDCLAIMFORM;
 using OPDCLAIMFORM.Models;
 using PagedList;
 using NLog;
+using System.Web.UI.WebControls;
+
 namespace OPDCLAIMFORM.Controllers
 {
     public class OPDEXPENSEsController : Controller
@@ -230,18 +232,24 @@ namespace OPDCLAIMFORM.Controllers
                     if (id == null)
                     {
                         return RedirectToAction("Index", "OPDExpenses");
-                    }
-                    MedicalInfoEntities entities = new MedicalInfoEntities();
-                    var result2 = new OPDEXPENSE_MASTERDETAIL()
-                    {
-                        listOPDEXPENSEPATIENT = entities.OPDEXPENSE_PATIENT.Where(e => e.OPDEXPENSE_ID == id).ToList(),
-                        listOPDEXPENSEIMAGE = entities.OPDEXPENSE_IMAGE.Where(e => e.OPDEXPENSE_ID == id).ToList(),
-                        opdEXPENSE = entities.OPDEXPENSEs.Where(e => e.OPDEXPENSE_ID == id).FirstOrDefault()
+                    }                 
 
-                    };
+                    var opdInformation = GetOPDExpense(Convert.ToInt32(id));
                     ViewData["OPDEXPENSE_ID"] = id;
-                    ViewData["OPDTYPE"] = result2.opdEXPENSE.OPDTYPE;
-                    return View(result2);
+                    ViewData["OPDTYPE"] = opdInformation.opdEXPENSE.OPDTYPE;
+
+
+
+                    if (!(AuthenticateEmailAddress(Convert.ToInt32(id))))
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+
+                  
+                        return View(opdInformation);
+                   
+                   
+                   
                 }
                 else
                 {
@@ -266,32 +274,50 @@ namespace OPDCLAIMFORM.Controllers
         {
             try
             {
-               
-                MedicalInfoEntities entities = new MedicalInfoEntities();
-                var opdInformation = new OPDEXPENSE_MASTERDETAIL()
-                {
-                    listOPDEXPENSEPATIENT = entities.OPDEXPENSE_PATIENT.Where(e => e.OPDEXPENSE_ID == oPDEXPENSE.OPDEXPENSE_ID).ToList(),
-                    listOPDEXPENSEIMAGE = entities.OPDEXPENSE_IMAGE.Where(e => e.OPDEXPENSE_ID == oPDEXPENSE.OPDEXPENSE_ID).ToList(),
-                    opdEXPENSE = entities.OPDEXPENSEs.Where(e => e.OPDEXPENSE_ID == oPDEXPENSE.OPDEXPENSE_ID).FirstOrDefault()
-
-                };
+               string buttonStatus = Request.Form["buttonName"];
 
                 AuthenticateUser();
+                var opdInformation = GetOPDExpense(oPDEXPENSE.OPDEXPENSE_ID);
+                ViewData["OPDEXPENSE_ID"] = oPDEXPENSE.OPDEXPENSE_ID;
+                ViewData["OPDTYPE"] = oPDEXPENSE.OPDTYPE;
+                if (buttonStatus == "submit")
+                {
+                    oPDEXPENSE.STATUS = "Submitted";
+                }
+                else
+                {
+                    oPDEXPENSE.STATUS = "InProcess";
+                }
+
 
                 if (oPDEXPENSE.STATUS == "Submitted")
-                { 
+                {
+                   
+
+
                     if (opdInformation.listOPDEXPENSEPATIENT.Count > 0)
                     {
                         if (opdInformation.listOPDEXPENSEIMAGE.Count > 0)
                         {
-                            if (ModelState.IsValid)
+                            
+                            if(GetOPDExpenseAmount(oPDEXPENSE.OPDEXPENSE_ID))
                             {
-                                oPDEXPENSE.MODIFIED_DATE = DateTime.Now;
-                                oPDEXPENSE.EMPLOYEE_EMAILADDRESS = GetEmailAddress();
-                                db.Entry(oPDEXPENSE).State = EntityState.Modified;
-                                db.SaveChanges();
-                                return RedirectToAction("Index");
+                                if (ModelState.IsValid)
+                                {
+                                    oPDEXPENSE.MODIFIED_DATE = DateTime.Now;
+                                    oPDEXPENSE.EMPLOYEE_EMAILADDRESS = GetEmailAddress();
+                                    db.Entry(oPDEXPENSE).State = EntityState.Modified;
+                                    db.SaveChanges();
+                                    return RedirectToAction("Index");
+                                }
+
                             }
+                            else
+                            {
+                                ModelState.AddModelError("", "OPD Expense Amount between Images and Claimed is not same");
+                                return View(opdInformation);
+                            }
+                           
 
 
                         }
@@ -314,13 +340,13 @@ namespace OPDCLAIMFORM.Controllers
                         oPDEXPENSE.MODIFIED_DATE = DateTime.Now;
                         oPDEXPENSE.EMPLOYEE_EMAILADDRESS = GetEmailAddress();
                         db.Entry(oPDEXPENSE).State = EntityState.Modified;
-                        db.SaveChanges();
+                        db.SaveChanges();                 
                         return RedirectToAction("Index");
                     }
 
                 }
-               
-                return View(oPDEXPENSE);
+
+                return View(opdInformation);
             }
             catch (Exception ex)
             {
@@ -338,6 +364,11 @@ namespace OPDCLAIMFORM.Controllers
                 if (Request.IsAuthenticated)
                 {
                     AuthenticateUser();
+                    if (!(AuthenticateEmailAddress(Convert.ToInt32(id))))
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }                 
+
                     if (id == null)
                     {
                         return RedirectToAction("Index", "OPDExpenses");
@@ -481,6 +512,68 @@ namespace OPDCLAIMFORM.Controllers
 
             ViewBag.UserName = managerController.GetName();
             
+        }
+
+        private bool AuthenticateEmailAddress(int Id)
+        {
+
+            var opdInformation = GetOPDExpense(Convert.ToInt32(Id));
+            OFFICEAPIMANAGERController managerController = new OFFICEAPIMANAGERController();
+
+            string currentEmailAddress = managerController.GetEmailAddress();
+
+            if (currentEmailAddress.Equals(opdInformation.opdEXPENSE.EMPLOYEE_EMAILADDRESS))
+
+                return true;
+            else
+                return false;
+
+        }
+
+        private OPDEXPENSE_MASTERDETAIL GetOPDExpense(int Id)
+        {
+
+            MedicalInfoEntities entities = new MedicalInfoEntities();
+            var opdInformation = new OPDEXPENSE_MASTERDETAIL()
+            {
+                listOPDEXPENSEPATIENT = entities.OPDEXPENSE_PATIENT.Where(e => e.OPDEXPENSE_ID == Id).ToList(),
+                listOPDEXPENSEIMAGE = entities.OPDEXPENSE_IMAGE.Where(e => e.OPDEXPENSE_ID == Id).ToList(),
+                opdEXPENSE = entities.OPDEXPENSEs.Where(e => e.OPDEXPENSE_ID == Id).FirstOrDefault()
+
+            };
+
+            return opdInformation;
+        }
+
+        private bool GetOPDExpenseAmount(int Id)
+        {
+            bool result = false;
+            MedicalInfoEntities entities = new MedicalInfoEntities();
+            var opdInformation = new OPDEXPENSE_MASTERDETAIL()
+            {
+                listOPDEXPENSEPATIENT = entities.OPDEXPENSE_PATIENT.Where(e => e.OPDEXPENSE_ID == Id).ToList(),
+                listOPDEXPENSEIMAGE = entities.OPDEXPENSE_IMAGE.Where(e => e.OPDEXPENSE_ID == Id).ToList(),
+                opdEXPENSE = entities.OPDEXPENSEs.Where(e => e.OPDEXPENSE_ID == Id).FirstOrDefault()
+
+            };
+
+
+            decimal? totalAmount = 0;
+
+            for (int count = 0; count <= opdInformation.listOPDEXPENSEIMAGE.Count - 1 ; count ++)
+            {
+                totalAmount = totalAmount + opdInformation.listOPDEXPENSEIMAGE[count].EXPENSE_AMOUNT;
+
+            }
+            
+            if (totalAmount.Equals(opdInformation.opdEXPENSE.TOTAL_AMOUNT_CLAIMED))
+            {
+                result = true;
+            }
+
+            return result;
+
+
         }
     }
 }

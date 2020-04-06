@@ -14,7 +14,17 @@ namespace OPDCLAIMFORM.Controllers
             {
                 AuthenticateUser();
                 ViewData["OPDEXPENSE_ID"] = id;
-                ViewData["OPDTYPE"] = opdType;
+
+                if(opdType ==null)
+                {
+                    ViewData["OPDTYPE"] = HttpContext.Request.UrlReferrer.Query.Split('=')[1].Replace("%20", "").ToString();
+                }
+
+                else
+                {
+                    ViewData["OPDTYPE"] = opdType;
+                }
+               
 
                 MedicalInfoEntities entities = new MedicalInfoEntities();
 
@@ -42,7 +52,7 @@ namespace OPDCLAIMFORM.Controllers
                     entities.OPDEXPENSE_PATIENT.Add(opdExpense_Patient);
                     entities.SaveChanges();
                 }
-            
+           
             return Json(opdExpense_Patient);
         }
 

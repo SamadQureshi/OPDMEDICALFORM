@@ -44,7 +44,7 @@ namespace OPDCLAIMFORM.Controllers
                     string emailAddress = GetEmailAddress();
                     //&& e.MANAGEMENT_EMAILADDRESS == emailAddress
 
-                    var opdExp = db.OPDEXPENSEs.Where(e => e.STATUS == "FINApproved" || e.STATUS == "MANApproved" || e.STATUS == "MANRejected");
+                    var opdExp = db.OPDEXPENSEs.Where(e => e.STATUS == "FINApproved" || e.STATUS == "MANApproved" || e.STATUS == "MANRejected" || e.STATUS == "MANInProcess");
                     if (!String.IsNullOrEmpty(searchString))
                     {
                         opdExp = opdExp.Where(s => s.EXPENSE_NUMBER.Contains(searchString));
@@ -294,6 +294,32 @@ namespace OPDCLAIMFORM.Controllers
             try
             {
 
+                string buttonStatus = Request.Form["buttonName"];
+
+                if (buttonStatus == "approved")
+                {
+                    oPDEXPENSE.STATUS = "MANApproved";
+
+                    if (oPDEXPENSE.TOTAL_AMOUNT_APPROVED.ToString() == "")
+                    {
+                        ModelState.AddModelError("", "Please Add Total Approved Amount");
+                    }
+
+
+                }
+                else if (buttonStatus == "rejected")
+                {
+                    oPDEXPENSE.STATUS = "MANRejected";
+
+                    if (oPDEXPENSE.HR_COMMENT == null)
+                    {
+                        ModelState.AddModelError("", "Please Add MAN Comments");
+                    }
+                }
+                else
+                {
+                    oPDEXPENSE.STATUS = "MANInProcess";
+                }
 
                 if (ModelState.IsValid)
                 {
@@ -433,6 +459,32 @@ namespace OPDCLAIMFORM.Controllers
 
             try
             {
+                string buttonStatus = Request.Form["buttonName"];
+
+                if (buttonStatus == "approved")
+                {
+                    oPDEXPENSE.STATUS = "MANApproved";
+
+                    if (oPDEXPENSE.TOTAL_AMOUNT_APPROVED.ToString() == "")
+                    {
+                        ModelState.AddModelError("", "Please Add Total Approved Amount");
+                    }
+
+
+                }
+                else if (buttonStatus == "rejected")
+                {
+                    oPDEXPENSE.STATUS = "MANRejected";
+
+                    if (oPDEXPENSE.HR_COMMENT == null)
+                    {
+                        ModelState.AddModelError("", "Please Add MAN Comments");
+                    }
+                }
+                else
+                {
+                    oPDEXPENSE.STATUS = "MANInProcess";
+                }
 
                 if (ModelState.IsValid)
                 {

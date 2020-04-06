@@ -98,7 +98,7 @@
                 </div>
             </div>
         </div>
-        @if (@ViewData["OPDType"].Equals("OPD Expense"))
+        @if (@ViewData["OPDTYPE"].Equals("OPD Expense"))
         {
     <div class="col-md-12">
         @Html.ActionLink("Back to Edit", "Edit", "OPDExpenses", new { id = @ViewData["OPDEXPENSE_ID"] }, null)<span>|</span> @Html.ActionLink("Add Image", "Index", "OPDEXPENSEIMAGE", new { id = @ViewData["OPDEXPENSE_ID"],opdType = @ViewData["OPDTYPE"] }, null)

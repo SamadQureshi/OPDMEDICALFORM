@@ -50,6 +50,7 @@ namespace OPDCLAIMFORM.Controllers
             Response.Redirect("/");
         }
 
+      
 
         public async Task<string> GetAccessToken()
         {
@@ -306,6 +307,8 @@ namespace OPDCLAIMFORM.Controllers
 
             return userName;
         }
+     
+
 
         public string AuthenticateUser()
         {

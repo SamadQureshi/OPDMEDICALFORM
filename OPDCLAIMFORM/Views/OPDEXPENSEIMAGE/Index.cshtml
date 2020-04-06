@@ -12,41 +12,42 @@
                         <h4 class="card-title">Receipt List</h4>
                     </div>
                 </div>
-                <div class="card-body">
-                    @using (Html.BeginForm("Index", "OPDEXPENSEIMAGE", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.ExpenseName, "Receipt Name", htmlAttributes: new { @class = "bmd-label-floating" })
-                            @Html.EditorFor(m => m.ExpenseName, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(m => m.ExpenseName, "", new { @class = "text-danger" })
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.ExpenseAmount, "Receipt Amount", htmlAttributes: new { @class = "bmd-label-floating" })
-                            @Html.EditorFor(m => m.ExpenseAmount, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(m => m.ExpenseAmount, "", new { @class = "text-danger" })
-                        </div>
-                        <div class="well bs-component">
-                            <div class="row">
-                                <div class="col-md-8 col-8">
-                                    <div class="input-group">
-                                        <span class="input-group-btn">
-                                            <span class="btn btn-default btn-file">
-                                                Browse&hellip;
-                                                @Html.TextBoxFor(m => m.FileAttach, new { type = "file", placeholder = Html.DisplayNameFor(m => m.FileAttach), @class = "form-control" })
-                                            </span>
+            <div class="card-body">
+                @using (Html.BeginForm("Index", "OPDEXPENSEIMAGE", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.Hidden("opdType", Model.OPDType);
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ExpenseName, "Receipt Name", htmlAttributes: new { @class = "bmd-label-floating" })
+                        @Html.EditorFor(m => m.ExpenseName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(m => m.ExpenseName, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ExpenseAmount, "Receipt Amount", htmlAttributes: new { @class = "bmd-label-floating" })
+                        @Html.EditorFor(m => m.ExpenseAmount, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(m => m.ExpenseAmount, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="well bs-component">
+                        <div class="row">
+                            <div class="col-md-8 col-8">
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <span class="btn btn-default btn-file">
+                                            Browse&hellip;
+                                            @Html.TextBoxFor(m => m.FileAttach, new { type = "file", placeholder = Html.DisplayNameFor(m => m.FileAttach), @class = "form-control" })
                                         </span>
-                                        <input type="text" class="form-control" readonly>
-                                    </div>
-                                    @Html.ValidationMessageFor(m => m.FileAttach, "", new { @class = "text-danger custom-danger" })
+                                    </span>
+                                    <input type="text" class="form-control" readonly>
                                 </div>
-                                <div class="col-md-4 col-4">
-                                    <input type="submit" class="btn btn-fill btn-primary" value="Upload" />
-                                </div>
+                                @Html.ValidationMessageFor(m => m.FileAttach, "", new { @class = "text-danger custom-danger" })
+                            </div>
+                            <div class="col-md-4 col-4">
+                                <input type="submit" class="btn btn-fill btn-primary" value="Upload" />
                             </div>
                         </div>
-                    }
-                </div>
+                    </div>
+                }
+            </div>
             </div>
         </div>
         @if (Model.ImgLst != null && Model.ImgLst.Count > 0)
@@ -107,7 +108,7 @@
                                             </td>
                                             <td>
                                                 <div>
-                                                    @{string dumyDeleteID = @Html.DisplayFor(model => @Model.ImgLst[i].FileId) + "?opdexpenseid=" + @Html.DisplayFor(model => @Model.ImgLst[i].OPDExpense_id);}
+                                                    @{string dumyDeleteID = @Html.DisplayFor(model => @Model.ImgLst[i].FileId) + "?opdexpenseid=" + @Html.DisplayFor(model => @Model.ImgLst[i].OPDExpense_id)+"&opdType=" +@Html.DisplayFor(model => @Model.ImgLst[i].OPDType);}
                                                     <a href="javascript:;" onclick="md.initShowSwal('warning-message-and-cancel', 'OPDEXPENSEIMAGE', '@dumyDeleteID')" class="btn btn-link btn-danger btn-just-icon remove"><i class="material-icons">close</i></a>
                                                     @*@Html.ActionLink("Delete", "Delete", new { id = @Model.ImgLst[i].FileId, opdexpenseid = @Model.ImgLst[i].OPDExpense_id })*@
                                                 </div>
@@ -122,19 +123,22 @@
                 </div>
             </div>
         }
-        @if (@ViewData["OPDType"].Equals("OPD Expense"))
+        @if (@ViewData["OPDTYPE"] != null)
         {
-            <div class="col-md-12">
-                @Html.ActionLink("Back to Edit", "Edit", "OPDExpenses", new { id = @ViewData["OPDEXPENSE_ID"] }, null)
-            </div>
+            if (@ViewData["OPDTYPE"].Equals("OPD Expense"))
+            {
+        <div class="col-md-12">
+            @Html.ActionLink("Back to Edit", "Edit", "OPDExpenses", new { id = @ViewData["OPDEXPENSE_ID"] }, null)
+        </div>
+            }
+            else
+            {
+        <div class="col-md-12">
+            @Html.ActionLink("Back to Edit", "Edit", "HOSPITALExpense", new { id = @ViewData["OPDEXPENSE_ID"] }, null)
+        </div>
+            }
         }
-        else 
-        {
-            <div class="col-md-12">
-                @Html.ActionLink("Back to Edit", "Edit", "HOSPITALExpense", new { id = @ViewData["OPDEXPENSE_ID"] }, null)
-            </div>
-        }
-    </div>
+</div>
 
 @section Scripts
 {
@@ -142,7 +146,7 @@
     @Scripts.Render("~/bundles/bootstrap-file")
 
     @*Styles*@
-    @Styles.Render("~/Content/Bootstrap-file/css")
+        @Styles.Render("~/Content/Bootstrap-file/css")
 }
 
 
@@ -150,4 +154,4 @@
 
 
 
-@*@Html.HiddenFor(m => m.OPDExpense_ID, new { Value = @ViewData["OPDEXPENSE_ID"] })*@
+    @*@Html.HiddenFor(m => m.OPDExpense_ID, new { Value = @ViewData["OPDEXPENSE_ID"] })*@

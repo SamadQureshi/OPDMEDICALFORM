@@ -348,7 +348,7 @@ md = {
 	var table = $('#datatable').DataTable();
   },
   
-  initShowSwal: function(type, url, id) {
+    initShowSwal: function (type, url, id, ctl) {
         if (type == 'basic') {
             swal({
                 title: "Here's a message!",
@@ -428,6 +428,36 @@ md = {
 				  }
             })
 
+        } else if (type == 'warning-message-and-edit') {           
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to make changes in this OPD Claim!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: 'Yes, Submit it!',
+                cancelButtonText: "No, Cancel please!"
+            }).then(function (result) {
+                if (result.value) {
+                    if (ctl.checkValidity) {
+                        $("#EditForm").submit();
+                    }
+                                                   
+             
+                    } else if (
+                        /* Read more about handling dismissals below */
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) {
+                        swal({
+                            title: 'Cancelled',
+                            text: 'You still can make changes to this OPD Claim',
+                            type: 'error',
+                            confirmButtonClass: "btn btn-info",
+                            buttonsStyling: false
+                        }).catch(swal.noop)
+                    }
+                })
+           
         } else if (type == 'custom-html') {
             swal({
                 title: 'HTML example',

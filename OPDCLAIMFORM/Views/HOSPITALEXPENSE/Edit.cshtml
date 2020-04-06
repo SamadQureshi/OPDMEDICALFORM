@@ -8,7 +8,11 @@
     <h3 class="title">Edit</h3>
 </div>
 <div class="row">
-    @using (Html.BeginForm())
+    @using (Html.BeginForm(null, null, FormMethod.Post, new  
+    {  
+        id = "EditForm"
+        
+    }))
     {
         @Html.AntiForgeryToken()
         <div class="col-md-12">
@@ -18,23 +22,23 @@
                     <div class="card-icon">
                         <i class="material-icons">library_books</i>
                     </div>
-                    <h4 class="card-title">OPD Expense</h4>
+                    <h4 class="card-title">Hospital Expense</h4>
                 </div>
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 @Html.HiddenFor(model => model.OPDEXPENSE_ID)
                 @Html.HiddenFor(model => model.OPDTYPE)
                 @Html.HiddenFor(model => model.CREATED_DATE)
                 @Html.Hidden("employeeDepartment", Model.EMPLOYEE_DEPARTMENT)
-
+                @Html.Hidden("buttonName")
 
                 @Html.Hidden("dateIllnessNoticed", Model.DATE_ILLNESS_NOTICED)
 
-                @Html.Hidden("dateRecovery", Model.DATE_RECOVERY)                
+                @Html.Hidden("dateRecovery", Model.DATE_RECOVERY)
 
                 @Html.Hidden("periodConfinementDateFrom", Model.PERIOD_CONFINEMENT_DATE_FROM)
-                               
-                @Html.Hidden("periodConfinementDateTo", Model.PERIOD_CONFINEMENT_DATE_TO)       
-           
+
+                @Html.Hidden("periodConfinementDateTo", Model.PERIOD_CONFINEMENT_DATE_TO)
+
                 @Html.Hidden("claimantSufferedIllnessDate", Model.CLAIMANT_SUFFERED_ILLNESS_DATE)
 
 
@@ -167,19 +171,15 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                @Html.LabelFor(model => model.STATUS, "Status", htmlAttributes: new { @class = "bmd-label-static custom-label" })
-                                @Html.DropDownListFor(model => model.STATUS, new List<SelectListItem>
-                                {
-                                    new SelectListItem{ Text="InProcess", Value = "InProcess" },
-                                    new SelectListItem{ Text="Submitted", Value = "Submitted" },
-
-                                }, new { @class = "selectpicker", @data_style = "btn btn-primary" })
+                                @Html.LabelFor(model => model.STATUS, "STATUS", htmlAttributes: new { @class = "bmd-label-static custom-label" })
+                                @Html.EditorFor(model => model.STATUS, new { htmlAttributes = new { @class = "form-control disabled" } })
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="card-footer ml-auto mr-auto">
-                    <button type="submit" class="btn btn-primary create-btn">Save</button>
+                    <button type="submit" class="btn btn-primary" value="save" name="button">Save</button>
+                    <button type="submit" class="btn btn-primary" value="submit" name="button" onclick="Validate(this, event);">Submit</button>
                 </div>
             </div>
         </div>
@@ -222,5 +222,12 @@ jQuery(function () {
     $('#DATE_ILLNESS_NOTICED').data("DateTimePicker").date(new Date($('input#dateIllnessNoticed').val()));
     
 });
+
+        function Validate(ctl, event) {
+            event.preventDefault();
+            document.getElementById("buttonName").value = ctl.value;
+            md.initShowSwal('warning-message-and-edit', 'OPDExpenses',@ViewData["OPDEXPENSE_ID"],ctl);
+        }
+   
     </script>
 }

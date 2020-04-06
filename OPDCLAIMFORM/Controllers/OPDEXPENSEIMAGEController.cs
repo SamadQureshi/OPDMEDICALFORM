@@ -19,7 +19,11 @@ namespace OPDCLAIMFORM.Controllers
                 AuthenticateUser();
 
                 ViewData["OPDEXPENSE_ID"] = id;
+
                 ViewData["OPDTYPE"] = opdType;
+               
+
+           
                 ImgViewModel model = new ImgViewModel { FileAttach = null, ImgLst = new List<OPDEXPENSE_IMAGEOBJ>() };
 
                 // Settings.
@@ -69,6 +73,13 @@ namespace OPDCLAIMFORM.Controllers
                 AuthenticateUser();
 
                 model.OPDExpense_ID = Convert.ToInt32(Request.Url.Segments[3].ToString());
+
+                model.OPDType = Request.Form["opdType"];
+
+
+                ViewData["OPDEXPENSE_ID"] = model.OPDExpense_ID;
+
+                ViewData["OPDTYPE"] = model.OPDType;
 
                 if (ModelState.IsValid)
                 {
@@ -144,7 +155,7 @@ namespace OPDCLAIMFORM.Controllers
 
 
         // POST: OPDEXPENSEIMAGE/Delete/5
-        public ActionResult Delete(int id , int opdexpenseid)
+        public ActionResult Delete(int id , int opdexpenseid, string opdType)
         {
 
             if (Request.IsAuthenticated)
@@ -156,8 +167,9 @@ namespace OPDCLAIMFORM.Controllers
 
                 var fileInfo = this.db.DELETE_OPDEXPENSE_IMAGE(id);
 
+                ViewData["OPDTYPE"] = opdType;
                 // Info.
-                return RedirectToAction("Index", "OPDEXPENSEIMAGE", new { id = opdexpenseid });
+                return RedirectToAction("Index", "OPDEXPENSEIMAGE", new { id = opdexpenseid ,opdType = opdType });
             }
             else
             {
