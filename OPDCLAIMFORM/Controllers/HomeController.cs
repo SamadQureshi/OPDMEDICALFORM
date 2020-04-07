@@ -82,8 +82,11 @@ namespace OPDCLAIMFORM.Controllers
             return emailAddress;
         }
 
-       
 
+        public ActionResult About()
+        {
+            return View();
+        }
 
     }
 

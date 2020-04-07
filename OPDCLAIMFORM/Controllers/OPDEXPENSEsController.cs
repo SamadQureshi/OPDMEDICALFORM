@@ -300,7 +300,7 @@ namespace OPDCLAIMFORM.Controllers
                         if (opdInformation.listOPDEXPENSEIMAGE.Count > 0)
                         {
                             
-                            if(GetOPDExpenseAmount(oPDEXPENSE.OPDEXPENSE_ID))
+                            if(GetOPDExpenseAmount(oPDEXPENSE.OPDEXPENSE_ID, oPDEXPENSE.TOTAL_AMOUNT_CLAIMED))
                             {
                                 if (ModelState.IsValid)
                                 {
@@ -545,7 +545,7 @@ namespace OPDCLAIMFORM.Controllers
             return opdInformation;
         }
 
-        private bool GetOPDExpenseAmount(int Id)
+        private bool GetOPDExpenseAmount(int Id, decimal? totalAmountClaimed )
         {
             bool result = false;
             MedicalInfoEntities entities = new MedicalInfoEntities();
@@ -566,7 +566,7 @@ namespace OPDCLAIMFORM.Controllers
 
             }
             
-            if (totalAmount.Equals(opdInformation.opdEXPENSE.TOTAL_AMOUNT_CLAIMED))
+            if (totalAmount.Equals(totalAmountClaimed))
             {
                 result = true;
             }

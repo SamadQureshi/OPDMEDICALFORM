@@ -577,9 +577,9 @@ namespace OPDCLAIMFORM.Controllers
 
             if (currentEmailAddress.Equals(oPDEXPENSE.EMPLOYEE_EMAILADDRESS))
 
-                return true;
-            else
                 return false;
+            else
+                return true;
 
         }
     }
