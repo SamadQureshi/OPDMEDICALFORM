@@ -125,16 +125,16 @@
         }
         @if (@ViewData["OPDTYPE"] != null)
         {
-            if (@ViewData["OPDTYPE"].Equals("OPD Expense"))
+            if (@ViewData["OPDTYPE"].Equals("Hospital Expense"))
             {
         <div class="col-md-12">
-            @Html.ActionLink("Back to Edit", "Edit", "OPDExpenses", new { id = @ViewData["OPDEXPENSE_ID"] }, null)
+            @Html.ActionLink("Back to Edit", "Edit", "HOSPITALExpense", new { id = @ViewData["OPDEXPENSE_ID"] }, null)
         </div>
             }
             else
             {
         <div class="col-md-12">
-            @Html.ActionLink("Back to Edit", "Edit", "HOSPITALExpense", new { id = @ViewData["OPDEXPENSE_ID"] }, null)
+            @Html.ActionLink("Back to Edit", "Edit", "OPDExpenses", new { id = @ViewData["OPDEXPENSE_ID"] }, null)
         </div>
             }
         }

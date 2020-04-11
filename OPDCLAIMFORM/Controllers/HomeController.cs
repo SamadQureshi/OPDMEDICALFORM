@@ -51,6 +51,8 @@ namespace OPDCLAIMFORM.Controllers
 
                 List<string> MANList = ConfigurationManager.AppSettings["MAN:List"].Split(',').ToList<string>();
 
+                List<string> GENList = ConfigurationManager.AppSettings["GEN:List"].Split(',').ToList<string>();
+
                 if (HRList.Contains(emailAddress))
                 {
                     ViewBag.RollType = "HR";
@@ -62,6 +64,10 @@ namespace OPDCLAIMFORM.Controllers
                 else if (MANList.Contains(emailAddress))
                 {
                     ViewBag.RollType = "MAN";
+                }
+                else if (GENList.Contains(emailAddress))
+                {
+                    ViewBag.RollType = "GEN";
                 }
 
                 ViewBag.UserName = userName;

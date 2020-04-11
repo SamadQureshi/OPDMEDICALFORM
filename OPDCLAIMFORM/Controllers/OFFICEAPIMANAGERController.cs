@@ -320,6 +320,8 @@ namespace OPDCLAIMFORM.Controllers
 
             List<string> FINList = ConfigurationManager.AppSettings["FIN:List"].Split(',').ToList<string>();
 
+            List<string> GENList = ConfigurationManager.AppSettings["GEN:List"].Split(',').ToList<string>();
+
             List<string> MANList = ConfigurationManager.AppSettings["MAN:List"].Split(',').ToList<string>();
 
             if (HRList.Contains(emailAddress))
@@ -334,7 +336,10 @@ namespace OPDCLAIMFORM.Controllers
             {
                 rollType = "MAN";
             }
-
+            else if (GENList.Contains(emailAddress))
+            {
+                rollType = "GEN";
+            }
             return rollType;
 
         }
